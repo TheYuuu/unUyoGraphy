@@ -16,7 +16,7 @@ module.exports = {
     chunkFilename: isProd ? '[name].[hash:7].js' : '[name].js'
   },
   devServer: {
-    host: '0.0.0.0',
+    host: 'localhost',
     port: 8085,
     publicPath: '/',
     hot: true,
