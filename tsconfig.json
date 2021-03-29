@@ -12,7 +12,11 @@
     "noImplicitThis": false,
     "sourceMap": true,
     "baseUrl": ".",
-    "types": [],
+    "types": [
+      "d3",
+      "react",
+      "react-dom"
+    ],
     "paths": {
       "@/*": [
         "src/*"

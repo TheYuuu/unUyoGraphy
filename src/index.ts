@@ -1,7 +1,5 @@
-import testA from '../packages/testA';
-import testB from '../packages/testB';
+import AxisHeadMap from '../packages/AxisHeadMap';
 
 export default {
-  testA,
-  testB
+  AxisHeadMap
 };
