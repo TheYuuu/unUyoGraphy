@@ -2,6 +2,8 @@ import * as React from "react";
 
 import unUyo from '../src/index';
 
+import sampleData from '../packages/AxisHeadMap/sample';
+
 export interface HelloProps { compiler: string; framework: string; }
 
 const containerStyle = {
@@ -15,15 +17,9 @@ export class App extends React.Component<HelloProps, {}> {
       dom: '#container',
       mode: 'svg',
       opts: {
-        data: [
-          {
-            value: 2,
-            xPos: '',
-            yPos: 'sss'
-          },
-        ],
-        seriesX: [],
-        seriesY: []
+        data: sampleData.data,
+        seriesX: sampleData.xPos,
+        seriesY: sampleData.yPos
       }
     });
 
