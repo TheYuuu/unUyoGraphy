@@ -5,3 +5,7 @@ export interface defaultOptions {
     data: any;
   };
 }
+
+export interface opts {
+  padding: number;
+}

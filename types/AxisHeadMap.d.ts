@@ -1,4 +1,4 @@
-import { defaultOptions } from './base';
+import * as defaultOptionsTypes from './base';
 
 export interface AxisHeadMapData {
   value: number;
@@ -23,6 +23,10 @@ export interface AxisHeadMapOptionHandledData {
   seriesY: seriesData[];
 }
 
-export interface AxisHeadMapOptions extends defaultOptions {
+export interface opts extends defaultOptionsTypes.opts {
+  mainColor: string;
+}
+
+export interface AxisHeadMapOptions extends defaultOptionsTypes.defaultOptions {
   opts: AxisHeadMapOptionData;
 }

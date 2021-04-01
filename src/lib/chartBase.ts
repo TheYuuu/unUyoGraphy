@@ -1,14 +1,24 @@
-import { defaultOptions } from '../../types/base';
-import { isString } from './Tool';
+import * as defaultOptionsTypes from '../../types/base';
+import { isString, isNumber } from './Tools';
 
 import { select, Selection } from 'd3';
 
 export class ChartBase {
+  // 画布
   public ctx: Selection<SVGSVGElement, unknown, null, undefined> | null = null;
+
+  // 图形设置
+  public _opts: defaultOptionsTypes.opts  = {
+    padding: 5
+  }
+
+  // 绘图有效宽度
   public containerWidth: number = 0;
+  
+  // 绘图有效宽度
   public containerHeight: number = 0;
 
-  constructor(opt: defaultOptions) {
+  constructor(opt: defaultOptionsTypes.defaultOptions) {
     let qdom: HTMLElement | null = null;
     if (isString(opt.dom)) {
       const qd  = document.querySelector(opt.dom);
@@ -28,6 +38,9 @@ export class ChartBase {
         .attr('width', this.containerWidth)
         .attr('height', this.containerHeight);
     }
+
+    this.containerWidth -= (isNumber(this._opts.padding) ? 2 * this._opts.padding: 0);
+    this.containerHeight -= (isNumber(this._opts.padding) ? 2 * this._opts.padding: 0);
   }
 
   public async updateGraph():Promise<any> {};

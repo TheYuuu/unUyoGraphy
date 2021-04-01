@@ -7,8 +7,8 @@ import sampleData from '../packages/AxisHeadMap/sample';
 export interface HelloProps { compiler: string; framework: string; }
 
 const containerStyle = {
-  width: '800px',
-  height: '800px'
+  width: '500px',
+  height: '400px'
 }
 
 export class App extends React.Component<HelloProps, {}> {
