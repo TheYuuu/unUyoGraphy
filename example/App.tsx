@@ -17,9 +17,9 @@ export class App extends React.Component<HelloProps, {}> {
       dom: '#container',
       mode: 'svg',
       opts: {
-        data: sampleData.data,
-        seriesX: sampleData.xPos,
-        seriesY: sampleData.yPos
+        data: sampleData().data,
+        seriesX: sampleData().xPos,
+        seriesY: sampleData().yPos
       }
     });
 

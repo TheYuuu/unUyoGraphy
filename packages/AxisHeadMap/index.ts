@@ -15,11 +15,24 @@ export default class AxisHeadMap extends ChartBase {
     mainColor: 'rgb(107 3 24)'
   };
 
+  private topRects: d3.Selection<SVGRectElement, AHMOptionsTypes.seriesData, SVGGElement, unknown> | null = null;
+  private leftRects: d3.Selection<SVGRectElement, AHMOptionsTypes.seriesData, SVGGElement, unknown> | null = null;
+  private dots: d3.Selection<d3.EnterElement, AHMOptionsTypes.AxisHeadMapData, SVGGElement, unknown> | null = null;
+
+  private rectWidth: number = 0;
+  private topXAxisWidth: number = 0;
+  private leftScale: d3.ScaleLinear<number, number, never> = d3.scaleLinear();
+
+  private lineHeight: number = 0;
+  private topScale: d3.ScaleLinear<number, number, never> = d3.scaleLinear();
+
+  private dotScale: d3.ScaleLinear<number, number, never> = d3.scaleLinear();
+  private xPosAxis: d3.ScaleOrdinal<string, unknown, never> = d3.scaleOrdinal();
+
   constructor (opt: AHMOptionsTypes.AxisHeadMapOptions) {
     super(opt);
 
-    this.handleData(opt.opts);
-    this.draw();
+    this.update(opt.opts);
   }
 
   private handleData(data: AHMOptionsTypes.AxisHeadMapOptionData): void {
@@ -113,16 +126,12 @@ export default class AxisHeadMap extends ChartBase {
     const rectWidth = topXAxisWidth / this.data.seriesX.length;
 
     const topRects = top_g.selectAll('topRects')
-                          .data(this.data.seriesX)
-                          .enter()
-                          .append('rect')
-                          .attr('class', 'topRects')
-                          .attr("width", rectWidth)
-                          .attr("height", (d) => topScale(d.value))
-                          .attr("x", (d, i) => i * (rectWidth + 1))
-                          .attr("y", (d, i) => lineHeight - topScale(d.value))
-                          .attr('fill', this.opts.mainColor)
-                          .attr('transform', `translate(${ this.opts.padding }, ${ this.opts.padding })`);
+                          .data(this.data.seriesX);
+
+    this.rectWidth = rectWidth;
+    this.lineHeight = lineHeight;
+    this.topScale = topScale;
+    this.updateTopRects(topRects);
 
     const rightMaxY = d3.max(this.data.seriesY.map(v => v.value));
     if (rightMaxY === undefined) {
@@ -136,16 +145,11 @@ export default class AxisHeadMap extends ChartBase {
     
     const left_g = this.ctx.append('g');
     const leftRects = left_g.selectAll('.leftRects')
-                          .data(this.data.seriesX)
-                          .enter()
-                          .append('rect')
-                          .attr('class', 'leftRects')
-                          .attr("width", (d) => leftScale(d.value))
-                          .attr("height", rectWidth)
-                          .attr('x', topXAxisWidth)
-                          .attr("y", (d, i) => (i * (rectWidth + 1)) + this.containerHeight * 0.2)
-                          .attr('fill', this.opts.mainColor)
-                          .attr('transform', `translate(${ this.opts.padding + this.data.seriesX.length + rectWidth }, ${ this.opts.padding + rectWidth})`);
+                          .data(this.data.seriesX);
+
+    this.topXAxisWidth = topXAxisWidth;
+    this.leftScale = leftScale;
+    this.updateLeftRects(leftRects);
 
     const xPosAxis = d3.scaleOrdinal()
                        .domain(this.data.seriesX.map(v => v.name))
@@ -166,15 +170,80 @@ export default class AxisHeadMap extends ChartBase {
 
     const dot_g = this.ctx.append('g');
     const dots = dot_g.selectAll('.dots')
-                      .data(this.data.data)
-                      .enter()
-                      .append('circle')
-                      .attr('r', d => dotScale(d.value))
-                      .attr('opacity', '0.3')
-                      .attr('cx', (d) =>   Number(xPosAxis(String(d.xPos))) * (rectWidth + 1) + rectWidth / 2)
-                      .attr('cy', (d) => Number(xPosAxis(String(d.yPos))) * (rectWidth + 1) + rectWidth / 2 + lineHeight)
-                      .attr('fill', this.opts.mainColor)
-                      .attr('transform', `translate(${ this.opts.padding }, ${ this.opts.padding + rectWidth})`);
+                      .data(this.data.data);
     
+    this.dotScale = dotScale;
+    this.xPosAxis = xPosAxis;
+    this.updateDots(dots);
+  }
+
+  private updateTopRects(topRects: d3.Selection<d3.BaseType, AHMOptionsTypes.seriesData, SVGGElement, unknown>) {
+    const { rectWidth, lineHeight, topScale } = this;
+    const enter = topRects.enter();
+    const exit = topRects.exit();
+
+    topRects
+      .attr("width", rectWidth)
+      .attr("height", (d) => topScale(d.value))
+      .attr("x", (d, i) => i * (rectWidth + 1))
+      .attr("y", (d, i) => lineHeight - topScale(d.value));
+
+    enter
+      .append('rect')
+      .attr('class', 'topRects')
+      .attr("width", rectWidth)
+      .attr("height", (d) => topScale(d.value))
+      .attr("x", (d, i) => i * (rectWidth + 1))
+      .attr("y", (d, i) => lineHeight - topScale(d.value))
+      .attr('fill', this.opts.mainColor)
+      .attr('transform', `translate(${ this.opts.padding }, ${ this.opts.padding })`);
+
+    exit
+      .remove();
+  }
+
+  private updateLeftRects(leftRects: d3.Selection<d3.BaseType, AHMOptionsTypes.seriesData, SVGGElement, unknown>) {
+    const { rectWidth, topXAxisWidth, leftScale } = this;
+    const enter = leftRects.enter();
+    const exit = leftRects.exit();
+
+    leftRects
+      .attr("width", (d) => leftScale(d.value))
+      .attr("height", rectWidth)
+      .attr('x', topXAxisWidth)
+      .attr("y", (d, i) => (i * (rectWidth + 1)) + this.containerHeight * 0.2);
+
+    enter
+      .append('rect')
+      .attr('class', 'leftRects')
+      .attr("width", (d) => leftScale(d.value))
+      .attr("height", rectWidth)
+      .attr('x', topXAxisWidth)
+      .attr("y", (d, i) => (i * (rectWidth + 1)) + this.containerHeight * 0.2)
+      .attr('fill', this.opts.mainColor)
+      .attr('transform', `translate(${ this.opts.padding + this.data.seriesX.length + rectWidth }, ${ this.opts.padding + rectWidth})`);
+
+    exit
+      .remove();
+  }
+
+  private updateDots(dots: d3.Selection<d3.BaseType, AHMOptionsTypes.AxisHeadMapData, SVGGElement, unknown>) {
+    const { rectWidth, lineHeight, dotScale, xPosAxis } = this;
+    const enter = dots.enter();
+    const exit = dots.exit();
+
+    enter
+      .append('circle')
+      .attr('r', d => dotScale(d.value))
+      .attr('opacity', '0.5')
+      .attr('cx', (d) =>   Number(xPosAxis(String(d.xPos))) * (rectWidth + 1) + rectWidth / 2)
+      .attr('cy', (d) => Number(xPosAxis(String(d.yPos))) * (rectWidth + 1) + rectWidth / 2 + lineHeight)
+      .attr('fill', this.opts.mainColor)
+      .attr('transform', `translate(${ this.opts.padding }, ${ this.opts.padding + rectWidth})`);
+  }
+
+  public update(data: AHMOptionsTypes.AxisHeadMapOptionData): void {
+    this.handleData(data);
+    this.draw();
   }
 }
