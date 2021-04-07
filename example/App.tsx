@@ -1,49 +1,29 @@
 import * as React from "react";
 
-import { AxisHeadMap } from '../src/index';
-import sampleData from '../packages/AxisHeadMap/sample';
+import './App.css';
 
-export interface HelloProps { compiler: string; framework: string; }
+import { Layout } from 'antd';
+const { Header, Footer, Sider, Content } = Layout;
 
-const containerStyle = {
-  width: '500px',
-  height: '400px'
-}
-export class App extends React.Component<HelloProps, {}> {
-  private axisHeadMap:  InstanceType<typeof AxisHeadMap> | null = null;
+import { menu } from './components/menu';
 
-  componentDidMount() {
-    const axisHeadMap: InstanceType<typeof AxisHeadMap> =  new AxisHeadMap({
-      dom: '#container',
-      mode: 'svg',
-      data: {
-        data: sampleData().data,
-        seriesX: sampleData().xPos,
-        seriesY: sampleData().yPos
-      }
-    });
+const Menu = menu;
 
-    this.axisHeadMap = axisHeadMap;
-
-    console.log(axisHeadMap)
-  }
-
-  update() {
-    if (this.axisHeadMap) {
-      this.axisHeadMap.update({
-        data: sampleData().data,
-        seriesX: sampleData().xPos,
-        seriesY: sampleData().yPos
-      });
-    }
-  }
-
+export class App extends React.Component {
   render() {
     return (
-      <div>
-        <div id="container" style={containerStyle}></div>
-        <button onClick={() => this.update()}>update</button>
-      </div>
+      <Layout>
+        <Sider>
+          <Menu />
+        </Sider>
+        <Layout>
+          <Header>Header</Header>
+          <Content>Content</Content>
+          <Footer>
+            Powered By The Yu
+          </Footer>
+        </Layout>
+      </Layout>
     );
   }
 }
