@@ -15,10 +15,6 @@ export default class AxisHeadMap extends ChartBase {
     mainColor: 'rgb(107 3 24)'
   };
 
-  private topRects: d3.Selection<SVGRectElement, AHMOptionsTypes.seriesData, SVGGElement, unknown> | null = null;
-  private leftRects: d3.Selection<SVGRectElement, AHMOptionsTypes.seriesData, SVGGElement, unknown> | null = null;
-  private dots: d3.Selection<d3.EnterElement, AHMOptionsTypes.AxisHeadMapData, SVGGElement, unknown> | null = null;
-
   private rectWidth: number = 0;
   private topXAxisWidth: number = 0;
   private leftScale: d3.ScaleLinear<number, number, never> = d3.scaleLinear();
@@ -29,10 +25,15 @@ export default class AxisHeadMap extends ChartBase {
   private dotScale: d3.ScaleLinear<number, number, never> = d3.scaleLinear();
   private xPosAxis: d3.ScaleOrdinal<string, unknown, never> = d3.scaleOrdinal();
 
+  private top_g: d3.Selection<SVGGElement, unknown, null, undefined> | null = null;
+  private left_g: d3.Selection<SVGGElement, unknown, null, undefined> | null = null;
+  private dot_g: d3.Selection<SVGGElement, unknown, null, undefined> | null = null;
+
   constructor (opt: AHMOptionsTypes.AxisHeadMapOptions) {
     super(opt);
 
-    this.update(opt.opts);
+    this.init();
+    this.update(opt.data);
   }
 
   private handleData(data: AHMOptionsTypes.AxisHeadMapOptionData): void {
@@ -103,11 +104,21 @@ export default class AxisHeadMap extends ChartBase {
     };
   }
 
-  private draw(): void {
+  private init() {
+    this.lineHeight = this.containerHeight * 0.2;
+    
     if (!this.ctx) {
       throw new Error('No useful ctx');
       return;
     }
+
+    this.top_g = this.ctx.append('g');
+    this.left_g = this.ctx.append('g');
+    this.dot_g = this.ctx.append('g');
+  }
+
+  private draw(): void {
+    const { lineHeight, top_g, left_g, dot_g } = this;
 
     const topMaxX = d3.max(this.data.seriesX.map(v => v.value));
     if (topMaxX === undefined) {
@@ -115,21 +126,22 @@ export default class AxisHeadMap extends ChartBase {
       return;
     }
     
-    const lineHeight = this.containerHeight * 0.2;
     const topScale = d3.scaleLinear()
                         .domain([0, topMaxX])
                         .range([0, lineHeight]);
 
-    const top_g = this.ctx.append('g');
     const maxLen = this.containerHeight < this.containerWidth ? this.containerHeight : this.containerWidth;
     const topXAxisWidth = maxLen * 0.7 - this.data.seriesX.length;
     const rectWidth = topXAxisWidth / this.data.seriesX.length;
 
-    const topRects = top_g.selectAll('topRects')
-                          .data(this.data.seriesX);
+    if (!top_g) {
+      return;
+    }
+
+    const topRects = top_g.selectAll('.topRects')
+      .data(this.data.seriesX);
 
     this.rectWidth = rectWidth;
-    this.lineHeight = lineHeight;
     this.topScale = topScale;
     this.updateTopRects(topRects);
 
@@ -143,21 +155,21 @@ export default class AxisHeadMap extends ChartBase {
                         .domain([0, rightMaxY])
                         .range([0, lineHeight]);
     
-    const left_g = this.ctx.append('g');
+    if (!left_g) {
+      return;
+    }
+
     const leftRects = left_g.selectAll('.leftRects')
-                          .data(this.data.seriesX);
+      .data(this.data.seriesX);
 
     this.topXAxisWidth = topXAxisWidth;
     this.leftScale = leftScale;
     this.updateLeftRects(leftRects);
 
+
     const xPosAxis = d3.scaleOrdinal()
                        .domain(this.data.seriesX.map(v => v.name))
                        .range(new Array(this.data.seriesX.length).fill(0).map((item, index) => index));
-
-    const yPosAxis = d3.scaleOrdinal()
-                       .domain(this.data.seriesY.map(v => v.name))
-                       .range(new Array(this.data.seriesY.length).fill(0).map((item, index) => index));
 
     const dotR = rectWidth / 4;
     const minDot = d3.min(this.data.data.map(v => Number(v.value))) || 0;
@@ -167,8 +179,9 @@ export default class AxisHeadMap extends ChartBase {
                         [minDot, maxDot])
                        .range([minDot === 0 ? 0 : dotR, dotR * 5]);
 
-
-    const dot_g = this.ctx.append('g');
+    if (!dot_g) {
+      return;
+    }
     const dots = dot_g.selectAll('.dots')
                       .data(this.data.data);
     
@@ -183,22 +196,31 @@ export default class AxisHeadMap extends ChartBase {
     const exit = topRects.exit();
 
     topRects
+      .transition()
+      .duration(this.opts.duration)
+      .attr("x", (d, i) => i * (rectWidth + 1))
+      .attr("y", (d, i) => lineHeight - topScale(d.value))
       .attr("width", rectWidth)
       .attr("height", (d) => topScale(d.value))
-      .attr("x", (d, i) => i * (rectWidth + 1))
-      .attr("y", (d, i) => lineHeight - topScale(d.value));
 
     enter
       .append('rect')
       .attr('class', 'topRects')
-      .attr("width", rectWidth)
-      .attr("height", (d) => topScale(d.value))
-      .attr("x", (d, i) => i * (rectWidth + 1))
-      .attr("y", (d, i) => lineHeight - topScale(d.value))
       .attr('fill', this.opts.mainColor)
-      .attr('transform', `translate(${ this.opts.padding }, ${ this.opts.padding })`);
+      .attr('transform', `translate(${ this.opts.padding }, ${ this.opts.padding })`)
+      .attr("x", (d, i) => i * (rectWidth + 1))
+      .attr("y", (d, i) => lineHeight)
+      .attr("width", rectWidth)
+      .attr("height", 0)
+      .transition()
+      .duration(this.opts.duration)
+      .attr("y", (d, i) => lineHeight - topScale(d.value))
+      .attr("height", (d) => topScale(d.value))
 
     exit
+      .transition()
+      .duration(this.opts.duration)
+      .attr("height", 0)
       .remove();
   }
 
@@ -208,20 +230,24 @@ export default class AxisHeadMap extends ChartBase {
     const exit = leftRects.exit();
 
     leftRects
-      .attr("width", (d) => leftScale(d.value))
+      .transition()
+      .duration(this.opts.duration)
       .attr("height", rectWidth)
       .attr('x', topXAxisWidth)
-      .attr("y", (d, i) => (i * (rectWidth + 1)) + this.containerHeight * 0.2);
+      .attr("y", (d, i) => (i * (rectWidth + 1)) + this.containerHeight * 0.2)
+      .attr("width", (d) => leftScale(d.value));
 
     enter
       .append('rect')
       .attr('class', 'leftRects')
-      .attr("width", (d) => leftScale(d.value))
       .attr("height", rectWidth)
       .attr('x', topXAxisWidth)
       .attr("y", (d, i) => (i * (rectWidth + 1)) + this.containerHeight * 0.2)
       .attr('fill', this.opts.mainColor)
-      .attr('transform', `translate(${ this.opts.padding + this.data.seriesX.length + rectWidth }, ${ this.opts.padding + rectWidth})`);
+      .attr('transform', `translate(${ this.opts.padding + this.data.seriesX.length + rectWidth }, ${ this.opts.padding + rectWidth})`)
+      .transition()
+      .duration(this.opts.duration)
+      .attr("width", (d) => leftScale(d.value))
 
     exit
       .remove();
@@ -232,14 +258,31 @@ export default class AxisHeadMap extends ChartBase {
     const enter = dots.enter();
     const exit = dots.exit();
 
+    dots
+      .transition()
+      .duration(this.opts.duration)
+      .attr('cx', (d) =>   Number(xPosAxis(String(d.xPos))) * (rectWidth + 1) + rectWidth / 2)
+      .attr('cy', (d) => Number(xPosAxis(String(d.yPos))) * (rectWidth + 1) + rectWidth / 2 + lineHeight)
+      .attr('r', d => dotScale(d.value));
+
+
     enter
       .append('circle')
-      .attr('r', d => dotScale(d.value))
+      .attr('class', 'dots')
       .attr('opacity', '0.5')
       .attr('cx', (d) =>   Number(xPosAxis(String(d.xPos))) * (rectWidth + 1) + rectWidth / 2)
       .attr('cy', (d) => Number(xPosAxis(String(d.yPos))) * (rectWidth + 1) + rectWidth / 2 + lineHeight)
       .attr('fill', this.opts.mainColor)
-      .attr('transform', `translate(${ this.opts.padding }, ${ this.opts.padding + rectWidth})`);
+      .attr('transform', `translate(${ this.opts.padding }, ${ this.opts.padding + rectWidth})`)
+      .transition()
+      .duration(this.opts.duration)
+      .attr('r', d => dotScale(d.value));
+
+    exit
+      .transition()
+      .duration(this.opts.duration)
+      .attr('r', 0)
+      .remove()
   }
 
   public update(data: AHMOptionsTypes.AxisHeadMapOptionData): void {

@@ -28,5 +28,5 @@ export interface opts extends defaultOptionsTypes.opts {
 }
 
 export interface AxisHeadMapOptions extends defaultOptionsTypes.defaultOptions {
-  opts: AxisHeadMapOptionData;
+  data: AxisHeadMapOptionData;
 }

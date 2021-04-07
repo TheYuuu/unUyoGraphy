@@ -9,7 +9,8 @@ export class ChartBase {
 
   // 图形设置
   public _opts: defaultOptionsTypes.opts  = {
-    padding: 5
+    padding: 5,
+    duration: 800
   }
 
   // 绘图有效宽度
@@ -43,5 +44,5 @@ export class ChartBase {
     this.containerHeight -= (isNumber(this._opts.padding) ? 2 * this._opts.padding: 0);
   }
 
-  public async updateGraph():Promise<any> {};
+  public async updateGraph(): Promise<any> {};
 }

@@ -1,11 +1,11 @@
 export interface defaultOptions {
   dom: string | HTMLElement;
   mode: 'svg' | 'canvas';
-  opts: {
-    data: any;
-  };
+  data: any;
+  opts?: opts;
 }
 
 export interface opts {
   padding: number;
+  duration: number;
 }
