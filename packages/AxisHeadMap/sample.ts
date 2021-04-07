@@ -6,7 +6,7 @@ export const yPos = ['A1', 'B1', 'C1', 'D1', 'E1', 'F1', 'G1',
     'S1', 'T1', 'U1', 'V1', 'W1', 'X1', 'Y1', 'Z1'];
 
 const getData = () => {
-  return new Array(300).fill(0).map(() => {
+  return new Array(250).fill(0).map(() => {
     return {
       value: Number((Math.random() * 100).toFixed(0)),
       xPos: xPos[Number((Math.random() * (xPos.length - 1)).toFixed(0))],
