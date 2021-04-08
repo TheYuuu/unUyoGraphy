@@ -7,7 +7,7 @@ const { SubMenu } = Menu;
 export class menu extends React.Component {
   render() {
     return (
-      <Menu theme="light" defaultSelectedKeys={['1']} mode="inline">
+      <Menu theme="light" defaultSelectedKeys={['1']} mode="inline" className="asider-menu">
         <Menu.Item key="preview">预览</Menu.Item>
 
         <Menu.ItemGroup title="2D">
@@ -15,11 +15,8 @@ export class menu extends React.Component {
           <Menu.Item key="1">
             两轴热力统计
           </Menu.Item>
-          <Menu.Item key="2">
-            两轴热力统计
-          </Menu.Item>
-          <Menu.Item key="3">
-            两轴热力统计
+          <Menu.Item key="todo">
+            todo
           </Menu.Item>
         </Menu.ItemGroup>
       </Menu>

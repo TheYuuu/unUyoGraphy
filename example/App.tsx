@@ -1,19 +1,24 @@
 import * as React from "react";
 
-import './App.css';
+import './App.scss';
 
 import { Layout } from 'antd';
 const { Header, Footer, Sider, Content } = Layout;
 
 import { menu } from './components/menu';
 
+import { header } from './components/header';
+
 const Menu = menu;
+const MyHeader = header;
 
 export class App extends React.Component {
   render() {
     return (
       <Layout>
-        <Header>Header</Header>
+        <Header>
+          <MyHeader></MyHeader>
+        </Header>
         <Layout>
           <Sider>
             <Menu />
