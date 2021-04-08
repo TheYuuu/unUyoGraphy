@@ -13,16 +13,18 @@ export class App extends React.Component {
   render() {
     return (
       <Layout>
-        <Sider>
-          <Menu />
-        </Sider>
+        <Header>Header</Header>
         <Layout>
-          <Header>Header</Header>
-          <Content>Content</Content>
-          <Footer>
+          <Sider>
+            <Menu />
+          </Sider>
+          <Content>
+            <section className="main-container main-container-component">asdasd</section>
+          </Content>
+        </Layout>
+        <Footer className="algin-center">
             Powered By The Yu
           </Footer>
-        </Layout>
       </Layout>
     );
   }
