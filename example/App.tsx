@@ -1,35 +1,43 @@
 import * as React from "react";
-
 import './App.scss';
 
 import { Layout } from 'antd';
-const { Header, Footer, Sider, Content } = Layout;
-
-import { menu } from './components/menu';
+const { Header, Footer } = Layout;
 
 import { header } from './components/header';
+import { coms } from './components/coms/coms';
+import { docs } from './components/docs/docs';
 
-const Menu = menu;
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  useHistory,
+  useLocation,
+  Redirect
+} from 'react-router-dom';
+
 const MyHeader = header;
+const Coms = coms;
+const Docs = docs;
 
 export class App extends React.Component {
   render() {
     return (
       <Layout>
-        <Header>
-          <MyHeader></MyHeader>
-        </Header>
-        <Layout>
-          <Sider>
-            <Menu />
-          </Sider>
-          <Content>
-            <section className="main-container main-container-component">asdasd</section>
-          </Content>
-        </Layout>
+        <Router>
+          <Header>
+            <MyHeader></MyHeader>
+          </Header>
+            <Switch>
+              <Route path="/components" component={Coms} />
+              <Route path="/docs" component={Docs} />
+              <Redirect from="/" to="/components/preview"></Redirect>
+            </Switch>
+        </Router>
         <Footer className="algin-center">
             Powered By The Yu
-          </Footer>
+        </Footer>
       </Layout>
     );
   }

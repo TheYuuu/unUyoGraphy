@@ -11,7 +11,7 @@ module.exports = {
   entry: path.resolve(__dirname, '../example/index.tsx'),
   output: {
     path: path.resolve(process.cwd(), './publish'),
-    publicPath: process.env.PUBLIC_URL || '',
+    publicPath: process.env.PUBLIC_URL || '/',
     filename: '[name].[hash:7].js',
     chunkFilename: isProd ? '[name].[hash:7].js' : '[name].js'
   },
@@ -20,7 +20,9 @@ module.exports = {
     port: 8085,
     publicPath: '/',
     hot: true,
-    open: true
+    open: true,
+    historyApiFallback: true
+    
   },
   module: {
     rules: [

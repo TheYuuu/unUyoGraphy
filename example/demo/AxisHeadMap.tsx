@@ -38,10 +38,10 @@ export class AxisHeadMapDemo extends React.Component {
 
   render() {
     return (
-      <div>
+      <section>
         <div id="container" style={containerStyle}></div>
         <button onClick={() => this.update()}>update</button>
-      </div>
+      </section>
     );
   }
 }
