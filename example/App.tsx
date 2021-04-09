@@ -5,8 +5,8 @@ import { Layout } from 'antd';
 const { Header, Footer } = Layout;
 
 import { header } from './components/header';
-import { coms } from './components/coms/coms';
-import { docs } from './components/docs/docs';
+
+import router from './router/routers';
 
 import {
   BrowserRouter as Router,
@@ -18,8 +18,6 @@ import {
 } from 'react-router-dom';
 
 const MyHeader = header;
-const Coms = coms;
-const Docs = docs;
 
 export class App extends React.Component {
   render() {
@@ -30,8 +28,9 @@ export class App extends React.Component {
             <MyHeader></MyHeader>
           </Header>
             <Switch>
-              <Route path="/components" component={Coms} />
-              <Route path="/docs" component={Docs} />
+              {router.map(r =>
+                <Route path={r.path} key={r.path} component={r.component}></Route>
+              )}
               <Redirect from="/" to="/components/preview"></Redirect>
             </Switch>
         </Router>

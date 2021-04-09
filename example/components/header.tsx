@@ -12,7 +12,7 @@ export class header extends React.Component {
   render() {
     return (
       <div className="my-header">
-        <h1>UnUyo Graphy</h1>
+        <h1>unUyo Graphy</h1>
         <Menu theme="light" defaultSelectedKeys={['components']} mode="horizontal">
           <Menu.Item key="components">
             <NavLink to="/components/preview">组件</NavLink>

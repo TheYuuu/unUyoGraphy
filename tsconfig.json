@@ -12,10 +12,13 @@
     "noImplicitThis": false,
     "sourceMap": true,
     "baseUrl": ".",
+    "resolveJsonModule": true,
     "types": [
       "d3",
       "react",
-      "react-dom"
+      "react-dom",
+      "node",
+      "webpack-env"
     ],
     "paths": {
       "@/*": [
