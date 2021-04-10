@@ -26,14 +26,18 @@ export class App extends React.Component {
       <Layout>
         <Router>
           <Header>
-            <MyHeader></MyHeader>
+            <MyHeader list={router}></MyHeader>
           </Header>
             <Switch>
               {router.map(r =>
-                <Route path={r.path} key={r.path}
-                  component={asyncComponent(() => import(`./components/${r.component}`), r.children)}
-                >
-                </Route>
+                // <React.Suspense fallback={<p>loading</p>} key={r.path}>
+                  <Route
+                    path={r.path}
+                    component={asyncComponent(() => import(`./components/${r.component}`), r.children)}
+                    // component={React.lazy(() => import(`./components/${r.component}`))}
+                  >
+                  </Route>
+                //  </React.Suspense>
               )}
               <Redirect from="/" to="/components/preview"></Redirect>
             </Switch>

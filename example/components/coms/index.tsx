@@ -32,7 +32,7 @@ export default class coms extends React.Component<Props> {
       <Layout>
         <Router>
           <Sider>
-            <Menu />
+            <Menu list={this.props.routerChildren || []} />
           </Sider>
           <Content>
             <section className="main-container main-container-component">
@@ -47,6 +47,8 @@ export default class coms extends React.Component<Props> {
                   >
                   </Route>
                 )}
+
+                <Redirect from="/components" to="/components/preview"></Redirect>
               </Switch>
             </section>
           </Content>

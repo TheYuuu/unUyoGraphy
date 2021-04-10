@@ -2,10 +2,14 @@ import * as React from "react";
 
 import { Menu } from 'antd';
 
-import { NavLink } from 'react-router-dom'
+import { NavLink, Link } from 'react-router-dom'
 
-export class header extends React.Component {
-  constructor(props: any) {
+export interface Props {
+  list: routerItem[]
+}
+
+export class header extends React.Component<Props> {
+  constructor(props: Props) {
     super(props);
   }
 
@@ -14,13 +18,14 @@ export class header extends React.Component {
       <div className="my-header">
         <h1>unUyo Graphy</h1>
         <Menu theme="light" defaultSelectedKeys={['components']} mode="horizontal">
-          <Menu.Item key="components">
-            <NavLink to="/components/preview">组件</NavLink>
+          {(this.props.list.map(item =>
+            <Menu.Item key={item.path}>
+              <NavLink to={item.path}>{item.name}</NavLink>
+            </Menu.Item>
+          ))}
+          <Menu.Item key="goStat">
+            <a href="https://github.com/TheYuuu/unUyoGraphy" target="_blank">Star</a>
           </Menu.Item>
-          <Menu.Item key="docs">
-            <NavLink to="/docs">文档</NavLink>
-          </Menu.Item>
-          <Menu.Item key="3">Star</Menu.Item>
         </Menu>
       </div>
     );

@@ -5,6 +5,6 @@ declare interface EsModuleComponent {
 declare interface routerItem {
   path: string;
   component: string;
-  name?: string;
+  name: string;
   children?: routerItem[]
 }

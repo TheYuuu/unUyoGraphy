@@ -4,8 +4,12 @@ import { Menu } from 'antd';
 
 import { NavLink } from 'react-router-dom'
 
-export class menu extends React.Component {
-  constructor(props: any) {
+export interface Props {
+  list: routerItem[]
+}
+
+export class menu extends React.Component<Props> {
+  constructor(props: Props) {
     super(props);
   }
 
@@ -19,15 +23,11 @@ export class menu extends React.Component {
         <Menu.ItemGroup title="2D">
           <Menu.Divider className="mb-md"></Menu.Divider>
 
-          <Menu.Item key="AxisHeadMap">
-            <NavLink to="/components/AxisHeadMap">两轴热力统计</NavLink>
-          </Menu.Item>
-
-          <Menu.Item key="todo">
-            <NavLink to="/components/todo">
-              todo
-            </NavLink>
-          </Menu.Item>
+          {(this.props.list.map(item =>
+            <Menu.Item key={item.path}>
+              <NavLink to={item.path}>{item.name}</NavLink>
+            </Menu.Item>
+          ))}
         </Menu.ItemGroup>
       </Menu>
     );

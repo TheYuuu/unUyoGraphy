@@ -15,6 +15,7 @@
   "license": "ISC",
   "dependencies": {
     "antd": "^4.15.0",
+    "babel-plugin-syntax-dynamic-import": "^6.18.0",
     "d3": "^6.6.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",

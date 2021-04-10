@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-export default function asyncComponent(importComponent: () => Promise<EsModuleComponent>, children?: any[]): typeof Component {
+export default function asyncComponent(importComponent: () => Promise<EsModuleComponent>, children?: any[]) {
 	class AsyncComponent extends Component {
     state = {
       component: null
@@ -22,6 +22,6 @@ export default function asyncComponent(importComponent: () => Promise<EsModuleCo
 			return C ? <C routerChildren={children} /> : null;
 		}
 	}
-	
+
 	return AsyncComponent;
 }

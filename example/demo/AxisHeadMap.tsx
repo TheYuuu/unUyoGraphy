@@ -3,6 +3,8 @@ import * as React from "react";
 import { AxisHeadMap } from '../../src/index';
 import sampleData from '../../packages/AxisHeadMap/sample';
 
+import { Button } from 'antd';
+
 const containerStyle = {
   width: '500px',
   height: '400px'
@@ -22,8 +24,6 @@ export default class AxisHeadMapDemo extends React.Component {
     });
 
     this.axisHeadMap = axisHeadMap;
-
-    console.log(axisHeadMap)
   }
 
   update() {
@@ -40,7 +40,7 @@ export default class AxisHeadMapDemo extends React.Component {
     return (
       <section>
         <div id="container" style={containerStyle}></div>
-        <button onClick={() => this.update()}>update</button>
+        <Button onClick={() => this.update()} type="primary">update</Button>
       </section>
     );
   }
