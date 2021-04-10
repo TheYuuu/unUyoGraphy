@@ -7,7 +7,7 @@ const containerStyle = {
   width: '500px',
   height: '400px'
 }
-export class AxisHeadMapDemo extends React.Component {
+export default class AxisHeadMapDemo extends React.Component {
   private axisHeadMap:  InstanceType<typeof AxisHeadMap> | null = null;
 
   componentDidMount() {

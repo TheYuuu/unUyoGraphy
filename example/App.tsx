@@ -31,7 +31,8 @@ export class App extends React.Component {
             <Switch>
               {router.map(r =>
                 <Route path={r.path} key={r.path}
-                  component={asyncComponent(() => import(`./components/${r.component}`))}>
+                  component={asyncComponent(() => import(`./components/${r.component}`), r.children)}
+                >
                 </Route>
               )}
               <Redirect from="/" to="/components/preview"></Redirect>

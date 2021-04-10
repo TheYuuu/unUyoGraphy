@@ -1,6 +1,6 @@
 import * as React from "react";
 
-export class preview extends React.Component {
+export default class preview extends React.Component {
   constructor(props: any) {
     super(props);
   }

@@ -8,7 +8,7 @@ const routes = [
         return {
           name: item.name,
           path: '/components/' + item.key,
-          component: () => import('../demo/' + item.key)
+          component: item.key
         }
       })
   },
