@@ -32,6 +32,7 @@ export class App extends React.Component {
               {router.map(r =>
                 // <React.Suspense fallback={<p>loading</p>} key={r.path}>
                   <Route
+                    key={r.path}
                     path={r.path}
                     component={asyncComponent(() => import(`./components/${r.component}`), r.children)}
                     // component={React.lazy(() => import(`./components/${r.component}`))}
