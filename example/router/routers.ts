@@ -1,12 +1,9 @@
-import { coms } from '../components/coms/coms';
-import { docs } from '../components/docs/docs';
-
 import charts from '../charts.json';
 
 const routes = [
   {
       path: "/components",
-      component: coms,
+      component: 'coms',
       children: charts['2D'].map((item: any)=>{
         return {
           name: item.name,
@@ -17,7 +14,7 @@ const routes = [
   },
   {
       path: "/docs",
-      component: docs
+      component: 'docs',
   }
 ];
 

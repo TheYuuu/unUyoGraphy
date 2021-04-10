@@ -7,6 +7,7 @@ const { Header, Footer } = Layout;
 import { header } from './components/header';
 
 import router from './router/routers';
+import asyncComponent from '../src/lib/asyncComponent';
 
 import {
   BrowserRouter as Router,
@@ -29,7 +30,9 @@ export class App extends React.Component {
           </Header>
             <Switch>
               {router.map(r =>
-                <Route path={r.path} key={r.path} component={r.component}></Route>
+                <Route path={r.path} key={r.path}
+                  component={asyncComponent(() => import(`./components/${r.component}`))}>
+                </Route>
               )}
               <Redirect from="/" to="/components/preview"></Redirect>
             </Switch>

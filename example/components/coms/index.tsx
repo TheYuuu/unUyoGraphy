@@ -18,7 +18,11 @@ const Menu = menu;
 import { AxisHeadMapDemo } from '../../demo/AxisHeadMap';
 import { preview } from '../../demo/preview';
 
-export class coms extends React.Component {
+import router from '../../router/routers';
+
+console.log(123, router)
+
+export default class coms extends React.Component {
   constructor(props: any) {
     super(props);
   }

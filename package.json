@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "unusual graphy",
   "main": "index.js",
+  "typings": "types/index.d.ts",
   "scripts": {
     "clean": "rimraf lib && rimraf publish",
     "dev": "cross-env NODE_ENV=development webpack serve --progress --config build-scripts/webpack.demo.js",
