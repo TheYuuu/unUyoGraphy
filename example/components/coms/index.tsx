@@ -13,7 +13,7 @@ import {
 import { Layout } from 'antd';
 const { Sider, Content } = Layout;
 
-import { menu } from './menu';
+import menu from './menu';
 const Menu = menu;
 
 import preview from '../../demo/preview';

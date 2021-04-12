@@ -2,23 +2,28 @@ import * as React from "react";
 
 import { Menu } from 'antd';
 
-import { NavLink, Link } from 'react-router-dom'
-
+import { NavLink, withRouter } from 'react-router-dom'
 export interface Props {
   list: routerItem[]
 }
+class MyHeader extends React.Component<any> {
+  private path = '';
 
-export class header extends React.Component<Props> {
-  constructor(props: Props) {
+  constructor(props: any) {
     super(props);
+
+    const paths = props.location.pathname.split('/');
+    if (paths[1]) {
+      this.path = '/' + paths[1];
+    }
   }
 
   render() {
     return (
       <div className="my-header">
         <h1>unUyo Graphy</h1>
-        <Menu theme="light" defaultSelectedKeys={['components']} mode="horizontal">
-          {(this.props.list.map(item =>
+        <Menu theme="light" defaultSelectedKeys={[this.path]} mode="horizontal">
+          {(this.props.list.map((item: any) =>
             <Menu.Item key={item.path}>
               <NavLink to={item.path}>{item.name}</NavLink>
             </Menu.Item>
@@ -31,3 +36,5 @@ export class header extends React.Component<Props> {
     );
   }
 }
+
+export default withRouter(MyHeader);

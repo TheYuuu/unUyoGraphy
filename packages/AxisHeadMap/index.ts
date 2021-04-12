@@ -83,8 +83,8 @@ export default class AxisHeadMap extends ChartBase {
 
       dataMap[data.data[i].xPos][data.data[i].yPos] += data.data[i].value;
 
-      seriesXData[seriesXIndexMap[data.data[i].xPos]].value++;
-      seriesYData[seriesYIndexMap[data.data[i].yPos]].value++;
+      seriesXData[seriesXIndexMap[data.data[i].xPos]].value += data.data[i].value;
+      seriesYData[seriesYIndexMap[data.data[i].yPos]].value += data.data[i].value;
     }
 
     for (let k1 in dataMap) {

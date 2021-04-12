@@ -4,7 +4,7 @@ import './App.scss';
 import { Layout } from 'antd';
 const { Header, Footer } = Layout;
 
-import { header } from './components/header';
+import MyHeader from './components/header';
 
 import router from './router/routers';
 import asyncComponent from '../src/lib/asyncComponent';
@@ -18,9 +18,13 @@ import {
   Redirect
 } from 'react-router-dom';
 
-const MyHeader = header;
-
 export class App extends React.Component {
+  constructor(props: any) {
+    super(props);
+
+    console.log('App', props)
+  }
+
   render() {
     return (
       <Layout>
