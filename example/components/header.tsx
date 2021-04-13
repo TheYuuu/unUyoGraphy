@@ -1,42 +1,39 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 
 import { Menu } from 'antd';
 
-import { NavLink, withRouter, RouteComponentProps } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 
 export interface Props {
   list: routerItem[]
 }
 
-class MyHeader extends React.Component<Props & RouteComponentProps<{}, {}>> {
-  private path = '';
+export default function MyHeader(props: Props) {
+  const { list } = props;
+  const [path, setPath] = useState('');
 
-  constructor(props: Props & RouteComponentProps<{}, {}>) {
-    super(props);
+  const pathname = useLocation().pathname;
 
-    const paths = props.location.pathname.split('/');
+  useEffect(() => {
+    const paths = pathname.split('/');
     if (paths[1]) {
-      this.path = '/' + paths[1];
+      setPath('/' + paths[1]);
     }
-  }
+  }, [pathname])
 
-  render() {
-    return (
-      <div className="my-header">
-        <h1>unUyo Graphy</h1>
-        <Menu theme="light" defaultSelectedKeys={[this.path]} mode="horizontal">
-          {(this.props.list.map((item: any) =>
-            <Menu.Item key={item.path}>
-              <NavLink to={item.path}>{item.name}</NavLink>
-            </Menu.Item>
-          ))}
-          <Menu.Item key="goStat">
-            <a href="https://github.com/TheYuuu/unUyoGraphy" target="_blank">Star</a>
+  return (
+    <div className="my-header">
+      <h1>unUyo Graphy</h1>
+      <Menu theme="light" selectedKeys={[path]} mode="horizontal">
+        {(list.map(item =>
+          <Menu.Item key={item.path}>
+            <NavLink to={item.path}>{item.name}</NavLink>
           </Menu.Item>
-        </Menu>
-      </div>
-    );
-  }
+        ))}
+        <Menu.Item key="goStat">
+          <a href="https://github.com/TheYuuu/unUyoGraphy" target="_blank">Star</a>
+        </Menu.Item>
+      </Menu>
+    </div>
+  );
 }
-
-export default withRouter(MyHeader) as any;

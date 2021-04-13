@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 
 import { AxisHeadMap } from '../../src/index';
 import sampleData from '../../packages/AxisHeadMap/sample';
@@ -9,11 +9,12 @@ const containerStyle = {
   width: '500px',
   height: '400px'
 }
-export default class AxisHeadMapDemo extends React.Component {
-  private axisHeadMap:  InstanceType<typeof AxisHeadMap> | null = null;
 
-  componentDidMount() {
-    const axisHeadMap: InstanceType<typeof AxisHeadMap> =  new AxisHeadMap({
+export default function AxisHeadMapDemo() {
+  const [axisHeadMap, setaxisHeadMap] = useState<InstanceType<typeof AxisHeadMap> | null>(null);
+
+  useEffect(() => {
+    setaxisHeadMap(new AxisHeadMap({
       dom: '#container',
       mode: 'svg',
       data: {
@@ -21,27 +22,24 @@ export default class AxisHeadMapDemo extends React.Component {
         seriesX: sampleData().xPos,
         seriesY: sampleData().yPos
       }
-    });
+    }))
+  }, [])
 
-    this.axisHeadMap = axisHeadMap;
-  }
+  return (
+    <section>
+      <div id="container" style={containerStyle}></div>
+      <Button onClick={() => update()} type="primary">update</Button>
+    </section>
+  );
 
-  update() {
-    if (this.axisHeadMap) {
-      this.axisHeadMap.update({
+
+  function update() {
+    if (axisHeadMap) {
+      axisHeadMap.update({
         data: sampleData().data,
         seriesX: sampleData().xPos,
         seriesY: sampleData().yPos
       });
     }
-  }
-
-  render() {
-    return (
-      <section>
-        <div id="container" style={containerStyle}></div>
-        <Button onClick={() => this.update()} type="primary">update</Button>
-      </section>
-    );
   }
 }

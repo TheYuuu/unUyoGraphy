@@ -22,38 +22,34 @@ export interface Props {
   routerChildren?: routerItem[]
 }
 
-export default class coms extends React.Component<Props> {
-  constructor(props: Props) {
-    super(props);
-  }
-  
-  render() {
-    return (
-      <Layout>
-        <Router>
-          <Sider>
-            <Menu list={this.props.routerChildren || []} />
-          </Sider>
-          <Content>
-            <section className="main-container main-container-component">
-              <Switch>
-                <Route path={'/components/preview'}
-                  component={preview}
-                />
+export default function coms(props: Props) {
+  const { routerChildren } = props;
 
-                {(this.props.routerChildren || []).map(r =>
-                  <Route path={r.path} key={r.path}
-                    component={asyncComponent(() => import(`../../demo/${r.component}`), r.children)}
-                  >
-                  </Route>
-                )}
+  return (
+    <Layout>
+      <Router>
+        <Sider>
+          <Menu list={routerChildren || []} />
+        </Sider>
+        <Content>
+          <section className="main-container main-container-component">
+            <Switch>
+              <Route path={'/components/preview'}
+                component={preview}
+              />
 
-                <Redirect from="/components" to="/components/preview"></Redirect>
-              </Switch>
-            </section>
-          </Content>
-        </Router>
-      </Layout>
-    );
-  }
+              {(routerChildren || []).map(r =>
+                <Route path={r.path} key={r.path}
+                  component={asyncComponent(() => import(`../../demo/${r.component}`), r.children)}
+                >
+                </Route>
+              )}
+
+              <Redirect from="/components" to="/components/preview"></Redirect>
+            </Switch>
+          </section>
+        </Content>
+      </Router>
+    </Layout>
+  );
 }
