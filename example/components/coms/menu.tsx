@@ -2,16 +2,16 @@ import * as React from "react";
 
 import { Menu } from 'antd';
 
-import { NavLink, withRouter } from 'react-router-dom'
+import { NavLink, withRouter, RouteComponentProps } from 'react-router-dom'
 
 export interface Props {
   list: routerItem[]
 }
 
-class menu extends React.Component<any> {
+class menu extends React.Component<Props & RouteComponentProps<{}, {}>> {
   private path = '';
 
-  constructor(props: any) {
+  constructor(props: Props & RouteComponentProps<{}, {}>) {
     super(props);
 
     this.path = props.location.pathname ? props.location.pathname : '';
@@ -38,4 +38,4 @@ class menu extends React.Component<any> {
   }
 }
 
-export default withRouter(menu);
+export default withRouter(menu) as any;

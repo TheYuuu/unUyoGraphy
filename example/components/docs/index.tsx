@@ -4,8 +4,8 @@ import { Layout } from 'antd';
 
 const { Sider, Content } = Layout;
 
-export default class docs extends React.Component {
-  constructor(props: any) {
+export default class docs extends React.Component<{}> {
+  constructor(props: {}) {
     super(props);
   }
   

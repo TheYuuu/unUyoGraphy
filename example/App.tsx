@@ -18,11 +18,9 @@ import {
   Redirect
 } from 'react-router-dom';
 
-export class App extends React.Component {
-  constructor(props: any) {
+export class App extends React.Component<{}> {
+  constructor(props: {}) {
     super(props);
-
-    console.log('App', props)
   }
 
   render() {
