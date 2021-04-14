@@ -5,7 +5,7 @@
   "main": "index.js",
   "typings": "types/index.d.ts",
   "scripts": {
-    "clean": "rimraf lib && rimraf publish",
+    "clean": "rimraf lib && rimraf docs",
     "dev": "cross-env NODE_ENV=development webpack serve --progress --config build-scripts/webpack.demo.js",
     "deploy:build": "npm run clean && cross-env NODE_ENV=production webpack --config build-scripts/webpack.demo.js",
     "dist": "npm run clean && cross-env NODE_ENV=production webpack --config build-scripts/webpack.config.js && webpack --config build-scripts/webpack.charts.config.js",
