@@ -5,5 +5,6 @@ module.exports = {
         "browsers": ["last 2 versions"] // 最近 2 个版本的浏览器
       }
     }]
-  ]
+  ],
+  plugins: ["syntax-dynamic-import"]
 }
