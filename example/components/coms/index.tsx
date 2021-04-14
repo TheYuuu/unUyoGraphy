@@ -2,7 +2,7 @@ import * as React from "react";
 import asyncComponent from '../../../src/lib/asyncComponent';
 
 import {
-  BrowserRouter as Router,
+  HashRouter as Router,
   Switch,
   Route,
   useHistory,

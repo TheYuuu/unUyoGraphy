@@ -10,7 +10,7 @@ import router from './router/routers';
 import asyncComponent from '../src/lib/asyncComponent';
 
 import {
-  BrowserRouter as Router,
+  HashRouter as Router,
   Switch,
   Route,
   useHistory,
