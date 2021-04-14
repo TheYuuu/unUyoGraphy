@@ -11,14 +11,14 @@ module.exports = {
   entry: path.resolve(__dirname, '../example/index.tsx'),
   output: {
     path: path.resolve(process.cwd(), './docs'),
-    publicPath: process.env.PUBLIC_URL || '/',
+    publicPath: process.env.PUBLIC_URL || './',
     filename: isProd ? '[name].[hash:7].js' : '[name].js',
     chunkFilename: isProd ? '[name].[hash:7].js' : '[name].js'
   },
   devServer: {
     host: 'localhost',
     port: 8085,
-    publicPath: '/',
+    publicPath: './',
     hot: true,
     open: true,
     historyApiFallback: true
