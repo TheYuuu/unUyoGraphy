@@ -1,4 +1,3 @@
 {
-  "testA": "./packages/testA",
-  "testB": "./packages/testB"
+  "AxisHeadMap": "./packages/AxisHeadMap"
 }

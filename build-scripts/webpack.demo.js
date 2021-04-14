@@ -10,7 +10,7 @@ module.exports = {
   mode: process.env.NODE_ENV,
   entry: path.resolve(__dirname, '../example/index.tsx'),
   output: {
-    path: path.resolve(process.cwd(), './publish'),
+    path: path.resolve(process.cwd(), './docs'),
     publicPath: process.env.PUBLIC_URL || '/',
     filename: '[name].[hash:7].js',
     chunkFilename: isProd ? '[name].[hash:7].js' : '[name].js'
