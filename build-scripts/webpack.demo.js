@@ -12,8 +12,8 @@ module.exports = {
   output: {
     path: path.resolve(process.cwd(), './docs'),
     publicPath: process.env.PUBLIC_URL || '/',
-    filename: '[name].[hash:7].js',
-    chunkFilename: isProd ? '[name].[hash:7].js' : '[name].js'
+    filename: '[name].js',
+    chunkFilename: isProd ? '[name].js' : '[name].js'
   },
   devServer: {
     host: 'localhost',
