@@ -44,11 +44,12 @@ module.exports = {
         loader: 'babel-loader'
       },
       {
-        test: /\.(svg|otf|ttf|woff2?|eot|gif|png|jpe?g)(\?\S*)?$/,
+        test: /\.(svg|otf|ttf|woff2?|eot|gif|png|jpe|ico?g)(\?\S*)?$/,
         loader: 'url-loader',
         options: {
           limit: 10000,
-          name: path.posix.join('static', '[name].[hash:7].[ext]')
+          name: path.posix.join('static', '[name].[hash:7].[ext]'),
+          esModule: false
         }
       }
     ]
@@ -84,7 +85,7 @@ module.exports = {
     new ProgressBarPlugin(),
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, '../example/index.tpl'),
-      favicon: path.resolve(__dirname, '../example/favicon.ico'),
+      favicon: path.resolve(__dirname, '../example/favicon.png'),
       filename: 'index.html',
       title: 'unUyo Graphy'
     }),

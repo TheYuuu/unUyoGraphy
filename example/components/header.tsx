@@ -24,7 +24,7 @@ export default function MyHeader(props: Props) {
   return (
     <div className="my-header">
       <h1>
-        <img src="../favicon.ico" alt="" height="50px"/>
+        <img src={require('../favicon.png')} alt="" height="50px"/>
         unUyo Graphy
       </h1>
       <Menu theme="light" selectedKeys={[path]} mode="horizontal">
