@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { Suspense } from "react";
 import './App.scss';
 
 import { Layout } from 'antd';
@@ -13,8 +13,6 @@ import {
   HashRouter as Router,
   Switch,
   Route,
-  useHistory,
-  useLocation,
   Redirect
 } from 'react-router-dom';
 
@@ -25,20 +23,22 @@ function App() {
         <Header>
           <MyHeader list={router}></MyHeader>
         </Header>
+        <Suspense fallback={<p>loading</p>}>
           <Switch>
             {router.map(r =>
-              // <React.Suspense fallback={<p>loading</p>} key={r.path}>
                 <Route
                   key={r.path}
                   path={r.path}
-                  component={asyncComponent(() => import(`./components/${r.component}`), r.children)}
-                  // component={React.lazy(() => import(`./components/${r.component}`))}
+                  component={asyncComponent(
+                    () => import(/* webpackPrefetch: true */ `./components/${r.component}`),
+                    {routerChildren: r.children}
+                  )}
                 >
                 </Route>
-              //  </React.Suspense>
-            )}
-            <Redirect from="/" to="/components/preview"></Redirect>
-          </Switch>
+              )}
+              <Redirect from="/" to="/components/preview"></Redirect>
+            </Switch>
+          </Suspense>
       </Router>
       <Footer className="algin-center">
           Powered By The Yu

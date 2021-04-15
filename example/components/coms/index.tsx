@@ -1,12 +1,10 @@
-import * as React from "react";
+import React, { Suspense } from "react";
 import asyncComponent from '../../../src/lib/asyncComponent';
 
 import {
   HashRouter as Router,
   Switch,
   Route,
-  useHistory,
-  useLocation,
   Redirect
 } from 'react-router-dom';
 
@@ -33,20 +31,20 @@ export default function coms(props: Props) {
         </Sider>
         <Content>
           <section className="main-container main-container-component">
-            <Switch>
-              <Route path={'/components/preview'}
-                component={preview}
-              />
-
-              {(routerChildren || []).map(r =>
-                <Route path={r.path} key={r.path}
-                  component={asyncComponent(() => import(`../../demo/${r.component}`), r.children)}
-                >
-                </Route>
-              )}
-
-              <Redirect from="/components" to="/components/preview"></Redirect>
-            </Switch>
+            <Suspense fallback={<p>loading</p>}>
+              <Switch>
+                <Route path={'/components/preview'}
+                  component={preview}
+                />
+                {(routerChildren || []).map(r =>
+                  <Route path={r.path} key={r.path}
+                    component={asyncComponent(() => import(/* webpackPrefetch: true */ `../../demo/${r.component}`), r.children)}
+                  >
+                  </Route>
+                )}
+                <Redirect from="/components" to="/components/preview"></Redirect>
+              </Switch>
+            </Suspense>
           </section>
         </Content>
       </Router>
