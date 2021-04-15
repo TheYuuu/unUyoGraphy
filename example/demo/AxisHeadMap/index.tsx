@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 
-import { AxisHeadMap } from '../../src/index';
-import sampleData from '../../packages/AxisHeadMap/sample';
+import { AxisHeadMap } from '../../../src/index';
+import sampleData from '../../../packages/AxisHeadMap/sample';
 
 import { Button } from 'antd';
-import DemoModel from './DemoModel';
+import DemoModel from '../DemoModel';
+
+import docs from './docs';
 
 const containerStyle = {
   width: '500px',
@@ -42,7 +44,7 @@ export default function AxisHeadMapDemo() {
         <div id="container" style={containerStyle}></div>
         <Button onClick={() => update()} type="primary">update</Button>
       </section>
-      <DemoModel></DemoModel>
+      <DemoModel docs={docs}></DemoModel>
     </section>
   );
 }

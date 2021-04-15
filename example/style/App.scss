@@ -40,6 +40,11 @@
 .my-header {
   display: flex;
   justify-content: space-between;
+
+  .ant-menu-horizontal>.ant-menu-item-selected, #nav.ant-menu-horizontal>.ant-menu-submenu-open {
+    border-top: 2px solid #1890ff;
+    border-bottom: 2px solid transparent;
+  }
 }
 
 .DemoModel {
