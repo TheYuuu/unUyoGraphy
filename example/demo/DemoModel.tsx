@@ -45,7 +45,7 @@ export default function AxisHeadMapDemo() {
   const data = [
     {
       key: '1',
-      params: '主色调 mainColor',
+      params: 'mainColor',
       desc: '图表默认的一致性主色调',
       type: 'string',
       default: 'rgb(107 3 24)'
