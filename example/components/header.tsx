@@ -23,7 +23,10 @@ export default function MyHeader(props: Props) {
 
   return (
     <div className="my-header">
-      <h1>unUyo Graphy</h1>
+      <h1>
+        <img src="../favicon.ico" alt="" height="50px"/>
+        unUyo Graphy
+      </h1>
       <Menu theme="light" selectedKeys={[path]} mode="horizontal">
         {(list.map(item =>
           <Menu.Item key={item.path}>

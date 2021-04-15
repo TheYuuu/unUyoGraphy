@@ -22,7 +22,6 @@ module.exports = {
     hot: true,
     open: true,
     historyApiFallback: true
-    
   },
   module: {
     rules: [
@@ -85,6 +84,7 @@ module.exports = {
     new ProgressBarPlugin(),
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, '../example/index.tpl'),
+      favicon: path.resolve(__dirname, '../example/favicon.ico'),
       filename: 'index.html',
       title: 'unUyo Graphy'
     }),
