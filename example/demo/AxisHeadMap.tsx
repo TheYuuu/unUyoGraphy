@@ -4,6 +4,7 @@ import { AxisHeadMap } from '../../src/index';
 import sampleData from '../../packages/AxisHeadMap/sample';
 
 import { Button } from 'antd';
+import DemoModel from './DemoModel';
 
 const containerStyle = {
   width: '500px',
@@ -37,8 +38,11 @@ export default function AxisHeadMapDemo() {
 
   return (
     <section>
-      <div id="container" style={containerStyle}></div>
-      <Button onClick={() => update()} type="primary">update</Button>
+      <section>
+        <div id="container" style={containerStyle}></div>
+        <Button onClick={() => update()} type="primary">update</Button>
+      </section>
+      <DemoModel></DemoModel>
     </section>
   );
 }
