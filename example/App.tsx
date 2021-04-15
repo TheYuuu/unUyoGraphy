@@ -1,5 +1,5 @@
 import React, { Suspense } from "react";
-import './App.scss';
+import './style/App.scss';
 
 import { Layout } from 'antd';
 const { Header, Footer } = Layout;
