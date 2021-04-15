@@ -88,7 +88,7 @@ export default function AxisHeadMapDemo() {
           <span>配置项</span>
           <a onClick={() => scrollToAnchor('optsDesc')} className="anchor">#</a>
         </h1>
-        <Table columns={columns} dataSource={data} />
+        <Table columns={columns} dataSource={data} pagination={ false } />
       </section>
     </section>
   );
