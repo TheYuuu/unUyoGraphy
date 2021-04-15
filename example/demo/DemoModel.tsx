@@ -1,8 +1,53 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 import { Table } from 'antd';
 
-export default function AxisHeadMapDemo() {
+export const columns = [
+  {
+    title: '参数',
+    dataIndex: 'params',
+    key: 'params'
+  },
+  {
+    title: '说明',
+    dataIndex: 'desc',
+    key: 'desc'
+  },
+  {
+    title: '类型',
+    dataIndex: 'type',
+    key: 'type'
+  },
+  {
+    title: '默认值',
+    dataIndex: 'default',
+    key: 'default'
+  }
+]
+
+export interface tableType {
+  key: string;
+  params: string;
+  desc: string;
+  type: string;
+  default: string;
+}
+
+export interface DemoModelProps {
+  chartsDesc: string[];
+  useDesc: string[];
+  dataDesc: string[];
+  optsData: tableType[];
+  methodData: tableType[];
+}
+
+export interface propTypes {
+  docs: DemoModelProps;
+}
+
+
+export default function AxisHeadMapDemo(prop: propTypes) {
+  const { docs } = prop;
 
   const scrollToAnchor = (anchorName: string) => {
     if (anchorName) {
@@ -11,47 +56,6 @@ export default function AxisHeadMapDemo() {
     }
   }
 
-  const s = `
-    interface AxisHeadMapData {
-      value: number;
-      xPos: string | number;
-      yPos: string | number;
-    }
-  `;
-
-  const columns = [
-    {
-      title: '参数',
-      dataIndex: 'params',
-      key: 'params'
-    },
-    {
-      title: '说明',
-      dataIndex: 'desc',
-      key: 'desc'
-    },
-    {
-      title: '类型',
-      dataIndex: 'type',
-      key: 'type'
-    },
-    {
-      title: '默认值',
-      dataIndex: 'default',
-      key: 'default'
-    }
-  ]
-
-  const data = [
-    {
-      key: '1',
-      params: 'mainColor',
-      desc: '图表默认的一致性主色调',
-      type: 'string',
-      default: 'rgb(107 3 24)'
-    },
-  ]
-
   return (
     <section className="mt-lg DemoModel">
       <section>
@@ -59,18 +63,18 @@ export default function AxisHeadMapDemo() {
           <span>图表说明</span>
           <a onClick={() => scrollToAnchor('chartsDesc')} className="anchor">#</a>
         </h1>
-        <p>
-          对于二维分布场景的数据集来说，可以依靠热力图来观察其度量分布特征，此图例在热力图的表现形式上，增加两轴的统计，可以更加直观地观察到两个维度的分布情况
-        </p>
+        {(docs.chartsDesc || []).map((item: string, index: number) => (
+          <p key={index}>{item}</p>
+        ))}
       </section>
       <section className="mt-lg">
         <h1 id="useDesc">
           <span>推荐场景</span>
           <a onClick={() => scrollToAnchor('useDesc')} className="anchor">#</a>
         </h1>
-        <p className="left-blue-border">
-          经纬度下的人口分布情况
-        </p>
+        {(docs.useDesc || []).map((item: string, index: number) => (
+          <p className="left-blue-border" key={index}>{item}</p>
+        ))}
       </section>
       <section className="mt-lg">
         <h1 id="dataDesc">
@@ -78,17 +82,26 @@ export default function AxisHeadMapDemo() {
           <a onClick={() => scrollToAnchor('dataDesc')} className="anchor">#</a>
         </h1>
         <code>
-          <pre>
-            {s}
-          </pre>
+          {(docs.dataDesc || []).map((item: string, index: number) => (
+            <pre key={index}>
+              {item}
+            </pre>
+          ))}
         </code>
       </section>
       <section className="mt-lg">
         <h1 id="optsDesc">
-          <span>配置项</span>
+          <span>Opts</span>
           <a onClick={() => scrollToAnchor('optsDesc')} className="anchor">#</a>
         </h1>
-        <Table columns={columns} dataSource={data} pagination={ false } />
+        <Table columns={columns} dataSource={docs.optsData} pagination={ false } />
+      </section>
+      <section className="mt-lg">
+        <h1 id="methodDesc">
+          <span>Method</span>
+          <a onClick={() => scrollToAnchor('methodDesc')} className="anchor">#</a>
+        </h1>
+        <Table columns={columns} dataSource={docs.methodData} pagination={ false } />
       </section>
     </section>
   );
