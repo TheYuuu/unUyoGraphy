@@ -20,7 +20,7 @@ export default function menu(props: Props) {
 
   return (
     <Menu theme="light" selectedKeys={[path]} mode="inline" className="asider-menu">
-      <Menu.Item key="preview">
+      <Menu.Item key="/components/preview">
         <NavLink to="/components/preview">预览</NavLink>
       </Menu.Item>
 

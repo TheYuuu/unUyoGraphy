@@ -18,7 +18,7 @@ module.exports = {
   devServer: {
     host: 'localhost',
     port: 8085,
-    publicPath: './',
+    publicPath: '/',
     hot: true,
     open: true,
     historyApiFallback: true
@@ -59,6 +59,18 @@ module.exports = {
   },
   mode: 'development', // production | development
   optimization: {
+    splitChunks: {
+      chunks: 'all', // 对同步引入模块 和 异步引入模块都做代码分割，all async initial
+      cacheGroups: {
+        common: {
+          name: `common`,
+          minChunks: 3,
+          priority: 1,
+          chunks: 'async',
+          reuseExistingChunk: true
+        }
+      }
+    },
     minimizer: [
       new TerserPlugin({
         terserOptions: {
