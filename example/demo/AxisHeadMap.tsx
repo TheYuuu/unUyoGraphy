@@ -23,17 +23,9 @@ export default function AxisHeadMapDemo() {
         seriesY: sampleData().yPos
       }
     }))
-  }, [])
+  }, []);
 
-  return (
-    <section>
-      <div id="container" style={containerStyle}></div>
-      <Button onClick={() => update()} type="primary">update</Button>
-    </section>
-  );
-
-
-  function update() {
+  const update = () => {
     if (axisHeadMap) {
       axisHeadMap.update({
         data: sampleData().data,
@@ -42,4 +34,11 @@ export default function AxisHeadMapDemo() {
       });
     }
   }
+
+  return (
+    <section>
+      <div id="container" style={containerStyle}></div>
+      <Button onClick={() => update()} type="primary">update</Button>
+    </section>
+  );
 }

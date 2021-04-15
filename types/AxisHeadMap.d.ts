@@ -24,9 +24,10 @@ export interface AxisHeadMapOptionHandledData {
 }
 
 export interface opts extends defaultOptionsTypes.opts {
-  mainColor: string;
+  mainColor?: string;
 }
 
 export interface AxisHeadMapOptions extends defaultOptionsTypes.defaultOptions {
   data: AxisHeadMapOptionData;
+  opts?: opts
 }

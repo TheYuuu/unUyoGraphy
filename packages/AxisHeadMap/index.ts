@@ -10,9 +10,9 @@ export default class AxisHeadMap extends ChartBase {
     seriesY: []
   }
 
-  private opts : AHMOptionsTypes.opts = {
-    ...this._opts,
-    mainColor: 'rgb(107 3 24)'
+  private opts = {
+    mainColor: 'rgb(107 3 24)',
+    ...this._opts
   };
 
   private rectWidth: number = 0;

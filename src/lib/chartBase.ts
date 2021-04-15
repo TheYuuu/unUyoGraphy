@@ -8,7 +8,7 @@ export class ChartBase {
   public ctx: Selection<SVGSVGElement, unknown, null, undefined> | null = null;
 
   // 图形设置
-  public _opts: defaultOptionsTypes.opts  = {
+  public _opts = {
     padding: 5,
     duration: 800
   }
@@ -33,12 +33,14 @@ export class ChartBase {
     this.containerWidth = qdom.offsetWidth;
     this.containerHeight = qdom.offsetHeight;
 
-    if (opt.mode === 'svg') {
-      this.ctx = select(qdom)
-        .append('svg')
-        .attr('width', this.containerWidth)
-        .attr('height', this.containerHeight);
-    }
+    // if (opt.mode === 'svg') {
+    this.ctx = select(qdom)
+      .append('svg')
+      .attr('width', this.containerWidth)
+      .attr('height', this.containerHeight);
+    // }
+
+    this._opts = Object.assign(this._opts, opt.opts || {});
 
     this.containerWidth -= (isNumber(this._opts.padding) ? 2 * this._opts.padding: 0);
     this.containerHeight -= (isNumber(this._opts.padding) ? 2 * this._opts.padding: 0);
