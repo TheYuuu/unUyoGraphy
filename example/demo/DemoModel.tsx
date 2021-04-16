@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useEffect, useLayoutEffect } from "react";
 
 import { Table } from 'antd';
+
+import { useLocation } from 'react-router-dom';
 
 export const columns = [
   {
@@ -55,13 +57,20 @@ export default function AxisHeadMapDemo(prop: propTypes) {
         if(anchorElement) { anchorElement.scrollIntoView(); }
     }
   }
+  
+  const hash = useLocation().hash;
+  const path = useLocation().pathname;
+
+  useEffect(() => {
+    scrollToAnchor(hash.slice(1));
+  });
 
   return (
     <section className="mt-lg DemoModel">
       <section>
         <h1 id="chartsDesc">
           <span>图表说明</span>
-          <a onClick={() => scrollToAnchor('chartsDesc')} className="anchor">#</a>
+          <a href={`/#${path}#chartsDesc`} className="anchor">#</a>
         </h1>
         {(docs.chartsDesc || []).map((item: string, index: number) => (
           <p key={index}>{item}</p>
@@ -70,7 +79,7 @@ export default function AxisHeadMapDemo(prop: propTypes) {
       <section className="mt-lg">
         <h1 id="useDesc">
           <span>推荐场景</span>
-          <a onClick={() => scrollToAnchor('useDesc')} className="anchor">#</a>
+          <a href={`/#${path}#useDesc`} className="anchor">#</a>
         </h1>
         {(docs.useDesc || []).map((item: string, index: number) => (
           <p className="left-blue-border" key={index}>{item}</p>
@@ -79,7 +88,7 @@ export default function AxisHeadMapDemo(prop: propTypes) {
       <section className="mt-lg">
         <h1 id="dataDesc">
           <span>数据集</span>
-          <a onClick={() => scrollToAnchor('dataDesc')} className="anchor">#</a>
+          <a href={`/#${path}#dataDesc`} className="anchor">#</a>
         </h1>
         <code>
           {(docs.dataDesc || []).map((item: string, index: number) => (
@@ -92,14 +101,14 @@ export default function AxisHeadMapDemo(prop: propTypes) {
       <section className="mt-lg">
         <h1 id="optsDesc">
           <span>Opts</span>
-          <a onClick={() => scrollToAnchor('optsDesc')} className="anchor">#</a>
+          <a href={`/#${path}#optsDesc`} className="anchor">#</a>
         </h1>
         <Table columns={columns} dataSource={docs.optsData} pagination={ false } />
       </section>
       <section className="mt-lg">
         <h1 id="methodDesc">
           <span>Method</span>
-          <a onClick={() => scrollToAnchor('methodDesc')} className="anchor">#</a>
+          <a href={`/#${path}#methodDesc`} className="anchor">#</a>
         </h1>
         <Table columns={columns} dataSource={docs.methodData} pagination={ false } />
       </section>

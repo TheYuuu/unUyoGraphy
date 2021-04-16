@@ -41,7 +41,7 @@ function App() {
           </Suspense>
       </Router>
       <Footer className="algin-center">
-          Powered By The Yu
+          Supported By <a target="_blank" href="https://www.yuque.com/u1201814/agoukq">The_Yu</a>
       </Footer>
     </Layout>
   );
