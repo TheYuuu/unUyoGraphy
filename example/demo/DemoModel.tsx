@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect } from "react";
+import React, { useEffect } from "react";
 
 import { Table } from 'antd';
 
@@ -48,7 +48,7 @@ export interface propTypes {
 }
 
 
-export default function AxisHeadMapDemo(prop: propTypes) {
+export default function AxisHeatMapDemo(prop: propTypes) {
   const { docs } = prop;
 
   const scrollToAnchor = (anchorName: string) => {

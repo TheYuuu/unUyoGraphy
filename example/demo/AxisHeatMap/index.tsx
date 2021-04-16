@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
-import { AxisHeadMap } from '../../../src/index';
-import sampleData from '../../../packages/AxisHeadMap/sample';
+import { AxisHeatMap } from '../../../src/index';
+import sampleData from '../../../packages/AxisHeatMap/sample';
 
 import { Button } from 'antd';
 import DemoModel from '../DemoModel';
@@ -13,11 +13,11 @@ const containerStyle = {
   height: '400px'
 }
 
-export default function AxisHeadMapDemo() {
-  const [axisHeadMap, setaxisHeadMap] = useState<InstanceType<typeof AxisHeadMap> | null>(null);
+export default function AxisHeatMapDemo() {
+  const [axisHeatMap, setAxisHeatMap] = useState<InstanceType<typeof AxisHeatMap> | null>(null);
 
   useEffect(() => {
-    setaxisHeadMap(new AxisHeadMap({
+    setAxisHeatMap(new AxisHeatMap({
       dom: '#container',
       mode: 'svg',
       data: {
@@ -29,8 +29,8 @@ export default function AxisHeadMapDemo() {
   }, []);
 
   const update = () => {
-    if (axisHeadMap) {
-      axisHeadMap.update({
+    if (axisHeatMap) {
+      axisHeatMap.update({
         data: sampleData().data,
         seriesX: sampleData().xPos,
         seriesY: sampleData().yPos

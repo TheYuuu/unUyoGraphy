@@ -1,6 +1,6 @@
 import * as defaultOptionsTypes from './base';
 
-export interface AxisHeadMapData {
+export interface AxisHeatMapData {
   value: number;
   xPos: string | number;
   yPos: string | number;
@@ -11,14 +11,14 @@ export interface seriesData {
   value: number;
 }
 
-export interface AxisHeadMapOptionData {
-  data: AxisHeadMapData[];
+export interface AxisHeatMapOptionData {
+  data: AxisHeatMapData[];
   seriesX: string[];
   seriesY: string[];
 }
 
-export interface AxisHeadMapOptionHandledData {
-  data: AxisHeadMapData[];
+export interface AxisHeatMapOptionHandledData {
+  data: AxisHeatMapData[];
   seriesX: seriesData[];
   seriesY: seriesData[];
 }
@@ -27,7 +27,7 @@ export interface opts extends defaultOptionsTypes.opts {
   mainColor?: string;
 }
 
-export interface AxisHeadMapOptions extends defaultOptionsTypes.defaultOptions {
-  data: AxisHeadMapOptionData;
+export interface AxisHeatMapOptions extends defaultOptionsTypes.defaultOptions {
+  data: AxisHeatMapOptionData;
   opts?: opts
 }

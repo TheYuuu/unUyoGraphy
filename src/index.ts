@@ -1,5 +1,5 @@
-import AxisHeadMap from '../packages/AxisHeadMap';
+import AxisHeatMap from '../packages/AxisHeatMap';
 
 export {
-  AxisHeadMap
+  AxisHeatMap
 };

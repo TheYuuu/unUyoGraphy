@@ -8,7 +8,7 @@ export default {
   ],
   dataDesc: [
     `
-    interface AxisHeadMapData {
+    interface AxisHeatMapData {
       value: number;
       xPos: string | number;
       yPos: string | number;
@@ -29,7 +29,7 @@ export default {
       key: '1',
       params: 'update',
       desc: '更新数据',
-      type: `(data: AxisHeadMapData[]) => void`,
+      type: `(data: AxisHeatMapData[]) => void`,
       default: '-'
     }
   ]

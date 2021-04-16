@@ -1,10 +1,10 @@
 import { ChartBase } from '../../src/lib/chartBase';
-import * as AHMOptionsTypes from '../../types/AxisHeadMap';
+import * as AHMOptionsTypes from '../../types/AxisHeatMap';
 
 import * as d3 from 'd3';
 
-export default class AxisHeadMap extends ChartBase {
-  private data: AHMOptionsTypes.AxisHeadMapOptionHandledData = {
+export default class AxisHeatMap extends ChartBase {
+  private data: AHMOptionsTypes.AxisHeatMapOptionHandledData = {
     data: [],
     seriesX: [],
     seriesY: []
@@ -29,14 +29,14 @@ export default class AxisHeadMap extends ChartBase {
   private left_g: d3.Selection<SVGGElement, unknown, null, undefined> | null = null;
   private dot_g: d3.Selection<SVGGElement, unknown, null, undefined> | null = null;
 
-  constructor (opt: AHMOptionsTypes.AxisHeadMapOptions) {
+  constructor (opt: AHMOptionsTypes.AxisHeatMapOptions) {
     super(opt);
 
     this.init();
     this.update(opt.data);
   }
 
-  private handleData(data: AHMOptionsTypes.AxisHeadMapOptionData): void {
+  private handleData(data: AHMOptionsTypes.AxisHeatMapOptionData): void {
     const seriesXIndexMap: {
       [key: string]: number
     } = {};
@@ -70,7 +70,7 @@ export default class AxisHeadMap extends ChartBase {
       }
     } = {};
 
-    const dataArr: AHMOptionsTypes.AxisHeadMapData[] = [];
+    const dataArr: AHMOptionsTypes.AxisHeatMapData[] = [];
 
     for (let i = 0; i < data.data.length; i++) {
       if (!dataMap[data.data[i].xPos]) {
@@ -253,7 +253,7 @@ export default class AxisHeadMap extends ChartBase {
       .remove();
   }
 
-  private updateDots(dots: d3.Selection<d3.BaseType, AHMOptionsTypes.AxisHeadMapData, SVGGElement, unknown>) {
+  private updateDots(dots: d3.Selection<d3.BaseType, AHMOptionsTypes.AxisHeatMapData, SVGGElement, unknown>) {
     const { rectWidth, lineHeight, dotScale, xPosAxis } = this;
     const enter = dots.enter();
     const exit = dots.exit();
@@ -285,7 +285,7 @@ export default class AxisHeadMap extends ChartBase {
       .remove()
   }
 
-  public update(data: AHMOptionsTypes.AxisHeadMapOptionData): void {
+  public update(data: AHMOptionsTypes.AxisHeatMapOptionData): void {
     this.handleData(data);
     this.draw();
   }
