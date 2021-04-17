@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import unUyo from '../../../src/index';
-import sampleData from '../../../packages/AxisHeatMap/sample';
+import sampleData from '../../../packages/axisHeatMap/sample';
 
 import { Button } from 'antd';
 import DemoModel from '../demoModel';

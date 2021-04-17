@@ -1,4 +1,4 @@
-import AxisHeatMap from '../packages/AxisHeatMap';
+import AxisHeatMap from '../packages/axisHeatMap';
 
 export default {
   AxisHeatMap
