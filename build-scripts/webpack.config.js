@@ -16,7 +16,7 @@ module.exports = {
     chunkFilename: '[id].js',
     libraryExport: 'default',
     library: 'unUyo',
-    libraryTarget: 'commonjs2'
+    libraryTarget: 'umd',
   },
   externals: [
     /d3/

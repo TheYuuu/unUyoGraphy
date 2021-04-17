@@ -9,7 +9,7 @@ import MyHeader from './components/header';
 import router from './router/routers';
 import asyncComponent from '../src/lib/asyncComponent';
 
-// import unUyo from 'un-u-yo';
+// import * as unUyo from 'un-u-yo';
 // console.log(unUyo)
 
 import {
