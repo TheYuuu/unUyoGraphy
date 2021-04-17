@@ -1,12 +1,43 @@
-import { ChartBase } from '../../src/lib/chartBase';
-import * as AHMOptionsTypes from '../../types/AxisHeatMap';
+import ChartBase, { defaultOptions, defaultOpts } from '../../src/lib/chartBase';
 
 import { ScaleLinear, Selection, BaseType, ScaleOrdinal } from 'd3';
 import { min, max } from 'd3-array';
 import { scaleLinear, scaleOrdinal } from 'd3-scale';
 import 'd3-transition';
+
+export interface axisHeatMapData {
+  value: number;
+  xPos: string | number;
+  yPos: string | number;
+}
+
+export interface seriesData {
+  name: string;
+  value: number;
+}
+
+export interface axisHeatMapOptionData {
+  data: axisHeatMapData[];
+  seriesX: string[];
+  seriesY: string[];
+}
+
+export interface axisHeatMapOptionHandledData {
+  data: axisHeatMapData[];
+  seriesX: seriesData[];
+  seriesY: seriesData[];
+}
+
+export interface opts extends defaultOpts {
+  mainColor?: string;
+}
+
+export interface axisHeatMapOptions extends defaultOptions {
+  data: axisHeatMapOptionData;
+  opts?: opts
+}
 export default class AxisHeatMap extends ChartBase {
-  private data: AHMOptionsTypes.AxisHeatMapOptionHandledData = {
+  private data: axisHeatMapOptionHandledData = {
     data: [],
     seriesX: [],
     seriesY: []
@@ -31,14 +62,14 @@ export default class AxisHeatMap extends ChartBase {
   private left_g: Selection<SVGGElement, unknown, null, undefined> | null = null;
   private dot_g: Selection<SVGGElement, unknown, null, undefined> | null = null;
 
-  constructor (opt: AHMOptionsTypes.AxisHeatMapOptions) {
+  constructor (opt: axisHeatMapOptions) {
     super(opt);
 
     this.init();
     this.update(opt.data);
   }
 
-  private handleData(data: AHMOptionsTypes.AxisHeatMapOptionData): void {
+  private handleData(data: axisHeatMapOptionData): void {
     const seriesXIndexMap: {
       [key: string]: number
     } = {};
@@ -47,8 +78,8 @@ export default class AxisHeatMap extends ChartBase {
       [key: string]: number
     } = {};
 
-    const seriesXData: AHMOptionsTypes.seriesData[] = [];
-    const seriesYData: AHMOptionsTypes.seriesData[] = [];
+    const seriesXData: seriesData[] = [];
+    const seriesYData: seriesData[] = [];
 
     for (let i = 0; i < data.seriesX.length; i++) {
       seriesXIndexMap[data.seriesX[i]] = i;
@@ -72,7 +103,7 @@ export default class AxisHeatMap extends ChartBase {
       }
     } = {};
 
-    const dataArr: AHMOptionsTypes.AxisHeatMapData[] = [];
+    const dataArr: axisHeatMapData[] = [];
 
     for (let i = 0; i < data.data.length; i++) {
       if (!dataMap[data.data[i].xPos]) {
@@ -193,7 +224,7 @@ export default class AxisHeatMap extends ChartBase {
     this.updateDots(dots);
   }
 
-  private updateTopRects(topRects: Selection<BaseType, AHMOptionsTypes.seriesData, SVGGElement, unknown>) {
+  private updateTopRects(topRects: Selection<BaseType, seriesData, SVGGElement, unknown>) {
     const { rectWidth, lineHeight, topScale } = this;
     const enter = topRects.enter();
     const exit = topRects.exit();
@@ -227,7 +258,7 @@ export default class AxisHeatMap extends ChartBase {
       .remove();
   }
 
-  private updateLeftRects(leftRects: Selection<BaseType, AHMOptionsTypes.seriesData, SVGGElement, unknown>) {
+  private updateLeftRects(leftRects: Selection<BaseType, seriesData, SVGGElement, unknown>) {
     const { rectWidth, topXAxisWidth, leftScale } = this;
     const enter = leftRects.enter();
     const exit = leftRects.exit();
@@ -256,7 +287,7 @@ export default class AxisHeatMap extends ChartBase {
       .remove();
   }
 
-  private updateDots(dots: Selection<BaseType, AHMOptionsTypes.AxisHeatMapData, SVGGElement, unknown>) {
+  private updateDots(dots: Selection<BaseType, axisHeatMapData, SVGGElement, unknown>) {
     const { rectWidth, lineHeight, dotScale, xPosAxis } = this;
     const enter = dots.enter();
     const exit = dots.exit();
@@ -288,7 +319,7 @@ export default class AxisHeatMap extends ChartBase {
       .remove()
   }
 
-  public update(data: AHMOptionsTypes.AxisHeatMapOptionData): void {
+  public update(data: axisHeatMapOptionData): void {
     this.handleData(data);
     this.draw();
   }

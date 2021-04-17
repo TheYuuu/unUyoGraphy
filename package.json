@@ -2,8 +2,15 @@
   "name": "un-u-yo",
   "version": "1.0.0",
   "description": "unusual graphy",
-  "main": "lib/vue-uix.common.js",
+  "main": "lib/unUyo.common.js",
   "typings": "types/index.d.ts",
+  "files": [
+    "lib",
+    "src",
+    "packages",
+    "types",
+    "charts.build.json"
+  ],
   "scripts": {
     "clean": "rimraf lib && rimraf docs",
     "dev": "cross-env NODE_ENV=development webpack serve --progress --config build-scripts/webpack.demo.js",

@@ -1,10 +1,4 @@
-declare interface EsModuleComponent {
-  default: any;
-}
+export * from './unUyo'
 
-declare interface routerItem {
-  path: string;
-  component: string;
-  name: string;
-  children?: routerItem[]
-}
+import * as unUyo from './unUyo'
+export default unUyo

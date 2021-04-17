@@ -1,33 +1,50 @@
-import * as defaultOptionsTypes from './base';
+import ChartBase, { defaultOptions, defaultOpts } from './chartBase';
 
-export interface AxisHeatMapData {
-  value: number;
-  xPos: string | number;
-  yPos: string | number;
+export interface axisHeatMapData {
+    value: number;
+    xPos: string | number;
+    yPos: string | number;
 }
-
 export interface seriesData {
-  name: string;
-  value: number;
+    name: string;
+    value: number;
 }
-
-export interface AxisHeatMapOptionData {
-  data: AxisHeatMapData[];
-  seriesX: string[];
-  seriesY: string[];
+export interface axisHeatMapOptionData {
+    data: axisHeatMapData[];
+    seriesX: string[];
+    seriesY: string[];
 }
-
-export interface AxisHeatMapOptionHandledData {
-  data: AxisHeatMapData[];
-  seriesX: seriesData[];
-  seriesY: seriesData[];
+export interface axisHeatMapOptionHandledData {
+    data: axisHeatMapData[];
+    seriesX: seriesData[];
+    seriesY: seriesData[];
 }
-
-export interface opts extends defaultOptionsTypes.opts {
-  mainColor?: string;
+export interface opts extends defaultOpts {
+    mainColor?: string;
 }
-
-export interface AxisHeatMapOptions extends defaultOptionsTypes.defaultOptions {
-  data: AxisHeatMapOptionData;
-  opts?: opts
+export interface axisHeatMapOptions extends defaultOptions {
+    data: axisHeatMapOptionData;
+    opts?: opts;
+}
+export default class AxisHeatMap extends ChartBase {
+    private data;
+    private opts;
+    private rectWidth;
+    private topXAxisWidth;
+    private leftScale;
+    private lineHeight;
+    private topScale;
+    private dotScale;
+    private xPosAxis;
+    private top_g;
+    private left_g;
+    private dot_g;
+    constructor(opt: axisHeatMapOptions);
+    private handleData;
+    private init;
+    private draw;
+    private updateTopRects;
+    private updateLeftRects;
+    private updateDots;
+    update(data: axisHeatMapOptionData): void;
 }
