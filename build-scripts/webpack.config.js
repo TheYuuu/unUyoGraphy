@@ -15,7 +15,7 @@ module.exports = {
     filename: 'unUyo.common.js',
     chunkFilename: '[id].js',
     libraryExport: 'default',
-    library: 'UIX',
+    library: 'unUyo',
     libraryTarget: 'commonjs2'
   },
   externals: [
