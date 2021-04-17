@@ -4,7 +4,7 @@ import unUyo from '../../../src/index';
 import sampleData from '../../../packages/AxisHeatMap/sample';
 
 import { Button } from 'antd';
-import DemoModel from '../DemoModel';
+import DemoModel from '../demoModel';
 
 import docs from './docs';
 

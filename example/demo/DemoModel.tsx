@@ -48,7 +48,7 @@ export interface propTypes {
 }
 
 
-export default function AxisHeatMapDemo(prop: propTypes) {
+export default function DemoModel(prop: propTypes) {
   const { docs } = prop;
 
   const scrollToAnchor = (anchorName: string) => {
