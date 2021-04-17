@@ -4,6 +4,8 @@ const TerserPlugin = require('terser-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
+const { modules } = require('./config');
+
 const isProd = process.env.NODE_ENV === 'production';
 
 module.exports = {
@@ -15,6 +17,10 @@ module.exports = {
     filename: isProd ? '[name].[hash:7].js' : '[name].js',
     chunkFilename: isProd ? '[name].[hash:7].js' : '[name].js'
   },
+  externals: {
+    // d3: ['d3-selection', 'd3-array', 'd3-scale'],
+    // react: 'react'
+  },
   devServer: {
     host: 'localhost',
     port: 8085,
@@ -23,37 +29,7 @@ module.exports = {
     open: true,
     historyApiFallback: true
   },
-  module: {
-    rules: [
-      {
-        test: /\.tsx?$/,
-        use: 'ts-loader',
-        exclude: /node_modules/
-      },
-      {
-        test: /\.s[ac]ss$/i,
-        use: [
-          "style-loader",
-          "css-loader",
-          "sass-loader",
-        ],
-      },
-      {
-        test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
-        loader: 'babel-loader'
-      },
-      {
-        test: /\.(svg|otf|ttf|woff2?|eot|gif|png|jpe|ico?g)(\?\S*)?$/,
-        loader: 'url-loader',
-        options: {
-          limit: 10000,
-          name: path.posix.join('static', '[name].[hash:7].[ext]'),
-          esModule: false
-        }
-      }
-    ]
-  },
+  module: modules,
   resolve: {
     extensions: [".ts", ".tsx", ".js", ".json"]
   },

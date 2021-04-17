@@ -1,8 +1,10 @@
 import { ChartBase } from '../../src/lib/chartBase';
 import * as AHMOptionsTypes from '../../types/AxisHeatMap';
 
-import * as d3 from 'd3';
-
+import { ScaleLinear, Selection, BaseType, ScaleOrdinal } from 'd3';
+import { min, max } from 'd3-array';
+import { scaleLinear, scaleOrdinal } from 'd3-scale';
+import 'd3-transition';
 export default class AxisHeatMap extends ChartBase {
   private data: AHMOptionsTypes.AxisHeatMapOptionHandledData = {
     data: [],
@@ -17,17 +19,17 @@ export default class AxisHeatMap extends ChartBase {
 
   private rectWidth: number = 0;
   private topXAxisWidth: number = 0;
-  private leftScale: d3.ScaleLinear<number, number, never> = d3.scaleLinear();
+  private leftScale: ScaleLinear<number, number, never> = scaleLinear();
 
   private lineHeight: number = 0;
-  private topScale: d3.ScaleLinear<number, number, never> = d3.scaleLinear();
+  private topScale: ScaleLinear<number, number, never> = scaleLinear();
 
-  private dotScale: d3.ScaleLinear<number, number, never> = d3.scaleLinear();
-  private xPosAxis: d3.ScaleOrdinal<string, unknown, never> = d3.scaleOrdinal();
+  private dotScale: ScaleLinear<number, number, never> = scaleLinear();
+  private xPosAxis: ScaleOrdinal<string, unknown, never> = scaleOrdinal();
 
-  private top_g: d3.Selection<SVGGElement, unknown, null, undefined> | null = null;
-  private left_g: d3.Selection<SVGGElement, unknown, null, undefined> | null = null;
-  private dot_g: d3.Selection<SVGGElement, unknown, null, undefined> | null = null;
+  private top_g: Selection<SVGGElement, unknown, null, undefined> | null = null;
+  private left_g: Selection<SVGGElement, unknown, null, undefined> | null = null;
+  private dot_g: Selection<SVGGElement, unknown, null, undefined> | null = null;
 
   constructor (opt: AHMOptionsTypes.AxisHeatMapOptions) {
     super(opt);
@@ -120,13 +122,13 @@ export default class AxisHeatMap extends ChartBase {
   private draw(): void {
     const { lineHeight, top_g, left_g, dot_g } = this;
 
-    const topMaxX = d3.max(this.data.seriesX.map(v => v.value));
+    const topMaxX = max(this.data.seriesX.map(v => v.value));
     if (topMaxX === undefined) {
       throw new Error();
       return;
     }
     
-    const topScale = d3.scaleLinear()
+    const topScale = scaleLinear()
                         .domain([0, topMaxX])
                         .range([0, lineHeight]);
 
@@ -143,15 +145,16 @@ export default class AxisHeatMap extends ChartBase {
 
     this.rectWidth = rectWidth;
     this.topScale = topScale;
+
     this.updateTopRects(topRects);
 
-    const rightMaxY = d3.max(this.data.seriesY.map(v => v.value));
+    const rightMaxY = max(this.data.seriesY.map(v => v.value));
     if (rightMaxY === undefined) {
       throw new Error();
       return;
     }
 
-    const leftScale = d3.scaleLinear()
+    const leftScale = scaleLinear()
                         .domain([0, rightMaxY])
                         .range([0, lineHeight]);
     
@@ -167,14 +170,14 @@ export default class AxisHeatMap extends ChartBase {
     this.updateLeftRects(leftRects);
 
 
-    const xPosAxis = d3.scaleOrdinal()
+    const xPosAxis = scaleOrdinal()
                        .domain(this.data.seriesX.map(v => v.name))
                        .range(new Array(this.data.seriesX.length).fill(0).map((item, index) => index));
 
     const dotR = rectWidth / 4;
-    const minDot = d3.min(this.data.data.map(v => Number(v.value))) || 0;
-    const maxDot = d3.max(this.data.data.map(v => Number(v.value))) || 0;
-    const dotScale = d3.scaleLinear()
+    const minDot = min(this.data.data.map(v => Number(v.value))) || 0;
+    const maxDot = max(this.data.data.map(v => Number(v.value))) || 0;
+    const dotScale = scaleLinear()
                        .domain(
                         [minDot, maxDot])
                        .range([minDot === 0 ? 0 : dotR, dotR * 5]);
@@ -190,7 +193,7 @@ export default class AxisHeatMap extends ChartBase {
     this.updateDots(dots);
   }
 
-  private updateTopRects(topRects: d3.Selection<d3.BaseType, AHMOptionsTypes.seriesData, SVGGElement, unknown>) {
+  private updateTopRects(topRects: Selection<BaseType, AHMOptionsTypes.seriesData, SVGGElement, unknown>) {
     const { rectWidth, lineHeight, topScale } = this;
     const enter = topRects.enter();
     const exit = topRects.exit();
@@ -224,7 +227,7 @@ export default class AxisHeatMap extends ChartBase {
       .remove();
   }
 
-  private updateLeftRects(leftRects: d3.Selection<d3.BaseType, AHMOptionsTypes.seriesData, SVGGElement, unknown>) {
+  private updateLeftRects(leftRects: Selection<BaseType, AHMOptionsTypes.seriesData, SVGGElement, unknown>) {
     const { rectWidth, topXAxisWidth, leftScale } = this;
     const enter = leftRects.enter();
     const exit = leftRects.exit();
@@ -253,7 +256,7 @@ export default class AxisHeatMap extends ChartBase {
       .remove();
   }
 
-  private updateDots(dots: d3.Selection<d3.BaseType, AHMOptionsTypes.AxisHeatMapData, SVGGElement, unknown>) {
+  private updateDots(dots: Selection<BaseType, AHMOptionsTypes.AxisHeatMapData, SVGGElement, unknown>) {
     const { rectWidth, lineHeight, dotScale, xPosAxis } = this;
     const enter = dots.enter();
     const exit = dots.exit();

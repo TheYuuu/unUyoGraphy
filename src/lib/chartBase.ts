@@ -1,7 +1,8 @@
 import * as defaultOptionsTypes from '../../types/base';
 import { isString, isNumber } from './Tools';
 
-import { select, Selection } from 'd3';
+import { select } from 'd3-selection';
+import { Selection } from 'd3';
 
 export class ChartBase {
   // 画布
@@ -39,7 +40,7 @@ export class ChartBase {
       .attr('width', this.containerWidth)
       .attr('height', this.containerHeight);
     // }
-
+    console.log(this.ctx)
     this._opts = Object.assign(this._opts, opt.opts || {});
 
     this.containerWidth -= (isNumber(this._opts.padding) ? 2 * this._opts.padding: 0);

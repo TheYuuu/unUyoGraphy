@@ -38,7 +38,9 @@
     "src/**/*.tsx",
     "src/index.ts",
     "example/**/*.ts",
-    "example/**/*.tsx"
+    "example/**/*.tsx",
+    "packages/**/*.ts",
+    "packages/**/*.tsx"
   ],
   "exclude": [
     "node_modules"
