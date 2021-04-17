@@ -1,4 +1,4 @@
-import AxisHeatMap from './AxisHeatMap';
+import AxisHeatMap from './axisHeatMap';
 
 
 export {
