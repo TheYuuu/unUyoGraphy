@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 
-import { AxisHeatMap } from '../../../src/index';
+import unUyo from '../../../src/index';
 import sampleData from '../../../packages/AxisHeatMap/sample';
 
 import { Button } from 'antd';
 import DemoModel from '../DemoModel';
 
 import docs from './docs';
+
+const { AxisHeatMap } = unUyo;
 
 const containerStyle = {
   width: '500px',

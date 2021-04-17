@@ -1,5 +1,5 @@
 import AxisHeatMap from '../packages/AxisHeatMap';
 
-export {
+export default {
   AxisHeatMap
 };
