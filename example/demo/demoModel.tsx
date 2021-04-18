@@ -60,6 +60,7 @@ export default function DemoModel(prop: propTypes) {
   
   const hash = useLocation().hash;
   const path = useLocation().pathname;
+  const url = `/unUyoGraphy/#${path}`;
 
   useEffect(() => {
     scrollToAnchor(hash.slice(1));
@@ -70,7 +71,7 @@ export default function DemoModel(prop: propTypes) {
       <section>
         <h1 id="chartsDesc">
           <span>图表说明</span>
-          <a href={`/#${path}#chartsDesc`} className="anchor">#</a>
+          <a href={`${url}#chartsDesc`} className="anchor">#</a>
         </h1>
         {(docs.chartsDesc || []).map((item: string, index: number) => (
           <p key={index}>{item}</p>
@@ -79,7 +80,7 @@ export default function DemoModel(prop: propTypes) {
       <section className="mt-lg">
         <h1 id="useDesc">
           <span>推荐场景</span>
-          <a href={`/#${path}#useDesc`} className="anchor">#</a>
+          <a href={`${url}#useDesc`} className="anchor">#</a>
         </h1>
         {(docs.useDesc || []).map((item: string, index: number) => (
           <p className="left-blue-border" key={index}>{item}</p>
@@ -88,7 +89,7 @@ export default function DemoModel(prop: propTypes) {
       <section className="mt-lg">
         <h1 id="dataDesc">
           <span>数据集</span>
-          <a href={`/#${path}#dataDesc`} className="anchor">#</a>
+          <a href={`${url}#dataDesc`} className="anchor">#</a>
         </h1>
         <code>
           {(docs.dataDesc || []).map((item: string, index: number) => (
@@ -101,14 +102,14 @@ export default function DemoModel(prop: propTypes) {
       <section className="mt-lg">
         <h1 id="optsDesc">
           <span>Opts</span>
-          <a href={`/#${path}#optsDesc`} className="anchor">#</a>
+          <a href={`${url}#optsDesc`} className="anchor">#</a>
         </h1>
         <Table columns={columns} dataSource={docs.optsData} pagination={ false } />
       </section>
       <section className="mt-lg">
         <h1 id="methodDesc">
           <span>Method</span>
-          <a href={`/#${path}#methodDesc`} className="anchor">#</a>
+          <a href={`${url}#methodDesc`} className="anchor">#</a>
         </h1>
         <Table columns={columns} dataSource={docs.methodData} pagination={ false } />
       </section>
