@@ -1,6 +1,6 @@
 {
   "name": "un-u-yo",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "unusual graph",
   "main": "lib/unUyo.common.js",
   "typings": "types/index.d.ts",
