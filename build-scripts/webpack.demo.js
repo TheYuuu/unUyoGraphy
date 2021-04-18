@@ -31,6 +31,10 @@ module.exports = {
   },
   module: modules,
   resolve: {
+    alias: {
+      '@lib': path.resolve(__dirname, '../src/lib'),
+      '@': path.resolve(__dirname, '../'),
+    },
     extensions: [".ts", ".tsx", ".js", ".json"]
   },
   mode: 'development', // production | development
@@ -63,7 +67,7 @@ module.exports = {
       template: path.resolve(__dirname, '../example/index.tpl'),
       favicon: path.resolve(__dirname, '../example/favicon.png'),
       filename: 'index.html',
-      title: 'unUyo Graphy'
+      title: 'unUyo Graph'
     }),
     new ForkTsCheckerWebpackPlugin()
   ]

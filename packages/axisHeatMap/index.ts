@@ -1,4 +1,4 @@
-import ChartBase, { defaultOptions, defaultOpts } from '../../src/lib/chartBase';
+import ChartBase, { defaultOptions, defaultOpts } from '@/src/lib/chartBase';
 
 import { ScaleLinear, Selection, BaseType, ScaleOrdinal } from 'd3';
 import { min, max } from 'd3-array';

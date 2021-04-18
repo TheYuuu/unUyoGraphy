@@ -29,6 +29,10 @@ module.exports = {
           name: path.posix.join('static', '[name].[hash:7].[ext]'),
           esModule: false
         }
+      },
+      {
+        test: /\.md$/,
+        use: "raw-loader"
       }
     ]
   }

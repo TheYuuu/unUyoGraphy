@@ -27,8 +27,11 @@
       "./example/types"
     ],
     "paths": {
+      "@lib/*": [
+        "src/lib/*"
+      ],
       "@/*": [
-        "src/*"
+        "./*"
       ]
     },
     "lib": [

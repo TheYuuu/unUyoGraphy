@@ -8,3 +8,8 @@ declare interface routerItem {
   name: string;
   children?: routerItem[]
 }
+
+declare module "*.md" {
+  const content: string;
+  export default content;
+}

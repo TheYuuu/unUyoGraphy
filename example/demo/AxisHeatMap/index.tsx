@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
 
-import unUyo from '../../../src/index';
-import sampleData from '../../../packages/axisHeatMap/sample';
+import unUyo from '@/src/index';
+import sampleData from '@/packages/axisHeatMap/sample';
 
 import { Button } from 'antd';
-import DemoModel from '../demoModel';
 
+import DemoModel from '../demoModel';
 import docs from './docs';
+
+// import MarkdownContent from '@lib/markdownContent';
+// import contributing from './contributing.md';
 
 const { AxisHeatMap } = unUyo;
 
@@ -47,6 +50,9 @@ export default function AxisHeatMapDemo() {
         <Button onClick={() => update()} type="primary">update</Button>
       </section>
       <DemoModel docs={docs}></DemoModel>
+      {/* <section className="mt-lg">
+        <MarkdownContent content={contributing}></MarkdownContent>
+      </section> */}
     </section>
   );
 }
