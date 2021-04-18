@@ -1,23 +1,28 @@
 import React, { useState, useEffect } from "react";
 
-import { AxisHeadMap } from '../../../src/index';
-import sampleData from '../../../packages/AxisHeadMap/sample';
+import unUyo from '@/src/index';
+import sampleData from '@/packages/axisHeatMap/sample';
 
 import { Button } from 'antd';
-import DemoModel from '../DemoModel';
 
+import DemoModel from '../demoModel';
 import docs from './docs';
+
+// import MarkdownContent from '@lib/markdownContent';
+// import contributing from './contributing.md';
+
+const { AxisHeatMap } = unUyo;
 
 const containerStyle = {
   width: '500px',
   height: '400px'
 }
 
-export default function AxisHeadMapDemo() {
-  const [axisHeadMap, setaxisHeadMap] = useState<InstanceType<typeof AxisHeadMap> | null>(null);
+export default function AxisHeatMapDemo() {
+  const [axisHeatMap, setAxisHeatMap] = useState<InstanceType<typeof AxisHeatMap> | null>(null);
 
   useEffect(() => {
-    setaxisHeadMap(new AxisHeadMap({
+    setAxisHeatMap(new AxisHeatMap({
       dom: '#container',
       mode: 'svg',
       data: {
@@ -29,8 +34,8 @@ export default function AxisHeadMapDemo() {
   }, []);
 
   const update = () => {
-    if (axisHeadMap) {
-      axisHeadMap.update({
+    if (axisHeatMap) {
+      axisHeatMap.update({
         data: sampleData().data,
         seriesX: sampleData().xPos,
         seriesY: sampleData().yPos
@@ -45,6 +50,9 @@ export default function AxisHeadMapDemo() {
         <Button onClick={() => update()} type="primary">update</Button>
       </section>
       <DemoModel docs={docs}></DemoModel>
+      {/* <section className="mt-lg">
+        <MarkdownContent content={contributing}></MarkdownContent>
+      </section> */}
     </section>
   );
 }

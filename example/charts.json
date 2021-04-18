@@ -2,7 +2,7 @@
   "2D": [
     {
       "name": "两轴热力统计",
-      "key": "AxisHeadMap"
+      "key": "axisHeatMap"
     }
   ]
 }

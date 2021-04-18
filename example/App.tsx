@@ -9,6 +9,7 @@ import MyHeader from './components/header';
 import router from './router/routers';
 import asyncComponent from '../src/lib/asyncComponent';
 
+
 import {
   HashRouter as Router,
   Switch,
@@ -41,7 +42,7 @@ function App() {
           </Suspense>
       </Router>
       <Footer className="algin-center">
-          Powered By The Yu
+          Supported By <a target="_blank" href="https://www.yuque.com/u1201814/agoukq">The_Yu</a>
       </Footer>
     </Layout>
   );

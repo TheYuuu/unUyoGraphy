@@ -1,9 +1,21 @@
-import * as defaultOptionsTypes from '../../types/base';
 import { isString, isNumber } from './Tools';
 
-import { select, Selection } from 'd3';
+import { select } from 'd3-selection';
+import { Selection } from 'd3';
 
-export class ChartBase {
+export interface defaultOptions {
+  dom: string | HTMLElement;
+  data: any;
+  mode?: 'svg' | 'canvas';
+  opts?: defaultOpts;
+}
+
+export interface defaultOpts {
+  padding?: number;
+  duration?: number;
+}
+
+export default class ChartBase {
   // 画布
   public ctx: Selection<SVGSVGElement, unknown, null, undefined> | null = null;
 
@@ -19,7 +31,7 @@ export class ChartBase {
   // 绘图有效宽度
   public containerHeight: number = 0;
 
-  constructor(opt: defaultOptionsTypes.defaultOptions) {
+  constructor(opt: defaultOptions) {
     let qdom: HTMLElement | null = null;
     if (isString(opt.dom)) {
       const qd  = document.querySelector(opt.dom);

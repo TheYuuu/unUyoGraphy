@@ -20,19 +20,11 @@ export default function MyMenu(props: Props) {
 
   return (
     <Menu theme="light" selectedKeys={[path]} mode="inline" className="asider-menu">
-      <Menu.Item key="/components/preview">
-        <NavLink to="/components/preview">预览</NavLink>
-      </Menu.Item>
-
-      <Menu.ItemGroup title="2D">
-        <Menu.Divider className="mb-md"></Menu.Divider>
-
-        {(list.map(item =>
-          <Menu.Item key={item.path}>
-            <NavLink to={item.path}>{item.name}</NavLink>
-          </Menu.Item>
-        ))}
-      </Menu.ItemGroup>
+      {(list.map(item =>
+        <Menu.Item key={item.path}>
+          <NavLink to={item.path}>{item.name}</NavLink>
+        </Menu.Item>
+      ))}
     </Menu>
   );
 }

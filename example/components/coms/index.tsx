@@ -1,5 +1,5 @@
 import React, { Suspense } from "react";
-import asyncComponent from '../../../src/lib/asyncComponent';
+import asyncComponent from '@lib/asyncComponent';
 
 import {
   HashRouter as Router,
@@ -11,8 +11,7 @@ import {
 import { Layout } from 'antd';
 const { Sider, Content } = Layout;
 
-import menu from './menu';
-const Menu = menu;
+import MyMenu from './menu';
 
 import preview from '../../demo/preview';
 
@@ -27,7 +26,7 @@ export default function coms(props: Props) {
     <Layout>
       <Router>
         <Sider>
-          <Menu list={routerChildren || []} />
+          <MyMenu list={routerChildren || []} />
         </Sider>
         <Content>
           <section className="main-container main-container-component">

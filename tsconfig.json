@@ -1,7 +1,10 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "esnext",
     "module": "esnext",
+    "declaration": true,
+    "declarationDir": "lib/types",
+    "outDir": "./lib",
     "strict": true,
     "jsx": "react",
     "importHelpers": true,
@@ -18,12 +21,17 @@
       "react",
       "react-dom",
       "node",
-      "webpack-env",
-      "./types"
+      "webpack-env"
+    ],
+    "typeRoots": [
+      "./example/types"
     ],
     "paths": {
+      "@lib/*": [
+        "src/lib/*"
+      ],
       "@/*": [
-        "src/*"
+        "./*"
       ]
     },
     "lib": [
@@ -38,7 +46,9 @@
     "src/**/*.tsx",
     "src/index.ts",
     "example/**/*.ts",
-    "example/**/*.tsx"
+    "example/**/*.tsx",
+    "packages/**/*.ts",
+    "packages/**/*.tsx"
   ],
   "exclude": [
     "node_modules"
