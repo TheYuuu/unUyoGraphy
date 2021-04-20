@@ -26,3 +26,24 @@ const axisHeatMap = new AxisHeatMap({
 
 // 基础配置如上，不同的图表所需的data，以及支持的配置opts在文档中有描述
 ```
+
+## 命令说明
+输入图表中文名称，英文名称自动新建配置文件
+```js
+npm run new
+```
+
+运行展示demo
+```js
+npm run dev
+```
+
+打包展示demo
+```js
+npm run dev:build
+```
+
+打包unUyo库
+```js
+npm run dist
+```
