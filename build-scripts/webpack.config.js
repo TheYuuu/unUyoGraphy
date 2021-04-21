@@ -23,6 +23,10 @@ module.exports = {
   ],
   module: modules,
   resolve: {
+    alias: {
+      '@lib': path.resolve(__dirname, '../src/lib'),
+      '@': path.resolve(__dirname, '../'),
+    },
     extensions: [".ts", ".tsx", ".js", ".json"]
   },
   mode: 'development', // production | development

@@ -86,5 +86,16 @@
   .anchor:hover {
     opacity: 1;
   }
+}
 
+.preview-container {
+  .show-img {
+    position: relative;
+    width: 100%;
+    border: 1px solid #f0f0f0;
+  }
+
+  .ant-card-body {
+    padding: 10px;
+  }
 }

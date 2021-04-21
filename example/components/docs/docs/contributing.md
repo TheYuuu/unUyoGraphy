@@ -28,7 +28,7 @@ npm run dev:build
 npm run dist
 ```
 
-## 开发文件说明
+## 文件说明
 ```html
 ./unUyoGraphy
 ├─types
@@ -39,14 +39,12 @@ npm run dist
 ├─src
 |  └─index.ts // 抛出引用入口
 ├─packages
-|    ├─axisHeatMap // 图表对应的开发文件夹，可以通过sample.ts提供所需的随机数据函数
+|    ├─axisHeatMap // 图表对应的开发文件夹
 |    |      ├─index.ts
-|    |      └─sample.ts
+|    |      └─sample.ts // 可以通过sample.ts提供所需的随机数据函数
 └─example
      ├─charts.json  // 路由定义描述
      └─demo
-        ├─demoModel.tsx
-        ├─preview.tsx
         └─axisHeatMap // 图表的demo展示页面
                ├─contributing.md // 可以通过contributing.md编写文档
                ├─docs.ts // 也可以使用预置的模板docs.ts来导出json描述
