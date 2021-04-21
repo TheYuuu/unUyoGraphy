@@ -18,6 +18,16 @@ eval("var map = {\n\t\"./axisHeatMap\": [\n\t\t\"./example/demo/axisHeatMap/inde
 
 /***/ }),
 
+/***/ "./example/images sync recursive ^\\.\\/.*\\.png$":
+/*!********************************************!*\
+  !*** ./example/images/ sync ^\.\/.*\.png$ ***!
+  \********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+eval("var map = {\n\t\"./axisHeatMap.png\": \"./example/images/axisHeatMap.png\"\n};\n\n\nfunction webpackContext(req) {\n\tvar id = webpackContextResolve(req);\n\treturn __webpack_require__(id);\n}\nfunction webpackContextResolve(req) {\n\tif(!__webpack_require__.o(map, req)) {\n\t\tvar e = new Error(\"Cannot find module '\" + req + \"'\");\n\t\te.code = 'MODULE_NOT_FOUND';\n\t\tthrow e;\n\t}\n\treturn map[req];\n}\nwebpackContext.keys = function webpackContextKeys() {\n\treturn Object.keys(map);\n};\nwebpackContext.resolve = webpackContextResolve;\nmodule.exports = webpackContext;\nwebpackContext.id = \"./example/images sync recursive ^\\\\.\\\\/.*\\\\.png$\";\n\n//# sourceURL=webpack://un-u-yo/./example/images/_sync_^\\.\\/.*\\.png$?");
+
+/***/ }),
+
 /***/ "./example/components/coms/index.tsx":
 /*!*******************************************!*\
   !*** ./example/components/coms/index.tsx ***!
@@ -47,7 +57,17 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* binding */ preview)\n/* harmony export */ });\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n\nfunction preview() {\n    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"div\", null, \"preview\"));\n}\n\n\n//# sourceURL=webpack://un-u-yo/./example/demo/preview.tsx?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* binding */ preview)\n/* harmony export */ });\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd */ \"./node_modules/antd/es/card/index.js\");\n/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! antd */ \"./node_modules/antd/es/row/index.js\");\n/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! antd */ \"./node_modules/antd/es/col/index.js\");\n/* harmony import */ var _charts_json__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../charts.json */ \"./example/charts.json\");\n\n\nconst { Meta } = antd__WEBPACK_IMPORTED_MODULE_1__.default;\n\nconsole.log(_charts_json__WEBPACK_IMPORTED_MODULE_2__);\nfunction preview() {\n    return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"section\", { className: \"preview-container\" },\n        react__WEBPACK_IMPORTED_MODULE_0__.createElement(antd__WEBPACK_IMPORTED_MODULE_3__.default, { gutter: 24 }, _charts_json__WEBPACK_IMPORTED_MODULE_2__[\"2D\"].map(v => (react__WEBPACK_IMPORTED_MODULE_0__.createElement(antd__WEBPACK_IMPORTED_MODULE_4__.default, { span: 8, key: v.name },\n            react__WEBPACK_IMPORTED_MODULE_0__.createElement(antd__WEBPACK_IMPORTED_MODULE_1__.default, { hoverable: true, cover: react__WEBPACK_IMPORTED_MODULE_0__.createElement(\"img\", { className: \"show-img\", alt: \"example\", src: __webpack_require__(\"./example/images sync recursive ^\\\\.\\\\/.*\\\\.png$\")(\"./\" + v.key + \".png\") }) },\n                react__WEBPACK_IMPORTED_MODULE_0__.createElement(Meta, { title: v.key[0].toUpperCase() + v.key.slice(1), description: v.name }))))))));\n}\n\n\n//# sourceURL=webpack://un-u-yo/./example/demo/preview.tsx?");
+
+/***/ }),
+
+/***/ "./example/images/axisHeatMap.png":
+/*!****************************************!*\
+  !*** ./example/images/axisHeatMap.png ***!
+  \****************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+eval("module.exports = __webpack_require__.p + \"static/axisHeatMap.0a235e2.png\";\n\n//# sourceURL=webpack://un-u-yo/./example/images/axisHeatMap.png?");
 
 /***/ })
 
