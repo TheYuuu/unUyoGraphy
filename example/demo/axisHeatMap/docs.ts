@@ -5,7 +5,7 @@ export default {
     '出处链接: https://flowingdata.com/2019/12/16/grid-map-histogram-ggplot/'
   ],
   useDesc: [
-    '经纬度下的人口分布情况'
+    '任意二维维度的分布数据'
   ],
   dataDesc: [
     `
