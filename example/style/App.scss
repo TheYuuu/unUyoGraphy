@@ -9,6 +9,16 @@
   font-family: Avenir,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color emoji;
 }
 
+html {
+  min-width: 1280px;
+}
+
+@media (max-width: 1280px) {
+  html{ 
+    zoom: 0.9;
+  }
+}
+
 .ant-layout-header,
 .ant-layout-sider,
 .ant-layout-content,

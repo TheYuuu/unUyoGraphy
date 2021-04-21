@@ -21,7 +21,7 @@ export default function MyMenu(props: Props) {
   return (
     <Menu theme="light" selectedKeys={[path]} mode="inline" className="asider-menu">
       <Menu.Item key="/components/preview">
-        <NavLink to="/components/preview">预览</NavLink>
+        <NavLink to="/components/preview">总览</NavLink>
       </Menu.Item>
 
       <Menu.ItemGroup title="2D">
