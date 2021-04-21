@@ -12,7 +12,7 @@ export default function preview() {
       <Row gutter={24}>
         {chartsJson["2D"].map(v => (
           <Col span={8} key={v.name}>
-            <a href={'/#/components/' + v.key}>
+            <a href={'/unUyoGraphy/#/components/' + v.key}>
               <Card
                 hoverable
                 cover={<img className="show-img" alt="example" src={require('../images/' + v.key + '.png')} />}
