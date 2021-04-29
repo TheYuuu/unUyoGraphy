@@ -11,7 +11,7 @@ export default function preview() {
     <section className="preview-container">
       <Row gutter={24}>
         {chartsJson["2D"].map(v => (
-          <Col span={8} key={v.name}>
+          <Col flex="240px" key={v.name}>
             <a href={'/unUyoGraphy/#/components/' + v.key}>
               <Card
                 hoverable
