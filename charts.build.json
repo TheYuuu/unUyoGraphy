@@ -1,3 +1,4 @@
 {
-  "AxisHeatMap": "./packages/axisHeatMap"
+  "AxisHeatMap": "./packages/axisHeatMap",
+  "DotMatrixHistogram": "./packages/dotMatrixHistogram"
 }
