@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 
 import unUyo from '@/src/index';
+import sampleData from '@/packages/dotMatrixHistogram/sample';
 
 import DemoModel from '../demoModel';
 import docs from './docs';
@@ -12,8 +13,8 @@ import docs from './docs';
 const { DotMatrixHistogram } = unUyo;
 
 const containerStyle = {
-  width: '500px',
-  height: '400px'
+  width: '400px',
+  height: '250px'
 }
 
 export default function DotMatrixHistogramDemo() {
@@ -22,7 +23,11 @@ export default function DotMatrixHistogramDemo() {
   useEffect(() => {
     setDotMatrixHistogram(new DotMatrixHistogram({
       dom: '#container',
-      data: {},
+      data: {
+        data: sampleData().data,
+        seriesX: sampleData().seriesX,
+        seriesTypes: sampleData().seriesTypes
+      },
       opts: {}
     }))
   }, []);

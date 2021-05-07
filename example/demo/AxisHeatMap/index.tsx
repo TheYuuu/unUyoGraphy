@@ -14,8 +14,8 @@ import docs from './docs';
 const { AxisHeatMap } = unUyo;
 
 const containerStyle = {
-  width: '500px',
-  height: '400px'
+  width: '350px',
+  height: '350px'
 }
 
 export default function AxisHeatMapDemo() {
