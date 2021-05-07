@@ -15,7 +15,7 @@ const getData = () => {
   return seriesX.map((t) => {
     return {
       seriesX: t,
-      data: getArr(Number((Math.random() * 30).toFixed(0)))
+      data: getArr(Number((Math.random() * 50).toFixed(0)))
     }
   });
 };

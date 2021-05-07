@@ -1,6 +1,6 @@
 import ChartBase, { defaultOptions, defaultOpts } from '@/src/lib/chartBase';
 
-import { ScaleLinear, Selection, BaseType, ScaleOrdinal } from 'd3';
+import { ScaleLinear, Selection, BaseType, ScaleOrdinal, schemeCategory10 } from 'd3';
 import { min, max } from 'd3-array';
 import { scaleLinear, scaleOrdinal } from 'd3-scale';
 import { seriesX } from './sample';
@@ -68,7 +68,9 @@ export default class DotMatrixHistogram extends ChartBase {
 
   private handleDate(data: dotMatrixHistogramOptionData): void {
     const bars = 3;
-    this.dotWidth = this.containerWidth / data.seriesX.length / bars;
+    const barPadding = 2;
+
+    this.dotWidth = (this.containerWidth - barPadding * data.seriesX.length) / data.seriesX.length / bars;
     const maxNumber = max(data.data.map((item)  => {
       return item.data.length;
     }));
@@ -99,14 +101,15 @@ export default class DotMatrixHistogram extends ChartBase {
       const dots = dot_g.selectAll(`.dots-${item.seriesX}`)
                      .data(item.data);
 
-      if (index === 0) {
+      // if (index === 0) {
         this.updateDots(dots, index);
-      }
+      // }
     })
   }
 
   private updateDots(dots: Selection<BaseType, dotMatrixHistogramDotData, SVGGElement, unknown>, index: number): void {
-    const { xPosAxis, dotWidth, maxHieght } = this;
+    const { xPosAxis, dotWidth, containerHeight } = this;
+    const color = scaleOrdinal(schemeCategory10);
 
     const enter = dots.enter();
     const exit = dots.exit();
@@ -119,11 +122,11 @@ export default class DotMatrixHistogram extends ChartBase {
       return Number(xPosAxis(index)) + ((i % 3) * dotWidth);
     })
     .attr('cy', (d, i) => {
-      return maxHieght + (Math.floor(i / 3) * dotWidth);
+      return containerHeight - (Math.floor(i / 3) * dotWidth);
     })
-    .attr('fill', 'black')
+    .attr('fill', d => color(d.seriesType))
     .attr('transform', `translate(${ this.opts.padding }, ${ this.opts.padding})`)
-    .attr('r', d => 2)
+    .attr('r', d => dotWidth / 2)
     .transition()
     .duration(this.opts.duration);
 
