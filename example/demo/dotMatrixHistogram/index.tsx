@@ -1,6 +1,8 @@
 
 import React, { useState, useEffect } from "react";
 
+import { Button } from 'antd';
+
 import unUyo from '@/src/index';
 import sampleData from '@/packages/dotMatrixHistogram/sample';
 
@@ -13,8 +15,8 @@ import docs from './docs';
 const { DotMatrixHistogram } = unUyo;
 
 const containerStyle = {
-  width: '500px',
-  height: '200px'
+  width: '550px',
+  height: '180px'
 }
 
 export default function DotMatrixHistogramDemo() {
@@ -32,10 +34,21 @@ export default function DotMatrixHistogramDemo() {
     }))
   }, []);
 
+  const update = () => {
+    if (dotMatrixHistogram) {
+      dotMatrixHistogram.update({
+        data: sampleData().data,
+        seriesX: sampleData().seriesX,
+        seriesTypes: sampleData().seriesTypes
+      });
+    }
+  }
+
   return (
     <section>
       <section>
-        <div id="container" style={containerStyle}>todo</div>
+        <div id="container" style={containerStyle}></div>
+        <Button onClick={() => update()} type="primary">update</Button>
       </section>
       <DemoModel docs={docs}></DemoModel>
       {/* <section className="mt-lg">

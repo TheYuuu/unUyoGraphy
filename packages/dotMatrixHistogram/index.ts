@@ -1,9 +1,9 @@
 import ChartBase, { defaultOptions, defaultOpts } from '@/src/lib/chartBase';
 
-import { ScaleLinear, Selection, BaseType, ScaleOrdinal, schemeCategory10 } from 'd3';
+import { ScaleLinear, Selection, BaseType, Axis, NumberValue, ScaleOrdinal, schemeCategory10 } from 'd3';
 import { min, max } from 'd3-array';
 import { scaleLinear, scaleOrdinal } from 'd3-scale';
-import { seriesX } from './sample';
+import { axisRight, axisLeft } from 'd3-axis';
 
 export interface opts extends defaultOpts {};
 
@@ -30,7 +30,7 @@ export interface dotMatrixHistogramOptions extends defaultOptions {
 export default class DotMatrixHistogram extends ChartBase {
   private opts = {
     ...this._opts,
-    bottomPadding: 10,
+    bottomPadding: 5,
     leftPadding: 20
   };
 
@@ -53,6 +53,8 @@ export default class DotMatrixHistogram extends ChartBase {
   }
 
   private init() {
+    const { leftPadding, bottomPadding } = this.opts;
+
     if (!this.ctx) {
       throw new Error('No useful ctx');
       return;
@@ -61,6 +63,9 @@ export default class DotMatrixHistogram extends ChartBase {
     this.yAxis_g = this.ctx.append('g');
     this.xAxis_g = this.ctx.append('g');
     this.dot_g = this.ctx.append('g');
+
+    this.containerWidth -= leftPadding;
+    this.containerHeight -= bottomPadding;
   }
 
   public update(data: dotMatrixHistogramOptionData): void {
@@ -72,9 +77,8 @@ export default class DotMatrixHistogram extends ChartBase {
     const { leftPadding, padding } = this.opts;
 
     const bars = 3;
-    const barPadding = 2;
+    const barPadding = 3;
 
-    this.containerWidth -= leftPadding;
     this.dotWidth = (this.containerWidth - barPadding * data.seriesX.length) / data.seriesX.length / bars;
     const maxNumber = max(data.data.map((item)  => {
       return item.data.length;
@@ -90,7 +94,8 @@ export default class DotMatrixHistogram extends ChartBase {
   }
 
   private draw(): void {
-    const { dot_g, xAxis_g, data } = this;
+    const { dot_g, xAxis_g, yAxis_g, data, maxHieght } = this;
+    const { bottomPadding, duration, leftPadding, padding } = this.opts;
 
     const xPosAxis = scaleLinear()
       .domain([0, (this.data?.seriesX || []).length])
@@ -106,17 +111,26 @@ export default class DotMatrixHistogram extends ChartBase {
       const dots = dot_g.selectAll(`.dots-${item.seriesX}`)
                      .data(item.data);
 
-      this.updateDots(dots, index, `.dots-${item.seriesX}`);
+      this.updateDots(dots, index, `dots-${item.seriesX}`);
     })
 
     if (!xAxis_g) {
       return;
     }
 
-    
-    const labels = xAxis_g.selectAll(`.label`)
+    const labels = xAxis_g.selectAll('.label')
                       .data(data.seriesX);
     this.updateLabels(labels);
+
+    const yPosAxis = scaleLinear()
+      .domain([0, (max(data.data.map(v => v.data.length)) || 0)])
+      .range([maxHieght, 0]);
+
+    const xAxis = axisLeft(yPosAxis)
+                  .ticks(3)
+                  .tickSize(padding);
+    this.updateYAxis(xAxis);
+
   }
 
   private updateDots(dots: Selection<BaseType, dotMatrixHistogramDotData, SVGGElement, unknown>, index: number, className: string): void {
@@ -127,46 +141,53 @@ export default class DotMatrixHistogram extends ChartBase {
     const enter = dots.enter();
     const exit = dots.exit();
 
+    exit
+    .transition()
+    .duration(duration / 2)
+    .attr('r', 0)
+    .remove()
+
     dots
       .attr('opacity', '0.5')
-      .attr('cx', (d, i) =>  {
-        return Number(xPosAxis(index)) + dotWidth + ((i % 3) * dotWidth);
-      })
-      .attr('cy', (d, i) => {
-        return containerHeight - (Math.floor(i / 3) * dotWidth);
-      })
       .attr('fill', d => color(d.seriesType))
       .attr('transform', `translate(${ padding + leftPadding }, ${ -( padding + bottomPadding)})`)
       .attr('r', d => dotWidth / 2)
       .transition()
-      .duration(duration);
-
-    enter
-      .append('circle')
-      .attr('class', className)
-      .attr('opacity', '0.5')
+      .duration(duration)
+      .delay(duration / 4)
       .attr('cx', (d, i) =>  {
         return Number(xPosAxis(index)) + ((i % 3) * dotWidth);
       })
       .attr('cy', (d, i) => {
         return containerHeight - (Math.floor(i / 3) * dotWidth);
-      })
+      });
+
+    enter
+      .append('circle')
+      .attr('class', className)
+      .attr('opacity', '0.5')
       .attr('fill', d => color(d.seriesType))
       .attr('transform', `translate(${ padding + leftPadding }, ${ -( padding + bottomPadding)})`)
-      .attr('r', d => dotWidth / 2)
+      .attr('cx', (d, i) =>  {
+        return Number(xPosAxis(index)) + ((i % 3) * dotWidth);
+      })
+      .attr('cy', (d, i) => {
+        return containerHeight - (Math.floor(i / 3) * dotWidth) - dotWidth;
+      })
+      .attr('r', d => 0)
       .transition()
-      .duration(duration);
+      .duration(duration)
+      .delay(duration / 4)
+      .attr('r', d => dotWidth / 2)
+      .attr('cy', (d, i) => {
+        return containerHeight - (Math.floor(i / 3) * dotWidth);
+      })
 
-    exit
-    .transition()
-    .duration(duration)
-    .attr('r', 0)
-    .remove()
   }
 
   private updateLabels(labels: Selection<BaseType, string, SVGGElement, unknown>): void {
     const { xPosAxis, containerHeight } = this;
-    const { duration, leftPadding, padding } = this.opts;
+    const { duration, leftPadding, padding, bottomPadding } = this.opts;
 
     const enter = labels.enter();
     const exit = labels.exit();
@@ -177,10 +198,12 @@ export default class DotMatrixHistogram extends ChartBase {
       .attr('font-family', 'fantasy')
       .attr('fill', '#a09b9b')
       .attr('transform', `translate(${ padding + leftPadding }, ${0})`)
+      .transition()
+      .duration(duration)
       .attr('x', (d, i) =>  {
         return Number(xPosAxis(i));
       })
-      .attr('y', containerHeight)
+      .attr('y', containerHeight - bottomPadding + padding + 5)
 
     enter
       .append('text')
@@ -191,14 +214,41 @@ export default class DotMatrixHistogram extends ChartBase {
       .attr('fill', '#a09b9b')
       .attr('transform', `translate(${ padding + leftPadding }, ${0})`)
       .attr('x', (d, i) =>  {
+        return Number(xPosAxis(i)) - 15;
+      })
+      .attr('y', containerHeight - bottomPadding + padding + 5)
+      .attr('opacity', 0)
+      .transition()
+      .duration(duration)
+      .delay(duration / 2)
+      .attr('opacity', 1)
+      .attr('x', (d, i) =>  {
         return Number(xPosAxis(i));
       })
-      .attr('y', containerHeight)
+      .attr('y', containerHeight - bottomPadding + padding + 5)
 
     exit
       .transition()
       .duration(duration)
       .attr('opacity', 0)
       .remove()
+  }
+
+  private updateYAxis(axis: Axis<NumberValue>): void {
+    const { yAxis_g, containerHeight, maxHieght } = this;
+    const { bottomPadding, duration, leftPadding, padding } = this.opts;
+
+    if (!yAxis_g) {
+      return;
+    }
+    yAxis_g
+      .attr('transform', `translate(${ padding + leftPadding }, ${ ( containerHeight - maxHieght - bottomPadding - padding )})`)
+      .transition()
+      .duration(duration)
+      .call(axis);
+
+    yAxis_g.selectAll('path').remove();
+    yAxis_g.selectAll('line').remove();
+    yAxis_g.selectAll('text').attr('fill', '#a09b9b');
   }
 }
