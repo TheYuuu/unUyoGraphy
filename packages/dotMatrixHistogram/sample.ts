@@ -1,7 +1,7 @@
 export const seriesX = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
   'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 
-export const seriesTypes = ['A1', 'B1', 'C1', 'D1', 'E1', 'F1'];
+export const seriesTypes = ['A1', 'B1', 'C1'];
 
 const getArr = (num: number) => {
   return new Array(num).fill(0).map(() => {
