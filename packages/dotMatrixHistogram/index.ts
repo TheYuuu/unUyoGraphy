@@ -144,6 +144,9 @@ export default class DotMatrixHistogram extends ChartBase {
     exit
     .transition()
     .duration(duration / 2)
+    .attr('cy', (d, i) => {
+      return containerHeight - (Math.floor(i / 3) * dotWidth) + 2 * dotWidth;
+    })
     .attr('r', 0)
     .remove()
 
@@ -172,7 +175,7 @@ export default class DotMatrixHistogram extends ChartBase {
         return Number(xPosAxis(index)) + ((i % 3) * dotWidth);
       })
       .attr('cy', (d, i) => {
-        return containerHeight - (Math.floor(i / 3) * dotWidth) - dotWidth;
+        return containerHeight - (Math.floor(i / 3) * dotWidth) - 2 * dotWidth;
       })
       .attr('r', d => 0)
       .transition()
