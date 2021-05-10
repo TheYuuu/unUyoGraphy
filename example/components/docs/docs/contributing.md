@@ -1,8 +1,9 @@
 ## 行为准则
 每个图表提供一个class，在其构造函数里传参，返回具有操作方法的对象。
 
+在思考Functional Programming还是OOP。🤔
 ## 分支管理
-新组件或者bug、feature新增请pull request到main分支，dist分支用于打包发布到github page。
+新组件或者bug、feature新增请pull request到dev分支，dist分支用于打包发布到github page。
 
 ## Bugs
 有使用问题请提GitHub Issues https://github.com/TheYuuu/unUyoGraphy/issues  
