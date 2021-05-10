@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 
 import { Button } from 'antd';
@@ -15,8 +14,8 @@ import docs from './docs';
 const { DotMatrixHistogram } = unUyo;
 
 const containerStyle = {
-  width: '550px',
-  height: '180px'
+  width: '600px',
+  height: '200px'
 }
 
 export default function DotMatrixHistogramDemo() {
