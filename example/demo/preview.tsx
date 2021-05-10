@@ -4,8 +4,6 @@ const { Meta } = Card;
 
 import chartsJson from '../charts.json';
 
-console.log(chartsJson);
-
 export default function preview() {
   return (
     <section className="preview-container">

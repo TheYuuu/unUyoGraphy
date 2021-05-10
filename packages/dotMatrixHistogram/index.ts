@@ -8,16 +8,17 @@ import { axisBottom, axisLeft } from 'd3-axis';
 export interface opts extends defaultOpts {
   bars?: number;
   barPadding?: number;
+  colors?: string[];
 };
 
 export interface dotMatrixHistogramDotData {
   seriesType: string;
 }
+
 export interface dotMatrixHistogramData {
   seriesX: string;
   data: dotMatrixHistogramDotData[]
 }
-
 
 export interface dotMatrixHistogramOptionData {
   data: dotMatrixHistogramData[];
@@ -36,7 +37,8 @@ export default class DotMatrixHistogram extends ChartBase {
     bars: 3,
     barPadding: 5,
     bottomPadding: 5,
-    leftPadding: 20
+    leftPadding: 20,
+    colors: ['#96BBDA', '#FFC194', '#9ED19A', '#EF9997', '#CAB3DF', '#C6ABA6'] 
   };
 
   private data: dotMatrixHistogramOptionData | null = null
@@ -46,7 +48,9 @@ export default class DotMatrixHistogram extends ChartBase {
   private dot_g: Selection<SVGGElement, unknown, null, undefined> | null = null;
 
   private xPosAxis: ScaleBand<string> = scaleBand();
-
+  private colorMap: {
+    [key: string]: string
+  } = {};
   private dotWidth: number = 0;
   private maxHieght: number = 0;
 
@@ -58,8 +62,6 @@ export default class DotMatrixHistogram extends ChartBase {
   }
 
   private init() {
-    const { leftPadding, bottomPadding } = this.opts;
-
     if (!this.ctx) {
       throw new Error('No useful ctx');
       return;
@@ -68,9 +70,7 @@ export default class DotMatrixHistogram extends ChartBase {
     this.yAxis_g = this.ctx.append('g');
     this.xAxis_g = this.ctx.append('g');
     this.dot_g = this.ctx.append('g');
-
-    this.containerWidth -= leftPadding;
-    this.containerHeight -= bottomPadding;
+    this.colorMap = {};
   }
 
   public update(data: dotMatrixHistogramOptionData): void {
@@ -79,7 +79,7 @@ export default class DotMatrixHistogram extends ChartBase {
   }
 
   private handleDate(data: dotMatrixHistogramOptionData): void {
-    const { bars, barPadding } = this.opts;
+    const { bars, barPadding, colors, leftPadding, bottomPadding } = this.opts;
 
     this.dotWidth = (this.containerWidth - barPadding * data.seriesX.length) / data.seriesX.length / bars;
     const maxNumber = max(data.data.map((item)  => {
@@ -91,6 +91,12 @@ export default class DotMatrixHistogram extends ChartBase {
     } else {
       throw new Error('get dots numbers error');
     }
+
+    (data?.seriesTypes || []).forEach((t, i) => {
+      this.colorMap[t] = colors[i];
+    });
+    this.containerWidth -= leftPadding;
+    this.containerHeight -= bottomPadding;
 
     this.data = data;
   }
@@ -121,8 +127,8 @@ export default class DotMatrixHistogram extends ChartBase {
     }
 
     const xAxis = axisBottom(xPosAxis)
-    .ticks(3)
-    .tickSize(padding);
+      .ticks(3)
+      .tickSize(padding);
     this.updateXAxis(xAxis);
 
     const yPosAxis = scaleLinear()
@@ -136,25 +142,23 @@ export default class DotMatrixHistogram extends ChartBase {
   }
 
   private updateDots(dots: Selection<BaseType, dotMatrixHistogramDotData, SVGGElement, unknown>, seriesX: string): void {
-    const { xPosAxis, dotWidth, containerHeight } = this;
+    const { xPosAxis, dotWidth, containerHeight, colorMap } = this;
     const { bottomPadding, duration, leftPadding, padding } = this.opts;
-    const color = scaleOrdinal(schemeCategory10);
 
     const enter = dots.enter();
     const exit = dots.exit();
 
     exit
-    .transition()
-    .duration(duration / 2)
-    .attr('cy', (d, i) => {
-      return containerHeight - (Math.floor(i / 3) * dotWidth) - 2 * dotWidth;
-    })
-    .attr('r', 0)
-    .remove();
+      .transition()
+      .duration(duration / 2)
+      .attr('cy', (d, i) => {
+        return containerHeight - (Math.floor(i / 3) * dotWidth) - 2 * dotWidth;
+      })
+      .attr('r', 0)
+      .remove();
 
     dots
-      .attr('opacity', '0.5')
-      .attr('fill', d => color(d.seriesType))
+      .attr('fill', d => colorMap[d.seriesType])
       .attr('transform', `translate(${ padding + leftPadding }, ${ -( padding + bottomPadding)})`)
       .attr('r', d => dotWidth / 2)
       .transition()
@@ -170,8 +174,7 @@ export default class DotMatrixHistogram extends ChartBase {
     enter
       .append('circle')
       .attr('class', `dots-${seriesX}`)
-      .attr('opacity', '0.5')
-      .attr('fill', d => color(d.seriesType))
+      .attr('fill', d => colorMap[d.seriesType])
       .attr('transform', `translate(${ padding + leftPadding }, ${ -( padding + bottomPadding)})`)
       .attr('cx', (d, i) =>  {
         return Number(xPosAxis(seriesX)) + ((i % 3) * dotWidth);
