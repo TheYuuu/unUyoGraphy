@@ -1,6 +1,6 @@
 export default {
   chartsDesc: [
-    '直方图用于表示数据变化情况以及规则性，能够通过其比较直观地看出数据特性的分布状态，本图利在直方图的每个间围内，用点阵的形式，通过颜色展现不同数据的维度。',
+    '直方图用于表示数据变化情况以及规则性，能够通过其比较直观地看出数据特性的分布状态，此图例在直方图的每个间围内，用点阵的形式，通过颜色标识不同数据的一个维度。',
     '出处链接：https://www.washingtonpost.com/investigations/interactive/2021/domestic-terrorism-data/'
   ],
   useDesc: [
