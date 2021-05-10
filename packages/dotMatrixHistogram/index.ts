@@ -62,6 +62,8 @@ export default class DotMatrixHistogram extends ChartBase {
   }
 
   private init() {
+    const { leftPadding, bottomPadding } = this.opts;
+
     if (!this.ctx) {
       throw new Error('No useful ctx');
       return;
@@ -71,6 +73,9 @@ export default class DotMatrixHistogram extends ChartBase {
     this.xAxis_g = this.ctx.append('g');
     this.dot_g = this.ctx.append('g');
     this.colorMap = {};
+
+    this.containerWidth -= leftPadding;
+    this.containerHeight -= bottomPadding;
   }
 
   public update(data: dotMatrixHistogramOptionData): void {
@@ -79,7 +84,7 @@ export default class DotMatrixHistogram extends ChartBase {
   }
 
   private handleDate(data: dotMatrixHistogramOptionData): void {
-    const { bars, barPadding, colors, leftPadding, bottomPadding } = this.opts;
+    const { bars, barPadding, colors } = this.opts;
 
     this.dotWidth = (this.containerWidth - barPadding * data.seriesX.length) / data.seriesX.length / bars;
     const maxNumber = max(data.data.map((item)  => {
@@ -95,8 +100,6 @@ export default class DotMatrixHistogram extends ChartBase {
     (data?.seriesTypes || []).forEach((t, i) => {
       this.colorMap[t] = colors[i];
     });
-    this.containerWidth -= leftPadding;
-    this.containerHeight -= bottomPadding;
 
     this.data = data;
   }
