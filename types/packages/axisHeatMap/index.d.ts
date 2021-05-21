@@ -1,4 +1,4 @@
-import ChartBase, { defaultOptions, defaultOpts } from '@/src/lib/chartBase';
+import ChartBase, { defaultOptions, defaultOpts } from '../chartBase';
 import 'd3-transition';
 export interface axisHeatMapData {
     value: number;

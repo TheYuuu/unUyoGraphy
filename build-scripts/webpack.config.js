@@ -8,7 +8,7 @@ const { modules } = require('./config');
 
 module.exports = {
   mode: 'production',
-  entry: path.resolve(__dirname, '../src/index.ts'),
+  entry: path.resolve(__dirname, '../packages/index.ts'),
   output: {
     path: path.resolve(process.cwd(), './lib'),
     publicPath: '/dist/',
@@ -58,7 +58,8 @@ module.exports = {
           }
         }
       })
-    ]
+    ],
+    usedExports: true
   },
   plugins: [
     new ProgressBarPlugin(),

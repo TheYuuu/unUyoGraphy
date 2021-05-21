@@ -1,5 +1,5 @@
 import React, { Suspense } from "react";
-import asyncComponent from '@lib/asyncComponent';
+import asyncComponent from '@/example/lib/asyncComponent';
 
 import {
   HashRouter as Router,

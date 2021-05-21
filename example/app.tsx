@@ -7,7 +7,7 @@ const { Header, Footer } = Layout;
 import MyHeader from './components/header';
 
 import router from './router/routers';
-import asyncComponent from '../src/lib/asyncComponent';
+import asyncComponent from './lib/asyncComponent';
 
 
 import {

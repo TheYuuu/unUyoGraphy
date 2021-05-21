@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 
 import { Button } from 'antd';
 
-import unUyo from '@/src/index';
-import sampleData from '@/packages/dotMatrixHistogram/sample';
+import * as unUyo from '@/packages/index';
+import sampleData from './sample';
 
 import DemoModel from '../demoModel';
 import docs from './docs';

@@ -27,9 +27,6 @@
       "./example/types"
     ],
     "paths": {
-      "@lib/*": [
-        "src/lib/*"
-      ],
       "@/*": [
         "./*"
       ]
@@ -44,7 +41,7 @@
   "include": [
     "src/**/*.ts",
     "src/**/*.tsx",
-    "src/index.ts",
+    "index.ts",
     "example/**/*.ts",
     "example/**/*.tsx",
     "packages/**/*.ts",

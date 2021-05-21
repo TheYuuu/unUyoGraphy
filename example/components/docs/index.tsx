@@ -11,7 +11,7 @@ const { Sider, Content } = Layout;
 
 import MyMenu from './menu';
 
-import MarkdownContent from '@lib/markdownContent';
+import MarkdownContent from '@/example/lib/markdownContent';
 import introduce from './docs/introduce.md';
 import gettingStarted from './docs/gettingStarted.md';
 import contributing from './docs/contributing.md';
