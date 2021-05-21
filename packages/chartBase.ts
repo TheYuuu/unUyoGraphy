@@ -1,4 +1,4 @@
-import { isString, isNumber } from '../example/lib/Tools';
+import { isString, isNumber } from '@/util/Tools';
 
 import { select } from 'd3-selection';
 import { Selection } from 'd3';

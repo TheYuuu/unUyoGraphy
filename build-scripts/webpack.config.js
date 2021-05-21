@@ -58,8 +58,7 @@ module.exports = {
           }
         }
       })
-    ],
-    usedExports: true
+    ]
   },
   plugins: [
     new ProgressBarPlugin(),

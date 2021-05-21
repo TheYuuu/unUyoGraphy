@@ -1,8 +1,8 @@
 import ChartBase, { defaultOptions, defaultOpts } from '../chartBase';
 
-import { ScaleLinear, Selection, ScaleBand, BaseType, Axis, NumberValue, schemeCategory10 } from 'd3';
+import { Selection, ScaleBand, BaseType, Axis, NumberValue } from 'd3';
 import { max } from 'd3-array';
-import { scaleLinear, scaleOrdinal, scaleBand } from 'd3-scale';
+import { scaleLinear, scaleBand } from 'd3-scale';
 import { axisBottom, axisLeft } from 'd3-axis';
 
 export interface opts extends defaultOpts {
