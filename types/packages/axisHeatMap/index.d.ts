@@ -1,5 +1,5 @@
-import ChartBase, { defaultOptions, defaultOpts } from './chartBase';
-
+import ChartBase, { defaultOptions, defaultOpts } from '@/src/lib/chartBase';
+import 'd3-transition';
 export interface axisHeatMapData {
     value: number;
     xPos: string | number;

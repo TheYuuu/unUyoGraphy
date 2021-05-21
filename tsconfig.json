@@ -3,7 +3,7 @@
     "target": "esnext",
     "module": "esnext",
     "declaration": true,
-    "declarationDir": "lib/types",
+    "declarationDir": "./types",
     "outDir": "./lib",
     "strict": true,
     "jsx": "react",

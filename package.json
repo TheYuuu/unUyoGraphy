@@ -3,7 +3,7 @@
   "version": "1.0.13",
   "description": "unusual graph",
   "main": "lib/unUyo.common.js",
-  "typings": "types/index.d.ts",
+  "typings": "types/src/index.d.ts",
   "files": [
     "lib",
     "src",

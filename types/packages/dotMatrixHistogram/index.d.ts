@@ -1,4 +1,4 @@
-import ChartBase, { defaultOptions, defaultOpts } from './chartBase';
+import ChartBase, { defaultOptions, defaultOpts } from '@/src/lib/chartBase';
 export interface opts extends defaultOpts {
     bars?: number;
     barPadding?: number;
