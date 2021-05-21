@@ -1,11 +1,14 @@
 {
   "name": "un-u-yo",
-  "version": "1.0.16",
+  "version": "1.0.17",
   "description": "unusual graph",
   "main": "lib/unUyo.common.js",
   "typings": "types/packages/index.d.ts",
   "type": "module",
-  "sideEffects": ["./example/**", "*.css"],
+  "sideEffects": [
+    "./example/**",
+    "*.css"
+  ],
   "files": [
     "lib",
     "packages",
