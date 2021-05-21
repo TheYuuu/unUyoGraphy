@@ -2,14 +2,14 @@ import React, { useState, useEffect } from "react";
 
 import { Button } from 'antd';
 
-import { DotMatrixHistogram } from '@/packages/index';
-import sampleData from './sample';
+// import MarkdownContent from '@lib/markdownContent';
+// import contributing from './contributing.md';
 
 import DemoModel from '../demoModel';
 import docs from './docs';
 
-// import MarkdownContent from '@lib/markdownContent';
-// import contributing from './contributing.md';
+import { DotMatrixHistogram } from '@/packages/index';
+import sampleData from './sample';
 
 const containerStyle = {
   width: '600px',

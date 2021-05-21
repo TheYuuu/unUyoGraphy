@@ -4,7 +4,6 @@
   "description": "unusual graph",
   "main": "lib/unUyo.common.js",
   "typings": "types/packages/index.d.ts",
-  "type": "module",
   "sideEffects": [
     "./example/**",
     "*.css"

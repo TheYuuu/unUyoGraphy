@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 
-import { AxisHeatMap } from '@/packages/index';
-import sampleData from './sample';
-
 import { Button } from 'antd';
+
+// import MarkdownContent from '@lib/markdownContent';
+// import contributing from './contributing.md';
 
 import DemoModel from '../demoModel';
 import docs from './docs';
 
-// import MarkdownContent from '@lib/markdownContent';
-// import contributing from './contributing.md';
+import { AxisHeatMap } from '@/packages/index';
+import sampleData from './sample';
 
 const containerStyle = {
   width: '350px',
