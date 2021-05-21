@@ -4,6 +4,7 @@ import { Selection, ScaleBand, BaseType, Axis, NumberValue } from 'd3';
 import { max } from 'd3-array';
 import { scaleLinear, scaleBand } from 'd3-scale';
 import { axisBottom, axisLeft } from 'd3-axis';
+import 'd3-transition';
 
 export interface opts extends defaultOpts {
   bars?: number;

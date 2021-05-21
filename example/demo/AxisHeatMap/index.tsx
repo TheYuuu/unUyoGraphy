@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import * as unUyo from '@/packages/index';
+import { AxisHeatMap } from '@/packages/index';
 import sampleData from './sample';
 
 import { Button } from 'antd';
@@ -10,8 +10,6 @@ import docs from './docs';
 
 // import MarkdownContent from '@lib/markdownContent';
 // import contributing from './contributing.md';
-
-const { AxisHeatMap } = unUyo;
 
 const containerStyle = {
   width: '350px',

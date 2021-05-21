@@ -11,7 +11,8 @@ import docs from './docs';
 // import MarkdownContent from '@lib/markdownContent';
 // import contributing from './contributing.md';
 
-const { DotMatrixHistogram } = unUyo;
+// const { DotMatrixHistogram } = unUyo;
+import { DotMatrixHistogram } from '@/packages/index';
 
 const containerStyle = {
   width: '600px',

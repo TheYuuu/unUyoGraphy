@@ -5,7 +5,7 @@
   "main": "lib/unUyo.common.js",
   "typings": "types/packages/index.d.ts",
   "type": "module",
-  "sideEffects": false,
+  "sideEffects": ["./example/**", "*.css"],
   "files": [
     "lib",
     "packages",
