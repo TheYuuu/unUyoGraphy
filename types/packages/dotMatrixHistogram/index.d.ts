@@ -1,4 +1,5 @@
 import ChartBase, { defaultOptions, defaultOpts } from '../chartBase';
+import 'd3-transition';
 export interface opts extends defaultOpts {
     bars?: number;
     barPadding?: number;

@@ -17,10 +17,10 @@
     "charts.build.json"
   ],
   "scripts": {
-    "clean": "rimraf lib && rimraf docs && rimraf types",
+    "clean": "rimraf lib && rimraf docs",
     "dev": "cross-env NODE_ENV=development webpack serve --progress --config build-scripts/webpack.demo.js",
     "dev:build": "npm run clean && cross-env NODE_ENV=production webpack --config build-scripts/webpack.demo.js",
-    "dist": "rimraf lib && cross-env NODE_ENV=production webpack --config build-scripts/webpack.config.js && webpack --config build-scripts/webpack.charts.config.js && rimraf types/example",
+    "dist": "rimraf lib && rimraf types && cross-env NODE_ENV=production webpack --config build-scripts/webpack.config.js && webpack --config build-scripts/webpack.charts.config.js && rimraf types/example",
     "test": "echo \"Error: no test specified\" && exit 1",
     "new": "node ./build-scripts/bin/new.js"
   },

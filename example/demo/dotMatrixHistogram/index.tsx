@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import { Button } from 'antd';
 
-import * as unUyo from '@/packages/index';
+import { DotMatrixHistogram } from '@/packages/index';
 import sampleData from './sample';
 
 import DemoModel from '../demoModel';
@@ -10,9 +10,6 @@ import docs from './docs';
 
 // import MarkdownContent from '@lib/markdownContent';
 // import contributing from './contributing.md';
-
-// const { DotMatrixHistogram } = unUyo;
-import { DotMatrixHistogram } from '@/packages/index';
 
 const containerStyle = {
   width: '600px',
