@@ -3,6 +3,7 @@
   "version": "1.0.20",
   "description": "unusual graph",
   "main": "lib/unUyo.common.js",
+  "module": "packages/index.ts",
   "typings": "types/packages/index.d.ts",
   "sideEffects": [
     "./example/**",
