@@ -13,7 +13,6 @@
     "lib",
     "packages",
     "util",
-    "types",
     "charts.build.json"
   ],
   "scripts": {

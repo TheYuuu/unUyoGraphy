@@ -99,7 +99,7 @@ export default class ${key} extends ChartBase {
 };
 
 async function createPackages() {
-  const content = `import ChartBase, { defaultOptions, defaultOpts } from '@/src/lib/chartBase';
+  const content = `import ChartBase, { defaultOptions, defaultOpts } from '../chartBase';
 export interface opts extends defaultOpts {}
 
 export interface ${keyPath}OptionData {
@@ -152,15 +152,13 @@ async function addExample() {
   const demoIndex = `
 import React, { useState, useEffect } from "react";
 
-import unUyo from '@/src/index';
-
 import DemoModel from '../demoModel';
 import docs from './docs';
 
 // import MarkdownContent from '@lib/markdownContent';
 // import contributing from './contributing.md';
 
-const { ${key} } = unUyo;
+import { ${key} } from '@/packages/index';;
 
 const containerStyle = {
   width: '500px',
