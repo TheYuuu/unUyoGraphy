@@ -94,7 +94,7 @@ export default class ${key} extends ChartBase {
   const libIndexImport = `${components.map(v => `import ${v.key} from '../packages/${v.keyPath}';\n`).join('')}`
 
   const libIndex = `\nexport default {\n${components.map((v,index) => `  ${v.key}${index === components.length - 1 ? '' : ',' }\n`).join('')}};\n`;
-
+  
   saveFile(`../../src/index.ts`, libIndexImport + libIndex);
 };
 

@@ -69,6 +69,7 @@
     "webpack": "^5.31.0",
     "webpack-bundle-analyzer": "^4.4.1",
     "webpack-cli": "^4.5.0",
-    "webpack-dev-server": "^3.11.2"
+    "webpack-dev-server": "^3.11.2",
+    "eslint": "^9.17.0"
   }
 }
