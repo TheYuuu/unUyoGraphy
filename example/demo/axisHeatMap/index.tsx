@@ -13,7 +13,8 @@ import sampleData from './sample';
 
 const containerStyle = {
   width: '350px',
-  height: '350px'
+  height: '350px',
+  marginBottom: '20px'
 }
 
 export default function AxisHeatMapDemo() {

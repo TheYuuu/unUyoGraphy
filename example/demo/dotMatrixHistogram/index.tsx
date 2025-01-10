@@ -13,7 +13,8 @@ import sampleData from './sample';
 
 const containerStyle = {
   width: '600px',
-  height: '200px'
+  height: '200px',
+  marginBottom: '20px'
 }
 
 export default function DotMatrixHistogramDemo() {

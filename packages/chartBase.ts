@@ -49,7 +49,8 @@ export default class ChartBase {
     this.ctx = select(qdom)
       .append('svg')
       .attr('width', this.containerWidth)
-      .attr('height', this.containerHeight);
+      .attr('height', this.containerHeight)
+      .style('border', '1px solid #ebe5e5');
     // }
 
     this._opts = Object.assign(this._opts, opt.opts || {});

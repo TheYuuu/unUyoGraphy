@@ -35,6 +35,8 @@
     ]
   },
   "include": [
+    "example/**/*.ts",
+    "example/**/*.tsx",
     "index.ts",
     "packages/**/*.ts",
     "packages/**/*.tsx"
