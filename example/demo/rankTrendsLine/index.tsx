@@ -18,69 +18,69 @@ const mockData1 = {
   xPos: ["2019", "2020", "2021"],
   series: [
     {
-      name: "Tail Css",
+      name: "A",
       values: [1, 7, 5],
     },
     {
-      name: "Bulma",
+      name: "B",
       values: [2, 1, 3],
     },
     {
-      name: "PureCss",
+      name: "C",
       values: [3, 2, 4],
     },
     {
-      name: "PureCss",
+      name: "D",
       values: [4, 5, 2],
     },
     {
-      name: "PureCss",
+      name: "E",
       values: [5, 4, 1],
     },
     {
-      name: "PureCss",
+      name: "F",
       values: [6, 3, 6],
     },
     {
-      name: "PureCss",
+      name: "G",
       values: [7, 6, 7],
     },
   ],
 };
 
 const mockData2 = {
-  xPos: ["2019", "2020", "2021"],
+  xPos: ["2019", "2020", "2021", "2022"],
   series: [
     {
-      name: "Tail Css",
-      values: [3, 2, 4],
+      name: "A",
+      values: [3, 2, 4, 1],
     },
     {
-      name: "Bulma",
-      values: [5, 4, 1],
+      name: "B",
+      values: [5, 4, 1, 4],
     },
     {
-      name: "PureCss",
+      name: "C",
 
-      values: [1, 7, 5],
+      values: [1, 7, 5, 2],
     },
     {
-      name: "PureCss",
+      name: "D",
 
-      values: [7, 6, 7],
+      values: [7, 6, 7, 3],
     },
     {
-      name: "PureCss",
+      name: "E",
 
-      values: [2, 1, 3],
+      values: [2, 1, 3, 5],
     },
     {
-      name: "PureCss",
-      values: [4, 5, 2],
+      name: "F",
+      values: [4, 5, 2, 6],
     },
     {
-      name: "PureCss",
-      values: [6, 3, 6],
+      name: "G",
+      values: [6, 3, 6, 7],
     },
   ],
 };
