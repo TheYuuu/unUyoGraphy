@@ -19,6 +19,8 @@ module.exports = {
   },
 
   rules: {
+    "no-implicit-dependencies":[true, ["@lib", "@"]],
+    "no-submodule-imports":[true, "@lib", "@"],
     'accessor-pairs': 2,
     'array-bracket-spacing': 0,
     'block-scoped-var': 0,

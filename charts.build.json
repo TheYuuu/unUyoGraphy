@@ -1,4 +1,5 @@
 {
-  "testA": "./packages/testA",
-  "testB": "./packages/testB"
+  "AxisHeatMap": "./packages/axisHeatMap",
+  "DotMatrixHistogram": "./packages/dotMatrixHistogram",
+  "RankTrendsLine": "./packages/rankTrendsLine"
 }

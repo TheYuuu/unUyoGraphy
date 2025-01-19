@@ -1,7 +1,9 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "module": "commonjs",
+    "target": "esnext",
+    "module": "esnext",
+    "declaration": true,
+    "outDir": "./lib",
     "strict": true,
     "jsx": "react",
     "importHelpers": true,
@@ -12,10 +14,17 @@
     "noImplicitThis": false,
     "sourceMap": true,
     "baseUrl": ".",
-    "types": [],
+    "resolveJsonModule": true,
+    "types": [
+      "d3",
+      "react",
+      "react-dom",
+      "node",
+      "webpack-env"
+    ],
     "paths": {
       "@/*": [
-        "src/*"
+        "./*"
       ]
     },
     "lib": [
@@ -26,11 +35,11 @@
     ]
   },
   "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "src/index.ts",
     "example/**/*.ts",
-    "example/**/*.tsx"
+    "example/**/*.tsx",
+    "index.ts",
+    "packages/**/*.ts",
+    "packages/**/*.tsx"
   ],
   "exclude": [
     "node_modules"

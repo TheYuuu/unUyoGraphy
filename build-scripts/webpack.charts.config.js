@@ -3,6 +3,7 @@ const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
+const { modules } = require('./config');
 const charts = require('../charts.build.json');
 
 module.exports = {
@@ -17,36 +18,15 @@ module.exports = {
     chunkFilename: '[id].js',
     libraryTarget: 'commonjs2'
   },
-  module: {
-    rules: [
-      {
-        test: /\.tsx?$/,
-        use: 'ts-loader',
-        exclude: /node_modules/
-      },
-      {
-        test: /\.css$/,
-          use: [
-            'style-loader',
-            'css-loader'
-          ]
-      },
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        loader: 'babel-loader'
-      },
-      {
-        test: /\.(svg|otf|ttf|woff2?|eot|gif|png|jpe?g)(\?\S*)?$/,
-        loader: 'url-loader',
-        options: {
-          limit: 10000,
-          name: path.posix.join('static', '[name].[hash:7].[ext]')
-        }
-      }
-    ]
-  },
+  externals: [
+    /d3/
+  ],
+  module: modules,
   resolve: {
+    alias: {
+      '@lib': path.resolve(__dirname, '../src/lib'),
+      '@': path.resolve(__dirname, '../'),
+    },
     extensions: [".ts", ".tsx", ".js", ".json"],
     modules: ['node_modules']
   },

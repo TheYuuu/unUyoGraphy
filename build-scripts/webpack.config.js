@@ -3,49 +3,52 @@ const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
+const { modules } = require('./config');
+
 module.exports = {
   mode: 'production',
-  entry: path.resolve(__dirname, '../src/index.ts'),
+  entry: path.resolve(__dirname, '../packages/index.ts'),
   output: {
     path: path.resolve(process.cwd(), './lib'),
     publicPath: '/dist/',
-    filename: 'index.js',
+    filename: 'unUyo.common.js',
     chunkFilename: '[id].js',
+    libraryExport: 'default',
+    library: 'unUyo',
+    libraryTarget: 'umd',
   },
-  module: {
-    rules: [
-      {
-        test: /\.tsx?$/,
-        use: 'ts-loader',
-        exclude: /node_modules/
-      },
-      {
-        test: /\.css$/,
-          use: [
-            'style-loader',
-            'css-loader'
-          ]
-      },
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        loader: 'babel-loader'
-      },
-      {
-        test: /\.(svg|otf|ttf|woff2?|eot|gif|png|jpe?g)(\?\S*)?$/,
-        loader: 'url-loader',
-        options: {
-          limit: 10000,
-          name: path.posix.join('static', '[name].[hash:7].[ext]')
-        }
-      }
-    ]
-  },
+  externals: [
+    /d3/
+  ],
+  module: modules,
   resolve: {
+    alias: {
+      '@lib': path.resolve(__dirname, '../src/lib'),
+      '@': path.resolve(__dirname, '../'),
+    },
     extensions: [".ts", ".tsx", ".js", ".json"]
   },
   mode: 'development', // production | development
   optimization: {
+    splitChunks: {
+      cacheGroups: {
+        d3: {
+          name: `d3`,
+          test: /[\\/]d3[\\/]/,
+          priority: 10,
+          chunks: 'async',
+          reuseExistingChunk: true
+        },
+        common: {
+          // 使用三次次及三次以上的库
+          name: `common`,
+          minChunks: 3,
+          priority: 1,
+          chunks: 'async',
+          reuseExistingChunk: true
+        }
+      }
+    },
     minimizer: [
       new TerserPlugin({
         terserOptions: {
