@@ -10,9 +10,10 @@ import { RankTrendsLine } from "@/packages/index";
 import { Button } from "antd";
 
 const containerStyle = {
-  width: "800px",
-  height: "400px",
-};
+  width: '600px',
+  height: '200px',
+  marginBottom: '20px'
+}
 
 const mockData1 = {
   xPos: ["2019", "2020", "2021"],
