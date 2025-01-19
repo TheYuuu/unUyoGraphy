@@ -66,40 +66,17 @@ async function addBuildJson() {
 }
 
 async function addTypesLib() {
-  const content = `import ChartBase, { defaultOptions, defaultOpts } from './chartBase';
+  const libIndexImport = `${components.map(v => `import ${v.key} from './${v.keyPath}';\n`).join('')}\n`;
 
-export interface opts extends defaultOpts {}
-
-export interface ${keyPath}Options extends defaultOptions {
-    data: ${keyPath}Data;
-    opts?: opts;
-}
-
-export default class ${key} extends ChartBase {
-    private data;
-    private opts;
-    constructor(opt: ${keyPath}Options);
-    update(data: ${keyPath}OptionData): void;
-}
-  `;
-
-  saveFile(`../../types/${keyPath}.d.ts`, content);
-
-  const unUyoIndexImport = `${components.map(v => `import ${v.key} from './${v.keyPath}';\n`).join('')}`
-
-  const unUyoIndex = `\nexport {\n${components.map((v,index) => `  ${v.key}${index === components.length - 1 ? '' : ',' }\n`).join('')}};\n`;
-  
-  saveFile(`../../types/unUyo.d.ts`, unUyoIndexImport + unUyoIndex);
-
-  const libIndexImport = `${components.map(v => `import ${v.key} from '../packages/${v.keyPath}';\n`).join('')}`
+  const libIndexExport = `${components.map(v => `export { default as ${v.key} } from './${v.keyPath}';\n`).join('')}`;
 
   const libIndex = `\nexport default {\n${components.map((v,index) => `  ${v.key}${index === components.length - 1 ? '' : ',' }\n`).join('')}};\n`;
-
-  saveFile(`../../src/index.ts`, libIndexImport + libIndex);
+  
+  saveFile(`../../packages/index.ts`, libIndexImport + libIndexExport + libIndex);
 };
 
 async function createPackages() {
-  const content = `import ChartBase, { defaultOptions, defaultOpts } from '@/src/lib/chartBase';
+  const content = `import ChartBase, { defaultOptions, defaultOpts } from '../chartBase';
 export interface opts extends defaultOpts {}
 
 export interface ${keyPath}OptionData {
@@ -152,15 +129,13 @@ async function addExample() {
   const demoIndex = `
 import React, { useState, useEffect } from "react";
 
-import unUyo from '@/src/index';
-
 import DemoModel from '../demoModel';
 import docs from './docs';
 
 // import MarkdownContent from '@lib/markdownContent';
 // import contributing from './contributing.md';
 
-const { ${key} } = unUyo;
+import { ${key} } from '@/packages/index';;
 
 const containerStyle = {
   width: '500px',

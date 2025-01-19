@@ -3,7 +3,6 @@
     "target": "esnext",
     "module": "esnext",
     "declaration": true,
-    "declarationDir": "lib/types",
     "outDir": "./lib",
     "strict": true,
     "jsx": "react",
@@ -23,13 +22,7 @@
       "node",
       "webpack-env"
     ],
-    "typeRoots": [
-      "./example/types"
-    ],
     "paths": {
-      "@lib/*": [
-        "src/lib/*"
-      ],
       "@/*": [
         "./*"
       ]
@@ -42,11 +35,9 @@
     ]
   },
   "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "src/index.ts",
     "example/**/*.ts",
     "example/**/*.tsx",
+    "index.ts",
     "packages/**/*.ts",
     "packages/**/*.tsx"
   ],

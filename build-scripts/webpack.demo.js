@@ -3,6 +3,7 @@ const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const { modules } = require('./config');
 
@@ -59,7 +60,8 @@ module.exports = {
           }
         }
       })
-    ]
+    ],
+    usedExports: true
   },
   plugins: [
     new ProgressBarPlugin(),
@@ -69,6 +71,20 @@ module.exports = {
       filename: 'index.html',
       title: 'unUyo Graph'
     }),
-    new ForkTsCheckerWebpackPlugin()
+    new ForkTsCheckerWebpackPlugin(),
+    new BundleAnalyzerPlugin(
+      {
+        analyzerMode: 'server',
+        analyzerHost: '127.0.0.1',
+        analyzerPort: 8888,
+        reportFilename: 'report.html',
+        defaultSizes: 'parsed',
+        openAnalyzer: true,
+        generateStatsFile: false,
+        statsFilename: 'stats.json',
+        statsOptions: null,
+        logLevel: 'info'
+      }
+    )
   ]
 }

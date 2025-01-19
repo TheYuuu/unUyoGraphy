@@ -3,13 +3,8 @@
     [
       "@babel/preset-env",
       {
-        "targets": {
-          // 大于相关浏览器版本无需用到 preset-env
-          "edge": 17,
-          "firefox": 60,
-          "chrome": 67,
-          "safari": 11.1
-        },
+        "browsers": ["last 2 versions"], // 最近 2 个版本的浏览器
+        "modules": false,
         // 根据代码逻辑中用到的 ES6+语法进行方法的导入，而不是全部导入
         "useBuiltIns": "usage" //useBuiltIns就是是否开启自动支持 polyfill，它能自动给每个文件添加其需要的poly-fill。
       }
@@ -17,6 +12,6 @@
     "@babel/preset-react"
   ],
   "plugins": [
-    ["@babel/plugin-proposal-decorators", { "legacy": true }]// 转义ES7的修饰器@
+    ["@babel/plugin-proposal-decorators", { "legacy": true }, "syntax-dynamic-import"]// 转义ES7的修饰器@
   ]
 }

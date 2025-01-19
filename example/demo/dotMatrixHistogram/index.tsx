@@ -2,20 +2,19 @@ import React, { useState, useEffect } from "react";
 
 import { Button } from 'antd';
 
-import unUyo from '@/src/index';
-import sampleData from '@/packages/dotMatrixHistogram/sample';
+// import MarkdownContent from '@lib/markdownContent';
+// import contributing from './contributing.md';
 
 import DemoModel from '../demoModel';
 import docs from './docs';
 
-// import MarkdownContent from '@lib/markdownContent';
-// import contributing from './contributing.md';
-
-const { DotMatrixHistogram } = unUyo;
+import { DotMatrixHistogram } from '@/packages/index';
+import sampleData from './sample';
 
 const containerStyle = {
   width: '600px',
-  height: '200px'
+  height: '200px',
+  marginBottom: '20px'
 }
 
 export default function DotMatrixHistogramDemo() {

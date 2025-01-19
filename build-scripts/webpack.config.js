@@ -4,11 +4,10 @@ const TerserPlugin = require('terser-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 const { modules } = require('./config');
-// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
   mode: 'production',
-  entry: path.resolve(__dirname, '../src/index.ts'),
+  entry: path.resolve(__dirname, '../packages/index.ts'),
   output: {
     path: path.resolve(process.cwd(), './lib'),
     publicPath: '/dist/',
@@ -62,20 +61,6 @@ module.exports = {
   },
   plugins: [
     new ProgressBarPlugin(),
-    new ForkTsCheckerWebpackPlugin(),
-    // new BundleAnalyzerPlugin(
-    //   {
-    //     analyzerMode: 'server',
-    //     analyzerHost: '127.0.0.1',
-    //     analyzerPort: 8888,
-    //     reportFilename: 'report.html',
-    //     defaultSizes: 'parsed',
-    //     openAnalyzer: true,
-    //     generateStatsFile: false,
-    //     statsFilename: 'stats.json',
-    //     statsOptions: null,
-    //     logLevel: 'info'
-    //   }
-    // )
+    new ForkTsCheckerWebpackPlugin()
   ]
 }

@@ -1,21 +1,20 @@
 import React, { useState, useEffect } from "react";
 
-import unUyo from '@/src/index';
-import sampleData from '@/packages/axisHeatMap/sample';
-
 import { Button } from 'antd';
-
-import DemoModel from '../demoModel';
-import docs from './docs';
 
 // import MarkdownContent from '@lib/markdownContent';
 // import contributing from './contributing.md';
 
-const { AxisHeatMap } = unUyo;
+import DemoModel from '../demoModel';
+import docs from './docs';
+
+import { AxisHeatMap } from '@/packages/index';
+import sampleData from './sample';
 
 const containerStyle = {
   width: '350px',
-  height: '350px'
+  height: '350px',
+  marginBottom: '20px'
 }
 
 export default function AxisHeatMapDemo() {
