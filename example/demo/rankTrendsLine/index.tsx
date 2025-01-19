@@ -10,9 +10,10 @@ import { RankTrendsLine } from "@/packages/index";
 import { Button } from "antd";
 
 const containerStyle = {
-  width: "800px",
-  height: "400px",
-};
+  width: '600px',
+  height: '200px',
+  marginBottom: '20px'
+}
 
 const mockData1 = {
   xPos: ["2019", "2020", "2021"],
@@ -49,38 +50,38 @@ const mockData1 = {
 };
 
 const mockData2 = {
-  xPos: ["2019", "2020", "2021", "2022"],
+  xPos: ["2019", "2020", "2021"],
   series: [
     {
       name: "A",
-      values: [3, 2, 4, 1],
+      values: [3, 2, 4],
     },
     {
       name: "B",
-      values: [5, 4, 1, 4],
+      values: [5, 4, 1],
     },
     {
       name: "C",
 
-      values: [1, 7, 5, 2],
+      values: [1, 7, 5],
     },
     {
       name: "D",
 
-      values: [7, 6, 7, 3],
+      values: [7, 6, 7],
     },
     {
       name: "E",
 
-      values: [2, 1, 3, 5],
+      values: [2, 1, 3],
     },
     {
       name: "F",
-      values: [4, 5, 2, 6],
+      values: [4, 5, 2],
     },
     {
       name: "G",
-      values: [6, 3, 6, 7],
+      values: [6, 3, 6],
     },
   ],
 };
