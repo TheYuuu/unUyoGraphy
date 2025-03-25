@@ -1,40 +1,42 @@
 import React, { useState, useEffect } from "react";
 
-import { Menu } from 'antd';
+import { Menu } from "antd";
 
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation } from "react-router-dom";
 
 export interface Props {
-  list: routerItem[]
+  list: routerItem[];
 }
 
 export default function MyHeader(props: Props) {
   const { list } = props;
-  const [path, setPath] = useState('');
+  const [path, setPath] = useState("");
 
   const pathname = useLocation().pathname;
 
   useEffect(() => {
-    const paths = pathname.split('/');
+    const paths = pathname.split("/");
     if (paths[1]) {
-      setPath('/' + paths[1]);
+      setPath("/" + paths[1]);
     }
-  }, [pathname])
+  }, [pathname]);
 
   return (
     <div className="my-header">
       <h1>
-        <img src={require('../favicon.png')} alt="" height="50px"/>
+        <img src={require("../favicon.png")} alt="" height="50px" />
         unUyo Graph
       </h1>
       <Menu theme="light" selectedKeys={[path]} mode="horizontal">
-        {(list.map(item =>
+        {list.map((item) => (
           <Menu.Item key={item.path}>
             <NavLink to={item.path}>{item.name}</NavLink>
           </Menu.Item>
         ))}
         <Menu.Item key="goStat">
-          <a href="https://github.com/TheYuuu/unUyoGraphy" target="_blank">Star</a>
+          <a href="https://github.com/TheYuuu/unUyoGraphy" target="_blank">
+            Star
+          </a>
         </Menu.Item>
       </Menu>
     </div>

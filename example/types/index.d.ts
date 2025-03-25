@@ -6,7 +6,7 @@ declare interface routerItem {
   path: string;
   component: string;
   name: string;
-  children?: routerItem[]
+  children?: routerItem[];
 }
 
 declare module "*.md" {

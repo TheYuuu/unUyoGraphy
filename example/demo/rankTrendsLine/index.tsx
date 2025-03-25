@@ -12,7 +12,7 @@ import { Button } from "antd";
 const containerStyle = {
   width: "800px",
   height: "400px",
-  marginBottom: '20px'
+  marginBottom: "20px",
 };
 
 const mockData1 = {

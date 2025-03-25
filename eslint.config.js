@@ -19,8 +19,8 @@ module.exports = {
   },
 
   rules: {
-    "no-implicit-dependencies":[true, ["@lib", "@"]],
-    "no-submodule-imports":[true, "@lib", "@"],
+    "no-implicit-dependencies": [true, ["@lib", "@"]],
+    "no-submodule-imports": [true, "@lib", "@"],
     'accessor-pairs': 2,
     'array-bracket-spacing': 0,
     'block-scoped-var': 0,
@@ -207,5 +207,7 @@ module.exports = {
     'wrap-iife': [2, 'any'],
     'wrap-regex': 0,
     'yoda': [2, 'never']
-  }
+  },
+
+  extends: ["airbnb", "airbnb/hooks"]
 };
