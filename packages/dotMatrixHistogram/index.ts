@@ -1,4 +1,4 @@
-import ChartBase, { defaultOptions, defaultOpts } from "../chartBase";
+import ChartBase, { DefaultOptions, DefaultOpts } from "../chartBase";
 
 import { Selection, ScaleBand, BaseType, Axis, NumberValue } from "d3";
 import { max } from "d3-array";
@@ -6,34 +6,34 @@ import { scaleLinear, scaleBand } from "d3-scale";
 import { axisBottom, axisLeft } from "d3-axis";
 import "d3-transition";
 
-export interface opts extends defaultOpts {
+export type Opts = {
   bars?: number;
   barPadding?: number;
   colors?: string[];
-}
+} & DefaultOpts;
 
-export interface dotMatrixHistogramDotData {
+export type DotMatrixHistogramDotData = {
   seriesType: string;
-}
+};
 
-export interface dotMatrixHistogramData {
+export type DotMatrixHistogramData = {
   seriesX: string;
-  data: dotMatrixHistogramDotData[];
-}
+  data: DotMatrixHistogramDotData[];
+};
 
-export interface dotMatrixHistogramOptionData {
-  data: dotMatrixHistogramData[];
+export type DotMatrixHistogramOptionData = {
+  data: DotMatrixHistogramData[];
   seriesX: string[];
   seriesTypes: string[];
-}
+};
 
-export interface dotMatrixHistogramOptions extends defaultOptions {
-  data: dotMatrixHistogramOptionData;
-  opts?: opts;
-}
+export type DotMatrixHistogramOptions = {
+  data: DotMatrixHistogramOptionData;
+  Opts?: Opts;
+} & DefaultOptions;
 
 export default class DotMatrixHistogram extends ChartBase {
-  private opts = {
+  private Opts = {
     ...this._opts,
     bars: 3,
     barPadding: 5,
@@ -42,7 +42,7 @@ export default class DotMatrixHistogram extends ChartBase {
     colors: ["#96BBDA", "#FFC194", "#9ED19A", "#EF9997", "#CAB3DF", "#C6ABA6"],
   };
 
-  private data: dotMatrixHistogramOptionData | null = null;
+  private data: DotMatrixHistogramOptionData | null = null;
 
   private yAxis_g: Selection<SVGGElement, unknown, null, undefined> | null =
     null;
@@ -57,7 +57,7 @@ export default class DotMatrixHistogram extends ChartBase {
   private dotWidth: number = 0;
   private maxHieght: number = 0;
 
-  constructor(opt: dotMatrixHistogramOptions) {
+  constructor(opt: DotMatrixHistogramOptions) {
     super(opt);
 
     this.init();
@@ -65,7 +65,7 @@ export default class DotMatrixHistogram extends ChartBase {
   }
 
   private init() {
-    const { leftPadding, bottomPadding } = this.opts;
+    const { leftPadding, bottomPadding } = this.Opts;
 
     if (!this.ctx) {
       throw new Error("No useful ctx");
@@ -81,13 +81,13 @@ export default class DotMatrixHistogram extends ChartBase {
     this.containerHeight -= bottomPadding;
   }
 
-  public update(data: dotMatrixHistogramOptionData): void {
+  public update(data: DotMatrixHistogramOptionData): void {
     this.handleDate(data);
     this.draw();
   }
 
-  private handleDate(data: dotMatrixHistogramOptionData): void {
-    const { bars, barPadding, colors } = this.opts;
+  private handleDate(data: DotMatrixHistogramOptionData): void {
+    const { bars, barPadding, colors } = this.Opts;
 
     this.dotWidth =
       (this.containerWidth - barPadding * data.seriesX.length) /
@@ -114,7 +114,7 @@ export default class DotMatrixHistogram extends ChartBase {
 
   private draw(): void {
     const { dot_g, xAxis_g, data, maxHieght } = this;
-    const { padding } = this.opts;
+    const { padding } = this.Opts;
 
     const xPosAxis = scaleBand()
       .domain(this.data?.seriesX || [])
@@ -148,11 +148,11 @@ export default class DotMatrixHistogram extends ChartBase {
   }
 
   private updateDots(
-    dots: Selection<BaseType, dotMatrixHistogramDotData, SVGGElement, unknown>,
+    dots: Selection<BaseType, DotMatrixHistogramDotData, SVGGElement, unknown>,
     seriesX: string
   ): void {
     const { xPosAxis, dotWidth, containerHeight, colorMap } = this;
-    const { bottomPadding, duration, leftPadding, padding } = this.opts;
+    const { bottomPadding, duration, leftPadding, padding } = this.Opts;
 
     const enter = dots.enter();
     const exit = dots.exit();
@@ -209,7 +209,7 @@ export default class DotMatrixHistogram extends ChartBase {
 
   private updateYAxis(axis: Axis<NumberValue>): void {
     const { yAxis_g, containerHeight, maxHieght } = this;
-    const { bottomPadding, duration, leftPadding, padding } = this.opts;
+    const { bottomPadding, duration, leftPadding, padding } = this.Opts;
 
     if (!yAxis_g) {
       return;
@@ -232,7 +232,7 @@ export default class DotMatrixHistogram extends ChartBase {
 
   private updateXAxis(axis: Axis<string>): void {
     const { xAxis_g, containerHeight, maxHieght } = this;
-    const { bottomPadding, duration, leftPadding, padding } = this.opts;
+    const { bottomPadding, duration, leftPadding, padding } = this.Opts;
 
     if (!xAxis_g) {
       return;

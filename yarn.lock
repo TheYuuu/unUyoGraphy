@@ -1482,7 +1482,7 @@
   dependencies:
     csstype "^3.0.2"
 
-"@types/react@^17.0.3":
+"@types/react@^17.0.30":
   version "17.0.84"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-17.0.84.tgz#097d532db63fe8cf152fb813c12e6386ed6b481c"
   integrity sha512-DtgToBBNtUTNokPYGCShoDfbEtv2a0XnL1OVnShFU2d8wZ3EfI8nRwzVOeYxKUZdHdl++eX8Fmka7pDr6X+0xw==

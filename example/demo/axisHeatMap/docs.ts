@@ -7,13 +7,13 @@ export default {
   useDesc: ["任意二维维度的分布数据"],
   dataDesc: [
     `
-    interface axisHeatMapOptionData {
-      data: axisHeatMapData[];
+    interface AxisHeatMapOptionData {
+      data: AxisHeatMapData[];
       seriesX: string[]; // 数据中xPos的集合
       seriesY: string[]; // 数据中yPos的集合
     }
 
-    interface axisHeatMapData {
+    interface AxisHeatMapData {
       value: number;
       xPos: string | number;
       yPos: string | number;
@@ -34,7 +34,7 @@ export default {
       key: "1",
       params: "update",
       desc: "更新数据",
-      type: `(data: axisHeatMapOptionData) => void`,
+      type: `(data: AxisHeatMapOptionData) => void`,
       default: "-",
     },
   ],

@@ -9,30 +9,30 @@ import {
   easeBounce,
 } from "d3";
 
-import ChartBase, { defaultOptions, defaultOpts } from "../chartBase";
+import ChartBase, { DefaultOptions, DefaultOpts } from "../chartBase";
 
-export interface opts extends defaultOpts {
+export type Opts = {
   colors?: string[];
   xPadding?: number;
   yPadding?: number;
   dotWidth?: number;
-}
+} & DefaultOpts;
 
-export interface rankTrendsLineOptionData {
+export type RankTrendsLineOptionData = {
   xPos: string[];
   series: Array<{
     name: string;
     values: number[];
   }>;
-}
+};
 
-export interface rankTrendsLineOptions extends defaultOptions {
-  data: rankTrendsLineOptionData;
-  opts?: opts;
-}
+export type rankTrendsLineOptions = {
+  data: RankTrendsLineOptionData;
+  Opts?: Opts;
+} & DefaultOptions;
 
 export default class RankTrendsLine extends ChartBase {
-  private opts = {
+  private Opts = {
     colors: [
       "#96BBDA",
       "#FFC194",
@@ -56,7 +56,7 @@ export default class RankTrendsLine extends ChartBase {
   private label_g!: Selection<SVGGElement, unknown, null, undefined>;
   private xPosLabel_g!: Selection<SVGGElement, unknown, null, undefined>;
 
-  private data!: rankTrendsLineOptionData;
+  private data!: RankTrendsLineOptionData;
 
   private xStep!: number;
   private yStep!: number;
@@ -80,41 +80,41 @@ export default class RankTrendsLine extends ChartBase {
     this.update();
   }
 
-  private init(data: rankTrendsLineOptionData) {
+  private init(data: RankTrendsLineOptionData) {
     this.data = data;
 
     const maxRank = max(data.series.map((el) => el.values).flat());
 
     const xStep =
-      (this.containerWidth - this.opts.xPadding * 2) / (data.xPos.length);
+      (this.containerWidth - this.Opts.xPadding * 2) / data.xPos.length;
 
     this.xStep = xStep;
 
     this.yStep =
-      (this.containerHeight - this.opts.yPadding * 2) / (maxRank! - 1);
+      (this.containerHeight - this.Opts.yPadding * 2) / (maxRank! - 1);
 
     this.getXPos = (index: number) => {
       if (index === 0) {
-        return this.opts.xPadding;
+        return this.Opts.xPadding;
       }
 
       if (index === 1) {
-        return this.opts.xPadding + xStep / 2;
+        return this.Opts.xPadding + xStep / 2;
       }
 
       if (index === data.xPos.length) {
-        return this.containerWidth - this.opts.xPadding - xStep / 2;
+        return this.containerWidth - this.Opts.xPadding - xStep / 2;
       }
 
       if (index === data.xPos.length + 1) {
-        return this.containerWidth - this.opts.xPadding;
+        return this.containerWidth - this.Opts.xPadding;
       }
 
       return this.getXPos(index - 1) + this.xStep;
     };
   }
 
-  public update(data?: rankTrendsLineOptionData): void {
+  public update(data?: RankTrendsLineOptionData): void {
     if (data) {
       this.data = data;
       this.init(data);
@@ -132,7 +132,7 @@ export default class RankTrendsLine extends ChartBase {
   }
 
   private updateLine() {
-    const { line_g, opts, data, yStep, getXPos, initFlag } = this;
+    const { line_g, Opts, data, yStep, getXPos, initFlag } = this;
 
     const lines = line_g.selectAll(".rankLine").data(data.series);
 
@@ -148,7 +148,7 @@ export default class RankTrendsLine extends ChartBase {
       })
       .curve(curveMonotoneX);
 
-    const pathRe = (d: rankTrendsLineOptionData["series"][number]) => {
+    const pathRe = (d: RankTrendsLineOptionData["series"][number]) => {
       const realArr = data.xPos.map((el, index) => [
         index + 1,
         d.values[index],
@@ -165,20 +165,20 @@ export default class RankTrendsLine extends ChartBase {
 
     exit
       .transition()
-      .duration(opts.duration / 2)
+      .duration(Opts.duration / 2)
       .remove();
 
     lines
       .transition()
-      .duration(opts.duration)
+      .duration(Opts.duration)
       .attr("d", pathRe)
       .attr("stroke-dasharray", 0);
 
     enter
       .append("path")
       .attr("class", "rankLine")
-      .attr("stroke", (d, i) => opts.colors[i])
-      .attr("stroke-width", `${opts.lineStrokeWidth}px`)
+      .attr("stroke", (d, i) => Opts.colors[i])
+      .attr("stroke-width", `${Opts.lineStrokeWidth}px`)
       .attr("fill", "none")
       .attr("d", pathRe);
 
@@ -196,20 +196,22 @@ export default class RankTrendsLine extends ChartBase {
           return getLen(this);
         })
         .transition()
-        .duration(opts.duration * 1.5)
+        .duration(Opts.duration * 1.5)
         .ease(easeLinear)
-        // .delay((d, i) => { return i * opts.duration * 0.3 })
+        // .delay((d, i) => { return i * Opts.duration * 0.3 })
         .attr("stroke-dashoffset", 0);
     }
   }
 
   private updateCircle() {
-    const { dot_g, opts, data, yStep, getXPos } = this;
-    const nodes = data.xPos.map((_, index) => {
-      return data.series.map((item, idx) => {
-        return [index + 1, item.values[index], idx];
+    const { dot_g, Opts, data, yStep, getXPos } = this;
+    const nodes = data.xPos
+      .map((_, index) => {
+        return data.series.map((item, idx) => {
+          return [index + 1, item.values[index], idx];
+        });
       })
-    }).flat()
+      .flat();
 
     const dots = dot_g.selectAll(`.circleItem`).data(nodes);
 
@@ -218,40 +220,49 @@ export default class RankTrendsLine extends ChartBase {
 
     exit
       .transition()
-      .duration(opts.duration / 2)
+      .duration(Opts.duration / 2)
       .remove();
 
     dots
       .transition()
-      .duration(opts.duration)
+      .duration(Opts.duration)
       .attr("cx", (d) => getXPos(d[0]))
       .attr("cy", (d, i) => {
-        return (d[1]) * yStep;
+        return d[1] * yStep;
       });
 
     enter
       .append("circle")
-      .attr("class", 'circleItem')
-      .attr("fill", (d, i) => opts.colors[d[2]])
+      .attr("class", "circleItem")
+      .attr("fill", (d, i) => Opts.colors[d[2]])
       .attr("cx", (d) => getXPos(d[0]) - 20)
       .attr("cy", (d, i) => {
-        return (d[1]) * yStep;
+        return d[1] * yStep;
       })
       .transition()
-      .duration(opts.duration)
-      .delay((d) => opts.duration * 0.5 * d[0])
+      .duration(Opts.duration)
+      .delay((d) => Opts.duration * 0.5 * d[0])
       .attr("cx", (d) => getXPos(d[0]))
-      .attr("r", opts.dotWidth);
+      .attr("r", Opts.dotWidth);
   }
 
   private updateSeriesLabel() {
-    const { label_g, opts, data, yStep, getXPos } = this;
+    const { label_g, Opts, data, yStep, getXPos } = this;
 
-    const nodes = [0, data.xPos.length + 1].map(index => {
-      return [...data.series.map((item, idx) => {
-        return [index, item.values[index] ?? item.values[item.values.length - 1], idx, item.name] as const;
-      })]
-    }).flat();
+    const nodes = [0, data.xPos.length + 1]
+      .map((index) => {
+        return [
+          ...data.series.map((item, idx) => {
+            return [
+              index,
+              item.values[index] ?? item.values[item.values.length - 1],
+              idx,
+              item.name,
+            ] as const;
+          }),
+        ];
+      })
+      .flat();
 
     const labels = label_g.selectAll(`.label`).data(nodes);
 
@@ -260,12 +271,12 @@ export default class RankTrendsLine extends ChartBase {
 
     exit
       .transition()
-      .duration(opts.duration / 2)
+      .duration(Opts.duration / 2)
       .remove();
 
     labels
       .transition()
-      .duration(opts.duration)
+      .duration(Opts.duration)
       .attr("x", (d) => getXPos(d[0]))
       .attr("y", (d, i) => {
         return d[1] * yStep;
@@ -275,8 +286,8 @@ export default class RankTrendsLine extends ChartBase {
       .append("text")
       .attr("class", `label`)
       .text((d) => d[3])
-      .attr("fill", (d, i) => opts.colors[d[2]])
-      .attr("font-size", opts.labelFontSize)
+      .attr("fill", (d, i) => Opts.colors[d[2]])
+      .attr("font-size", Opts.labelFontSize)
       .attr("x", (d) => getXPos(d[0]) - 20)
       .attr("y", (d, i) => {
         return d[1] * yStep;
@@ -291,14 +302,14 @@ export default class RankTrendsLine extends ChartBase {
       })
       .style("display", "none")
       .transition()
-      .duration(opts.duration)
-      .delay((d) => opts.duration * 0.3 * d[0])
-      .attr("x", (d) =>getXPos(d[0]))
+      .duration(Opts.duration)
+      .delay((d) => Opts.duration * 0.3 * d[0])
+      .attr("x", (d) => getXPos(d[0]))
       .style("display", "inline");
   }
 
   private updateXPosLabel() {
-    const { label_g, opts, data, getXPos } = this;
+    const { label_g, Opts, data, getXPos } = this;
 
     const labels = label_g.selectAll(`.xPosLabel`).data(data.xPos);
 
@@ -307,38 +318,38 @@ export default class RankTrendsLine extends ChartBase {
 
     exit
       .transition()
-      .duration(opts.duration / 2)
+      .duration(Opts.duration / 2)
       .remove();
 
     labels
       .transition()
-      .duration(opts.duration)
+      .duration(Opts.duration)
       .attr("x", (d, i) => getXPos(i + 1))
-      .attr("y", opts.yPadding);
+      .attr("y", Opts.yPadding);
 
     enter
       .append("text")
       .attr("class", `xPosLabel`)
       .text((d, i) => d)
-      .attr("fill", opts.xPosLabelColor)
-      .attr("font-size", opts.labelFontSize)
+      .attr("fill", Opts.xPosLabelColor)
+      .attr("font-size", Opts.labelFontSize)
       .attr("x", (d, i) => getXPos(i + 1))
-      .attr("y", opts.yPadding / 3)
+      .attr("y", Opts.yPadding / 3)
       .attr("transform", function (d, i) {
         const item = select(this).node()?.getBBox();
         return item
           ? `translate(${-item.width / 2}, ${-(
               item?.height / 2 +
-              opts.dotWidth
+              Opts.dotWidth
             )})`
           : null;
       })
       .style("display", "none")
       .transition()
-      .duration(opts.duration)
+      .duration(Opts.duration)
       .ease(easeBounce)
-      .delay((d, i) => opts.duration * 0.3 * i)
-      .attr("y", opts.yPadding)
+      .delay((d, i) => Opts.duration * 0.3 * i)
+      .attr("y", Opts.yPadding)
       .style("display", "inline");
   }
 }

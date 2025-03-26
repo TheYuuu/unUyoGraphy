@@ -11,6 +11,10 @@
     {
       "name": "排名趋势图",
       "key": "rankTrendsLine"
+    },
+    {
+      "name": "社会人类关系图",
+      "key": "humanSocialRelation"
     }
   ]
 }

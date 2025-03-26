@@ -28,7 +28,7 @@ inquirer.prompt([
   main();
 });
 
-async function main () {
+async function main() {
   await addBuildJson();
   await addTypesLib();
   await createPackages();
@@ -38,7 +38,7 @@ async function main () {
 }
 
 async function saveFile(_path, data) {
-   fs.writeFileSync(path.join(__dirname, _path), data);
+  fs.writeFileSync(path.join(__dirname, _path), data);
 }
 
 async function saveDir(_path) {
@@ -70,25 +70,25 @@ async function addTypesLib() {
 
   const libIndexExport = `${components.map(v => `export { default as ${v.key} } from './${v.keyPath}';\n`).join('')}`;
 
-  const libIndex = `\nexport default {\n${components.map((v,index) => `  ${v.key}${index === components.length - 1 ? '' : ',' }\n`).join('')}};\n`;
-  
+  const libIndex = `\nexport default {\n${components.map((v, index) => `  ${v.key}${index === components.length - 1 ? '' : ','}\n`).join('')}};\n`;
+
   saveFile(`../../packages/index.ts`, libIndexImport + libIndexExport + libIndex);
 };
 
 async function createPackages() {
-  const content = `import ChartBase, { defaultOptions, defaultOpts } from '../chartBase';
-export interface opts extends defaultOpts {}
+  const content = `import ChartBase, { DefaultOptions, DefaultOpts } from '../chartBase';
+export interface Opts extends DefaultOpts {}
 
 export interface ${keyPath}OptionData {
 }
 
-export interface ${keyPath}Options extends defaultOptions {
+export interface ${keyPath}Options extends DefaultOptions {
   data: ${keyPath}OptionData;
-  opts?: opts
+  Opts?: Opts
 }
 
 export default class ${key} extends ChartBase {
-  private opts = {
+  private Opts = {
     ...this._opts
   };
 
@@ -108,7 +108,7 @@ export default class ${key} extends ChartBase {
 
   try {
     saveFile(`../../packages/${keyPath}/index.ts`, content);
-  } catch(e) {
+  } catch (e) {
     console.log('写入创建package 文件夹失败')
   }
 }
@@ -149,7 +149,7 @@ export default function ${key}Demo() {
     set${key}(new ${key}({
       dom: '#container',
       data: {},
-      opts: {}
+      Opts: {}
     }))
   }, []);
 
@@ -169,7 +169,7 @@ export default function ${key}Demo() {
 
   try {
     saveFile(`../../example/demo/${keyPath}/index.tsx`, demoIndex);
-  } catch(e) {
+  } catch (e) {
     console.log('写入创建demo 文件夹失败')
   }
 
@@ -206,7 +206,7 @@ export default function ${key}Demo() {
 
   try {
     saveFile(`../../example/demo/${keyPath}/docs.ts`, docsDemo);
-  } catch(e) {
+  } catch (e) {
     console.log('写入创建demo说明 失败败')
   }
 
@@ -229,7 +229,7 @@ export default function ${key}Demo() {
 `
   try {
     saveFile(`../../example/demo/${keyPath}/contributing.md`, md);
-  } catch(e) {
+  } catch (e) {
     console.log('写入创建demo说明 失败败')
   }
 }

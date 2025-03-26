@@ -8,18 +8,18 @@ export default {
   ],
   dataDesc: [
     `
-    export interface dotMatrixHistogramOptionData {
-      data: dotMatrixHistogramData[];
+    export interface DotMatrixHistogramOptionData {
+      data: DotMatrixHistogramData[];
       seriesX: string[];
       seriesTypes: string[];
     }
 
-    export interface dotMatrixHistogramData {
+    export interface DotMatrixHistogramData {
       seriesX: string;
-      data: dotMatrixHistogramDotData[]
+      data: DotMatrixHistogramDotData[]
     }
 
-    export interface dotMatrixHistogramDotData {
+    export interface DotMatrixHistogramDotData {
       seriesType: string;
     }
   `,
@@ -52,7 +52,7 @@ export default {
       key: "1",
       params: "update",
       desc: "更新数据",
-      type: `(data: dotMatrixHistogramOptionData) => void`,
+      type: `(data: DotMatrixHistogramOptionData) => void`,
       default: "-",
     },
   ],

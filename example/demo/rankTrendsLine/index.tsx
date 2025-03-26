@@ -98,7 +98,7 @@ export default function RankTrendsLineDemo() {
       new RankTrendsLine({
         dom: "#container",
         data: mockData1,
-        opts: {},
+        Opts: {},
       })
     );
   }, []);

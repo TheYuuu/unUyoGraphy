@@ -1,5 +1,6 @@
 {
   "AxisHeatMap": "./packages/axisHeatMap",
   "DotMatrixHistogram": "./packages/dotMatrixHistogram",
-  "RankTrendsLine": "./packages/rankTrendsLine"
+  "RankTrendsLine": "./packages/rankTrendsLine",
+  "humanSocialRelation": "./packages/humanSocialRelation"
 }

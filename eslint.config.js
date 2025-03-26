@@ -18,6 +18,8 @@ module.exports = {
     }
   },
 
+  extends: ["airbnb", "airbnb/hooks"],
+
   rules: {
     "no-implicit-dependencies": [true, ["@lib", "@"]],
     "no-submodule-imports": [true, "@lib", "@"],
@@ -206,8 +208,7 @@ module.exports = {
     'vars-on-top': 0,
     'wrap-iife': [2, 'any'],
     'wrap-regex': 0,
-    'yoda': [2, 'never']
+    'yoda': [2, 'never'],
+    '@typescript-eslint/no-explicit-any': ['off']
   },
-
-  extends: ["airbnb", "airbnb/hooks"]
 };

@@ -31,7 +31,7 @@ export default function DotMatrixHistogramDemo() {
           seriesX: sampleData().seriesX,
           seriesTypes: sampleData().seriesTypes,
         },
-        opts: {},
+        Opts: {},
       })
     );
   }, []);

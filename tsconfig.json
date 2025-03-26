@@ -25,7 +25,8 @@
     "paths": {
       "@/*": [
         "./*"
-      ]
+      ],
+      "react": [ "./node_modules/@types/react" ]
     },
     "lib": [
       "esnext",

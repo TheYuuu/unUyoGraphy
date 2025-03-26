@@ -1,41 +1,41 @@
-import ChartBase, { defaultOptions, defaultOpts } from "../chartBase";
+import ChartBase, { DefaultOptions, DefaultOpts } from "../chartBase";
 
 import { ScaleLinear, Selection, BaseType, ScaleOrdinal } from "d3";
 import { min, max } from "d3-array";
 import { scaleLinear, scaleOrdinal } from "d3-scale";
 import "d3-transition";
 
-export interface axisHeatMapData {
+export type AxisHeatMapData = {
   value: number;
   xPos: string | number;
   yPos: string | number;
-}
+};
 
-export interface seriesData {
+export type SeriesData = {
   name: string;
   value: number;
-}
+};
 
-export interface axisHeatMapOptionData {
-  data: axisHeatMapData[];
+export type AxisHeatMapOptionData = {
+  data: AxisHeatMapData[];
   seriesX: string[];
   seriesY: string[];
-}
+};
 
-export interface axisHeatMapOptionHandledData {
-  data: axisHeatMapData[];
-  seriesX: seriesData[];
-  seriesY: seriesData[];
-}
+export type axisHeatMapOptionHandledData = {
+  data: AxisHeatMapData[];
+  seriesX: SeriesData[];
+  seriesY: SeriesData[];
+};
 
-export interface opts extends defaultOpts {
+export type Opts = {
   mainColor?: string;
-}
+} & DefaultOpts;
 
-export interface axisHeatMapOptions extends defaultOptions {
-  data: axisHeatMapOptionData;
-  opts?: opts;
-}
+export type axisHeatMapOptions = {
+  data: AxisHeatMapOptionData;
+  Opts?: Opts;
+} & DefaultOptions;
 export default class AxisHeatMap extends ChartBase {
   private data: axisHeatMapOptionHandledData = {
     data: [],
@@ -43,7 +43,7 @@ export default class AxisHeatMap extends ChartBase {
     seriesY: [],
   };
 
-  private opts = {
+  private Opts = {
     mainColor: "rgb(107 3 24)",
     ...this._opts,
   };
@@ -70,7 +70,7 @@ export default class AxisHeatMap extends ChartBase {
     this.update(opt.data);
   }
 
-  private handleData(data: axisHeatMapOptionData): void {
+  private handleData(data: AxisHeatMapOptionData): void {
     const seriesXIndexMap: {
       [key: string]: number;
     } = {};
@@ -79,8 +79,8 @@ export default class AxisHeatMap extends ChartBase {
       [key: string]: number;
     } = {};
 
-    const seriesXData: seriesData[] = [];
-    const seriesYData: seriesData[] = [];
+    const seriesXData: SeriesData[] = [];
+    const seriesYData: SeriesData[] = [];
 
     for (let i = 0; i < data.seriesX.length; i++) {
       seriesXIndexMap[data.seriesX[i]] = i;
@@ -104,7 +104,7 @@ export default class AxisHeatMap extends ChartBase {
       };
     } = {};
 
-    const dataArr: axisHeatMapData[] = [];
+    const dataArr: AxisHeatMapData[] = [];
 
     for (let i = 0; i < data.data.length; i++) {
       if (!dataMap[data.data[i].xPos]) {
@@ -224,7 +224,7 @@ export default class AxisHeatMap extends ChartBase {
   }
 
   private updateTopRects(
-    topRects: Selection<BaseType, seriesData, SVGGElement, unknown>
+    topRects: Selection<BaseType, SeriesData, SVGGElement, unknown>
   ) {
     const { rectWidth, lineHeight, topScale } = this;
     const enter = topRects.enter();
@@ -232,7 +232,7 @@ export default class AxisHeatMap extends ChartBase {
 
     topRects
       .transition()
-      .duration(this.opts.duration)
+      .duration(this.Opts.duration)
       .attr("x", (d, i) => i * (rectWidth + 1))
       .attr("y", (d, i) => lineHeight - topScale(d.value))
       .attr("width", rectWidth)
@@ -241,25 +241,25 @@ export default class AxisHeatMap extends ChartBase {
     enter
       .append("rect")
       .attr("class", "topRects")
-      .attr("fill", this.opts.mainColor)
+      .attr("fill", this.Opts.mainColor)
       .attr(
         "transform",
-        `translate(${this.opts.padding}, ${this.opts.padding})`
+        `translate(${this.Opts.padding}, ${this.Opts.padding})`
       )
       .attr("x", (d, i) => i * (rectWidth + 1))
       .attr("y", (d, i) => lineHeight)
       .attr("width", rectWidth)
       .attr("height", 0)
       .transition()
-      .duration(this.opts.duration)
+      .duration(this.Opts.duration)
       .attr("y", (d, i) => lineHeight - topScale(d.value))
       .attr("height", (d) => topScale(d.value));
 
-    exit.transition().duration(this.opts.duration).attr("height", 0).remove();
+    exit.transition().duration(this.Opts.duration).attr("height", 0).remove();
   }
 
   private updateLeftRects(
-    leftRects: Selection<BaseType, seriesData, SVGGElement, unknown>
+    leftRects: Selection<BaseType, SeriesData, SVGGElement, unknown>
   ) {
     const { rectWidth, topXAxisWidth, leftScale } = this;
     const enter = leftRects.enter();
@@ -267,7 +267,7 @@ export default class AxisHeatMap extends ChartBase {
 
     leftRects
       .transition()
-      .duration(this.opts.duration)
+      .duration(this.Opts.duration)
       .attr("height", rectWidth)
       .attr("x", topXAxisWidth)
       .attr("y", (d, i) => i * (rectWidth + 1) + this.containerHeight * 0.2)
@@ -279,22 +279,22 @@ export default class AxisHeatMap extends ChartBase {
       .attr("height", rectWidth)
       .attr("x", topXAxisWidth)
       .attr("y", (d, i) => i * (rectWidth + 1) + this.containerHeight * 0.2)
-      .attr("fill", this.opts.mainColor)
+      .attr("fill", this.Opts.mainColor)
       .attr(
         "transform",
         `translate(${
-          this.opts.padding + this.data.seriesX.length + rectWidth
-        }, ${this.opts.padding + rectWidth})`
+          this.Opts.padding + this.data.seriesX.length + rectWidth
+        }, ${this.Opts.padding + rectWidth})`
       )
       .transition()
-      .duration(this.opts.duration)
+      .duration(this.Opts.duration)
       .attr("width", (d) => leftScale(d.value));
 
     exit.remove();
   }
 
   private updateDots(
-    dots: Selection<BaseType, axisHeatMapData, SVGGElement, unknown>
+    dots: Selection<BaseType, AxisHeatMapData, SVGGElement, unknown>
   ) {
     const { rectWidth, lineHeight, dotScale, xPosAxis } = this;
     const enter = dots.enter();
@@ -302,7 +302,7 @@ export default class AxisHeatMap extends ChartBase {
 
     dots
       .transition()
-      .duration(this.opts.duration)
+      .duration(this.Opts.duration)
       .attr(
         "cx",
         (d) =>
@@ -333,19 +333,19 @@ export default class AxisHeatMap extends ChartBase {
           rectWidth / 2 +
           lineHeight
       )
-      .attr("fill", this.opts.mainColor)
+      .attr("fill", this.Opts.mainColor)
       .attr(
         "transform",
-        `translate(${this.opts.padding}, ${this.opts.padding + rectWidth})`
+        `translate(${this.Opts.padding}, ${this.Opts.padding + rectWidth})`
       )
       .transition()
-      .duration(this.opts.duration)
+      .duration(this.Opts.duration)
       .attr("r", (d) => dotScale(d.value));
 
-    exit.transition().duration(this.opts.duration).attr("r", 0).remove();
+    exit.transition().duration(this.Opts.duration).attr("r", 0).remove();
   }
 
-  public update(data: axisHeatMapOptionData): void {
+  public update(data: AxisHeatMapOptionData): void {
     this.handleData(data);
     this.draw();
   }
